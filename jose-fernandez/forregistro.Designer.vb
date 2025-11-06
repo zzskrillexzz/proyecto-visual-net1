@@ -1,0 +1,402 @@
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+<Global.System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1726")> _
+Partial Class forregistro
+    Inherits System.Windows.Forms.Form
+
+    'Form reemplaza a Dispose para limpiar la lista de componentes.
+    <System.Diagnostics.DebuggerNonUserCode()> _
+    Protected Overrides Sub Dispose(ByVal disposing As Boolean)
+        Try
+            If disposing AndAlso components IsNot Nothing Then
+                components.Dispose()
+            End If
+        Finally
+            MyBase.Dispose(disposing)
+        End Try
+    End Sub
+    Friend WithEvents LogoPictureBox As System.Windows.Forms.PictureBox
+    Friend WithEvents UsernameLabel As System.Windows.Forms.Label
+    Friend WithEvents PasswordLabel As System.Windows.Forms.Label
+    Friend WithEvents UsernameTextBox As System.Windows.Forms.TextBox
+    Friend WithEvents contra As System.Windows.Forms.TextBox
+    Friend WithEvents bntenviar As System.Windows.Forms.Button
+    Friend WithEvents bntcancelar As System.Windows.Forms.Button
+
+    'Requerido por el Diseñador de Windows Forms
+    Private components As System.ComponentModel.IContainer
+
+    'NOTA: el Diseñador de Windows Forms necesita el siguiente procedimiento
+    'Se puede modificar usando el Diseñador de Windows Forms.  
+    'No lo modifique con el editor de código.
+    <System.Diagnostics.DebuggerStepThrough()> _
+    Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(forregistro))
+        LogoPictureBox = New PictureBox()
+        UsernameLabel = New Label()
+        PasswordLabel = New Label()
+        UsernameTextBox = New TextBox()
+        contra = New TextBox()
+        bntenviar = New Button()
+        bntcancelar = New Button()
+        apelli = New TextBox()
+        Label1 = New Label()
+        correo = New TextBox()
+        Label2 = New Label()
+        Label3 = New Label()
+        txtactuali = New Button()
+        txteliminar = New Button()
+        Textbuscador = New TextBox()
+        Comborol = New ComboBox()
+        Label5 = New Label()
+        txtobservaciones = New RichTextBox()
+        Label6 = New Label()
+        cmbDepartamentos = New ComboBox()
+        cmbMunicipios = New ComboBox()
+        Comboestado = New ComboBox()
+        Label4 = New Label()
+        Label8 = New Label()
+        Label7 = New Label()
+        btnConsulta = New Button()
+        Ptbvolver = New PictureBox()
+        bntnewcontra = New PictureBox()
+        CType(LogoPictureBox, ComponentModel.ISupportInitialize).BeginInit()
+        CType(Ptbvolver, ComponentModel.ISupportInitialize).BeginInit()
+        CType(bntnewcontra, ComponentModel.ISupportInitialize).BeginInit()
+        SuspendLayout()
+        ' 
+        ' LogoPictureBox
+        ' 
+        LogoPictureBox.BackColor = Color.Transparent
+        LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), Image)
+        LogoPictureBox.Location = New Point(91, 42)
+        LogoPictureBox.Name = "LogoPictureBox"
+        LogoPictureBox.Size = New Size(98, 110)
+        LogoPictureBox.TabIndex = 0
+        LogoPictureBox.TabStop = False
+        ' 
+        ' UsernameLabel
+        ' 
+        UsernameLabel.BackColor = Color.Transparent
+        UsernameLabel.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        UsernameLabel.Location = New Point(225, 18)
+        UsernameLabel.Name = "UsernameLabel"
+        UsernameLabel.Size = New Size(111, 23)
+        UsernameLabel.TabIndex = 0
+        UsernameLabel.Text = "&Nombre"
+        UsernameLabel.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' PasswordLabel
+        ' 
+        PasswordLabel.BackColor = Color.Transparent
+        PasswordLabel.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        PasswordLabel.Location = New Point(225, 90)
+        PasswordLabel.Name = "PasswordLabel"
+        PasswordLabel.Size = New Size(242, 23)
+        PasswordLabel.TabIndex = 2
+        PasswordLabel.Text = "&Contraseña"
+        PasswordLabel.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' UsernameTextBox
+        ' 
+        UsernameTextBox.Location = New Point(228, 49)
+        UsernameTextBox.Name = "UsernameTextBox"
+        UsernameTextBox.Size = New Size(242, 32)
+        UsernameTextBox.TabIndex = 1
+        ' 
+        ' contra
+        ' 
+        contra.Location = New Point(228, 121)
+        contra.Name = "contra"
+        contra.PasswordChar = "*"c
+        contra.Size = New Size(242, 32)
+        contra.TabIndex = 3
+        ' 
+        ' bntenviar
+        ' 
+        bntenviar.Location = New Point(549, 203)
+        bntenviar.Name = "bntenviar"
+        bntenviar.Size = New Size(103, 38)
+        bntenviar.TabIndex = 4
+        bntenviar.Text = "&Registrar"
+        ' 
+        ' bntcancelar
+        ' 
+        bntcancelar.DialogResult = DialogResult.Cancel
+        bntcancelar.Location = New Point(549, 276)
+        bntcancelar.Name = "bntcancelar"
+        bntcancelar.Size = New Size(103, 38)
+        bntcancelar.TabIndex = 5
+        bntcancelar.Text = "&Cancelar"
+        ' 
+        ' apelli
+        ' 
+        apelli.Location = New Point(505, 49)
+        apelli.Name = "apelli"
+        apelli.Size = New Size(242, 32)
+        apelli.TabIndex = 7
+        ' 
+        ' Label1
+        ' 
+        Label1.BackColor = Color.Transparent
+        Label1.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        Label1.Location = New Point(505, 18)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(239, 23)
+        Label1.TabIndex = 6
+        Label1.Text = "&Apellido"
+        Label1.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' correo
+        ' 
+        correo.Location = New Point(505, 121)
+        correo.Name = "correo"
+        correo.Size = New Size(242, 32)
+        correo.TabIndex = 9
+        ' 
+        ' Label2
+        ' 
+        Label2.BackColor = Color.Transparent
+        Label2.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        Label2.Location = New Point(505, 90)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(239, 23)
+        Label2.TabIndex = 8
+        Label2.Text = "&Correo"
+        Label2.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' Label3
+        ' 
+        Label3.BackColor = Color.Transparent
+        Label3.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        Label3.Location = New Point(962, 18)
+        Label3.Name = "Label3"
+        Label3.Size = New Size(99, 23)
+        Label3.TabIndex = 10
+        Label3.Text = "&Estado"
+        Label3.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' txtactuali
+        ' 
+        txtactuali.Location = New Point(681, 203)
+        txtactuali.Name = "txtactuali"
+        txtactuali.Size = New Size(103, 38)
+        txtactuali.TabIndex = 12
+        txtactuali.Text = "&Modificar"
+        ' 
+        ' txteliminar
+        ' 
+        txteliminar.Location = New Point(681, 276)
+        txteliminar.Name = "txteliminar"
+        txteliminar.Size = New Size(103, 38)
+        txteliminar.TabIndex = 13
+        txteliminar.Text = "&Eliminar"
+        ' 
+        ' Textbuscador
+        ' 
+        Textbuscador.Location = New Point(978, 203)
+        Textbuscador.Name = "Textbuscador"
+        Textbuscador.Size = New Size(99, 32)
+        Textbuscador.TabIndex = 16
+        ' 
+        ' Comborol
+        ' 
+        Comborol.FormattingEnabled = True
+        Comborol.Location = New Point(772, 47)
+        Comborol.Name = "Comborol"
+        Comborol.Size = New Size(162, 33)
+        Comborol.TabIndex = 18
+        ' 
+        ' Label5
+        ' 
+        Label5.BackColor = Color.Transparent
+        Label5.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        Label5.Location = New Point(772, 20)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(74, 23)
+        Label5.TabIndex = 19
+        Label5.Text = "&Rol"
+        Label5.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' txtobservaciones
+        ' 
+        txtobservaciones.Location = New Point(91, 207)
+        txtobservaciones.Name = "txtobservaciones"
+        txtobservaciones.Size = New Size(419, 107)
+        txtobservaciones.TabIndex = 20
+        txtobservaciones.Text = ""
+        ' 
+        ' Label6
+        ' 
+        Label6.BackColor = Color.Transparent
+        Label6.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        Label6.Location = New Point(91, 178)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(142, 23)
+        Label6.TabIndex = 21
+        Label6.Text = "&Observaciones"
+        Label6.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' cmbDepartamentos
+        ' 
+        cmbDepartamentos.FormattingEnabled = True
+        cmbDepartamentos.Location = New Point(772, 119)
+        cmbDepartamentos.Name = "cmbDepartamentos"
+        cmbDepartamentos.Size = New Size(162, 33)
+        cmbDepartamentos.TabIndex = 22
+        ' 
+        ' cmbMunicipios
+        ' 
+        cmbMunicipios.FormattingEnabled = True
+        cmbMunicipios.Location = New Point(962, 119)
+        cmbMunicipios.Name = "cmbMunicipios"
+        cmbMunicipios.Size = New Size(170, 33)
+        cmbMunicipios.TabIndex = 23
+        ' 
+        ' Comboestado
+        ' 
+        Comboestado.FormattingEnabled = True
+        Comboestado.Location = New Point(962, 44)
+        Comboestado.Name = "Comboestado"
+        Comboestado.Size = New Size(170, 33)
+        Comboestado.TabIndex = 24
+        ' 
+        ' Label4
+        ' 
+        Label4.BackColor = Color.Transparent
+        Label4.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        Label4.Location = New Point(978, 171)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(141, 23)
+        Label4.TabIndex = 39
+        Label4.Text = "Id/Buscar"
+        Label4.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' Label8
+        ' 
+        Label8.BackColor = Color.Transparent
+        Label8.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        Label8.Location = New Point(962, 90)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(115, 23)
+        Label8.TabIndex = 52
+        Label8.Text = "&Municipio"
+        Label8.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' Label7
+        ' 
+        Label7.BackColor = Color.Transparent
+        Label7.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        Label7.Location = New Point(772, 90)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(149, 23)
+        Label7.TabIndex = 51
+        Label7.Text = "&Departamento"
+        Label7.TextAlign = ContentAlignment.MiddleLeft
+        ' 
+        ' btnConsulta
+        ' 
+        btnConsulta.Location = New Point(809, 203)
+        btnConsulta.Name = "btnConsulta"
+        btnConsulta.Size = New Size(103, 38)
+        btnConsulta.TabIndex = 53
+        btnConsulta.Text = "Consulta"
+        btnConsulta.UseVisualStyleBackColor = True
+        ' 
+        ' Ptbvolver
+        ' 
+        Ptbvolver.BackColor = Color.Transparent
+        Ptbvolver.Image = CType(resources.GetObject("Ptbvolver.Image"), Image)
+        Ptbvolver.Location = New Point(25, 18)
+        Ptbvolver.Name = "Ptbvolver"
+        Ptbvolver.Size = New Size(32, 32)
+        Ptbvolver.SizeMode = PictureBoxSizeMode.AutoSize
+        Ptbvolver.TabIndex = 54
+        Ptbvolver.TabStop = False
+        ' 
+        ' bntnewcontra
+        ' 
+        bntnewcontra.BackColor = Color.Transparent
+        bntnewcontra.Image = CType(resources.GetObject("bntnewcontra.Image"), Image)
+        bntnewcontra.Location = New Point(477, 128)
+        bntnewcontra.Name = "bntnewcontra"
+        bntnewcontra.Size = New Size(16, 16)
+        bntnewcontra.SizeMode = PictureBoxSizeMode.AutoSize
+        bntnewcontra.TabIndex = 55
+        bntnewcontra.TabStop = False
+        ' 
+        ' forregistro
+        ' 
+        AcceptButton = bntenviar
+        AutoScaleDimensions = New SizeF(11F, 25F)
+        AutoScaleMode = AutoScaleMode.Font
+        BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
+        BackgroundImageLayout = ImageLayout.Stretch
+        CancelButton = bntcancelar
+        ClientSize = New Size(1163, 334)
+        Controls.Add(bntnewcontra)
+        Controls.Add(Ptbvolver)
+        Controls.Add(btnConsulta)
+        Controls.Add(Label8)
+        Controls.Add(Label7)
+        Controls.Add(Label4)
+        Controls.Add(Comboestado)
+        Controls.Add(cmbMunicipios)
+        Controls.Add(cmbDepartamentos)
+        Controls.Add(Label6)
+        Controls.Add(txtobservaciones)
+        Controls.Add(Label5)
+        Controls.Add(Comborol)
+        Controls.Add(Textbuscador)
+        Controls.Add(txteliminar)
+        Controls.Add(txtactuali)
+        Controls.Add(Label3)
+        Controls.Add(correo)
+        Controls.Add(Label2)
+        Controls.Add(apelli)
+        Controls.Add(Label1)
+        Controls.Add(bntcancelar)
+        Controls.Add(bntenviar)
+        Controls.Add(contra)
+        Controls.Add(UsernameTextBox)
+        Controls.Add(PasswordLabel)
+        Controls.Add(UsernameLabel)
+        Controls.Add(LogoPictureBox)
+        Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
+        FormBorderStyle = FormBorderStyle.FixedDialog
+        MaximizeBox = False
+        MinimizeBox = False
+        Name = "forregistro"
+        SizeGripStyle = SizeGripStyle.Hide
+        StartPosition = FormStartPosition.CenterScreen
+        Text = "forregistro"
+        CType(LogoPictureBox, ComponentModel.ISupportInitialize).EndInit()
+        CType(Ptbvolver, ComponentModel.ISupportInitialize).EndInit()
+        CType(bntnewcontra, ComponentModel.ISupportInitialize).EndInit()
+        ResumeLayout(False)
+        PerformLayout()
+
+    End Sub
+
+    Friend WithEvents apelli As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents correo As TextBox
+    Friend WithEvents Label2 As Label
+    Friend WithEvents Label3 As Label
+    Friend WithEvents txtactuali As Button
+    Friend WithEvents txteliminar As Button
+    Friend WithEvents Textbuscador As TextBox
+    Friend WithEvents Comborol As ComboBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents txtobservaciones As RichTextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cmbDepartamentos As ComboBox
+    Friend WithEvents cmbMunicipios As ComboBox
+    Friend WithEvents Comboestado As ComboBox
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents Label7 As Label
+    Friend WithEvents btnConsulta As Button
+    Friend WithEvents Ptbvolver As PictureBox
+    Friend WithEvents bntnewcontra As PictureBox
+
+End Class
