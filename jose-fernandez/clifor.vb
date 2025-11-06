@@ -14,30 +14,29 @@ Public Class clifor
 
 
     ' --- INSERTAR CLIENTE ---
-    ' --- INSERTAR CLIENTE ---
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bntenviar.Click
         Try
-            ' ✅ Validar campos vacíos
+            'Validar campos vacíos
             Dim camposObligatorios = New TextBox() {Textbuscador, UsernameTextBox, apelli, contra, correo}
             If camposObligatorios.Any(Function(c) String.IsNullOrWhiteSpace(c.Text)) Then
                 MessageBox.Show("Todos los campos, incluyendo el ID, son obligatorios.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            ' ✅ Validar combos
+            ' Validar combos
             If cmbDepartamentos.SelectedValue Is Nothing OrElse cmbMunicipios.SelectedValue Is Nothing Then
                 MessageBox.Show("Debe seleccionar un departamento y municipio.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
             End If
 
-            ' ✅ Validar ID
+            'Validar ID
             Dim idManual As Integer
             If Not Integer.TryParse(Textbuscador.Text.Trim, idManual) Then
                 MessageBox.Show("El ID debe ser un número válido.", "Error de ID", MessageBoxButtons.OK, MessageBoxIcon.Error)
                 Exit Sub
             End If
 
-            ' ✅ Verificar si el ID ya existe (evita el error de duplicado)
+            'Verificar si el ID ya existe
             Dim checkSQL As String = "SELECT COUNT(*) FROM tb_clientes WHERE id_cliente = " & idManual
             Dim cmdCheck As New OdbcCommand(checkSQL, conexion)
             Dim existe As Integer = Convert.ToInt32(cmdCheck.ExecuteScalar())
@@ -47,17 +46,17 @@ Public Class clifor
                 Exit Sub
             End If
 
-            ' ✅ Preparar SQL de inserción
+            ' Preparar SQL de inserción
             Dim sql As String =
             "INSERT INTO tb_clientes (id_cliente, nombre, apellido, correo, contraseña, id_estado, rol, id_departamento, id_municipio, observacion) " &
             "VALUES (" & idManual & ", '" & UsernameTextBox.Text.Trim() & "', '" & apelli.Text.Trim() & "', '" & correo.Text.Trim() & "', '" & contra.Text.Trim() & "', 1, 'cliente', " &
             cmbDepartamentos.SelectedValue & ", " & cmbMunicipios.SelectedValue & ", '" & txtobservaciones.Text.Trim() & "')"
 
-            ' ✅ Ejecutar inserción
+            ' Ejecutar inserción
             If basexd.ingresar_registros(sql) Then
                 MessageBox.Show("Cliente registrado correctamente con ID: " & idManual, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                ' 🔁 Si vino desde factura
+                ' Si vino desde factura
                 If FocusFactura = 1 AndAlso FormFactura IsNot Nothing Then
                     FormFactura.txtIdCliente.Text = idManual.ToString()
                     SendKeys.Send("{ENTER}")
@@ -65,7 +64,7 @@ Public Class clifor
                     Exit Sub
                 End If
 
-                ' ✅ Limpiar formulario
+                ' Limpiar formulario
                 LimpiarCampos(True)
             End If
 

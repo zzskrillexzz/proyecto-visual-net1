@@ -32,7 +32,7 @@ Public Class basexd
         Try
             insertar = New OdbcCommand(sql, conexion)
             insertar.ExecuteNonQuery()
-            MsgBox("Datos insertados correctamente")
+
             Return True
         Catch ex As Exception
             MsgBox(ex.Message)
