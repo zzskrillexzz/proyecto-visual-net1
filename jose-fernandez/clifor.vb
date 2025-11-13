@@ -8,13 +8,8 @@ Public Class clifor
     Public FocusFactura As Integer = 0
     Public FormFactura As factura
 
-
-
-
-
-
     ' --- INSERTAR CLIENTE ---
-    Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bntenviar.Click
+    Private Sub bntenviar_Click(sender As Object, e As EventArgs) Handles bntenviar.Click
         Try
             'Validar campos vacíos
             Dim camposObligatorios = New TextBox() {Textbuscador, UsernameTextBox, apelli, contra, correo}
@@ -73,9 +68,8 @@ Public Class clifor
         End Try
     End Sub
 
-
     ' --- ACTUALIZAR CLIENTE ---
-    Private Sub txtactuali_Click(sender As Object, e As EventArgs) Handles txtactuali.Click
+    Private Sub txtactuali_Click_1(sender As Object, e As EventArgs) Handles txtactuali.Click
         If String.IsNullOrEmpty(Textbuscador.Text.Trim()) Then
             MessageBox.Show("Por favor, busca un cliente primero o ingresa su ID para actualizarlo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
@@ -114,7 +108,7 @@ Public Class clifor
     End Sub
 
     ' --- ELIMINAR CLIENTE ---
-    Private Sub txteliminar_Click(sender As Object, e As EventArgs) Handles txteliminar.Click
+    Private Sub txteliminar_Click_1(sender As Object, e As EventArgs) Handles txteliminar.Click
         Dim idCliente As String = Textbuscador.Text.Trim()
         If String.IsNullOrEmpty(idCliente) Then
             MessageBox.Show("Por favor, ingresa el ID del cliente que deseas eliminar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -157,14 +151,17 @@ Public Class clifor
                 correo.Text = reader("correo")
                 txtobservaciones.Text = reader("observacion")
 
-                Comboestado.SelectedValue = CInt(reader("id_estado"))
-                cmbDepartamentos.SelectedValue = reader("id_departamento")
+                ' Cargar departamento y municipio del cliente
+                Dim idDepartamento As Integer = CInt(reader("id_departamento"))
+                Dim idMunicipio As Integer = CInt(reader("id_municipio"))
 
-                Dim idDepartamento As Integer = CInt(cmbDepartamentos.SelectedValue)
+                cmbDepartamentos.SelectedValue = idDepartamento
+
+                ' 🔹 Llenar municipios después de asignar el departamento
                 Dim sqlMunicipios As String = "SELECT id_municipio, nombre_municipio FROM municipios WHERE id_departamento = " & idDepartamento
                 c_Varias.llena_combo(cmbMunicipios, sqlMunicipios, "id_municipio", "nombre_municipio")
-                cmbMunicipios.SelectedValue = reader("id_municipio")
 
+                cmbMunicipios.SelectedValue = idMunicipio
                 HabilitarCampos(True)
             Else
                 MessageBox.Show("ID libre. Ingrese los datos para registrar un nuevo cliente con ID: " & idCliente, "Nuevo Registro", MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -228,12 +225,12 @@ Public Class clifor
     End Sub
 
     ' --- CANCELAR / CERRAR ---
-    Private Sub Cancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bntcancelar.Click
+    Private Sub bntcancelar_Click(sender As Object, e As EventArgs) Handles bntcancelar.Click
         Me.Close()
     End Sub
 
     ' --- CONSULTA ---
-    Private Sub btnConsulta_Click(sender As Object, e As EventArgs) Handles btnConsulta.Click
+    Private Sub btnConsulta_Click_1(sender As Object, e As EventArgs) Handles btnConsulta.Click
         Dim frmCons As New FrmConsulta()
         frmCons.TipoCarga = "CLIENTE"
         If frmCons.ShowDialog() = DialogResult.OK Then
@@ -253,37 +250,62 @@ Public Class clifor
         Textbuscador.AcceptsReturn = True
         Me.AcceptButton = Nothing
 
+        ' --- Cargar combos antes de cualquier otra cosa ---
         Dim sqlEstado As String = "SELECT id_estado, estado FROM tb_estado ORDER BY id_estado"
         c_Varias.llena_combo(Comboestado, sqlEstado, "id_estado", "estado")
 
         Dim sqlDepartamentos As String = "SELECT id_departamento, nombre_departamento FROM departamentos ORDER BY nombre_departamento"
         c_Varias.llena_combo(cmbDepartamentos, sqlDepartamentos, "id_departamento", "nombre_departamento")
 
-        ' 🟩 Solo limpiar si no viene desde factura
+        ' --- Comportamiento según si viene desde factura ---
         If FocusFactura = 0 Then
             LimpiarCampos(True)
         Else
-            ' Si viene de factura, mostrar el ID enviado
-            Textbuscador.Enabled = True
-            Textbuscador.ReadOnly = False
-            Textbuscador.Focus()
+            ' 🔒 Bloquear controles cuando viene desde factura
+            Textbuscador.Enabled = False
+            Textbuscador.ReadOnly = True
+            Textbuscador.BackColor = SystemColors.ControlLight
+
+            txtactuali.Enabled = False
+            btnConsulta.Enabled = False
+            txteliminar.Enabled = False
+
+            UsernameTextBox.Focus()
         End If
     End Sub
 
-
+    ' --- CARGAR MUNICIPIOS SEGÚN DEPARTAMENTO ---
     Private Sub cmbDepartamentos_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cmbDepartamentos.SelectionChangeCommitted
-        If cmbDepartamentos.SelectedValue IsNot Nothing Then
-            Dim idDepartamento As Integer = CInt(cmbDepartamentos.SelectedValue)
-            Dim sqlMunicipios As String = "SELECT id_municipio, nombre_municipio FROM municipios WHERE id_departamento = " & idDepartamento
-            c_Varias.llena_combo(cmbMunicipios, sqlMunicipios, "id_municipio", "nombre_municipio")
+        CargarMunicipios()
+    End Sub
+
+    Private Sub cmbDepartamentos_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDepartamentos.SelectedIndexChanged
+        If cmbDepartamentos.Focused OrElse cmbDepartamentos.DroppedDown Then
+            CargarMunicipios()
         End If
     End Sub
 
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles PictureBox1.Click
+    Private Sub CargarMunicipios()
+        Try
+            If cmbDepartamentos.SelectedValue IsNot Nothing AndAlso IsNumeric(cmbDepartamentos.SelectedValue) Then
+                Dim idDepartamento As Integer = CInt(cmbDepartamentos.SelectedValue)
+                Dim sqlMunicipios As String = "SELECT id_municipio, nombre_municipio FROM municipios WHERE id_departamento = " & idDepartamento & " ORDER BY nombre_municipio"
+                c_Varias.llena_combo(cmbMunicipios, sqlMunicipios, "id_municipio", "nombre_municipio")
+            Else
+                cmbMunicipios.DataSource = Nothing
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error al cargar municipios: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+    End Sub
+
+    Private Sub bntvolver_Click(sender As Object, e As EventArgs) Handles bntvolver.Click
         Dim frmSeleccion As New usu_clien()
         frmSeleccion.Show()
         Me.Close()
     End Sub
+
+
 
 
 End Class

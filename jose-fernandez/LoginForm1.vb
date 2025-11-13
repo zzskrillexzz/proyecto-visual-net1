@@ -5,29 +5,29 @@ Public Class LoginForm1
     Dim rst As OdbcDataReader
 
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
-        ' ?? Validar usuario y contraseña
+        ' Validar usuario y contraseña
         SQL = "SELECT * FROM tb_usuarios WHERE id_usuario=" & UsernameTextBox.Text & " AND contraseña='" & PasswordTextBox.Text & "'"
         rst = basexd.leer_Registro(SQL)
 
         If rst IsNot Nothing AndAlso rst.Read() Then
-            ' ?? Guardar el nombre del usuario en la variable global
-            codusuario = rst("nombre").ToString() & " " & rst("apellido").ToString()
+            ' ? Guardar el ID real del usuario (no el nombre)
+            codusuario = rst("id_usuario").ToString()
 
-            ' ?? Si el login fue abierto desde "cambiar contraseña"
+            ' Si se está accediendo desde "Cambio de contraseña"
             If esCambioContra Then
                 Dim cambio As New formcontra()
-                cambio.Show()
-                esCambioContra = False ' Reinicia la variable
+                cambio.ShowDialog()
+                esCambioContra = False
                 Me.Close()
                 Exit Sub
             End If
 
-            ' ?? Si es un login normal, abre el menú principal
+            ' Si es un login normal, abrir menú principal
             Dim menuPrincipal As New usu_clien()
             menuPrincipal.Show()
             Me.Hide()
         Else
-            MsgBox("Usuario o contraseña incorrectos.", MsgBoxStyle.Critical)
+            MsgBox("Usuario o contraseña incorrectos.", MsgBoxStyle.Critical, "Error")
         End If
     End Sub
 

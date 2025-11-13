@@ -68,7 +68,7 @@ Partial Class articulos
         ' 
         ' txtid
         ' 
-        txtid.BackColor = SystemColors.ScrollBar
+        txtid.BackColor = SystemColors.ButtonHighlight
         txtid.CausesValidation = False
         txtid.ImeMode = ImeMode.NoControl
         txtid.Location = New Point(31, 101)
@@ -81,7 +81,7 @@ Partial Class articulos
         Label1.AutoSize = True
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.ForeColor = Color.Lime
+        Label1.ForeColor = SystemColors.ActiveCaptionText
         Label1.Location = New Point(31, 61)
         Label1.Name = "Label1"
         Label1.Size = New Size(106, 25)
@@ -93,7 +93,7 @@ Partial Class articulos
         Label3.AutoSize = True
         Label3.BackColor = Color.Transparent
         Label3.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label3.ForeColor = Color.Lime
+        Label3.ForeColor = SystemColors.ActiveCaptionText
         Label3.Location = New Point(31, 285)
         Label3.Name = "Label3"
         Label3.Size = New Size(117, 25)
@@ -105,7 +105,7 @@ Partial Class articulos
         Label4.AutoSize = True
         Label4.BackColor = Color.Transparent
         Label4.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label4.ForeColor = Color.Lime
+        Label4.ForeColor = SystemColors.ActiveCaptionText
         Label4.Location = New Point(321, 61)
         Label4.Name = "Label4"
         Label4.Size = New Size(68, 25)
@@ -117,7 +117,7 @@ Partial Class articulos
         Label5.AutoSize = True
         Label5.BackColor = Color.Transparent
         Label5.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label5.ForeColor = Color.Lime
+        Label5.ForeColor = SystemColors.ActiveCaptionText
         Label5.Location = New Point(31, 142)
         Label5.Name = "Label5"
         Label5.Size = New Size(61, 25)
@@ -126,7 +126,7 @@ Partial Class articulos
         ' 
         ' Texstock
         ' 
-        Texstock.BackColor = SystemColors.ScrollBar
+        Texstock.BackColor = SystemColors.ButtonHighlight
         Texstock.Location = New Point(33, 170)
         Texstock.Name = "Texstock"
         Texstock.Size = New Size(107, 31)
@@ -134,7 +134,7 @@ Partial Class articulos
         ' 
         ' txtprecio
         ' 
-        txtprecio.BackColor = SystemColors.ScrollBar
+        txtprecio.BackColor = SystemColors.ButtonHighlight
         txtprecio.CausesValidation = False
         txtprecio.ImeMode = ImeMode.NoControl
         txtprecio.Location = New Point(321, 101)
@@ -164,7 +164,7 @@ Partial Class articulos
         Label7.AutoSize = True
         Label7.BackColor = Color.Transparent
         Label7.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label7.ForeColor = Color.Lime
+        Label7.ForeColor = SystemColors.ActiveCaptionText
         Label7.Location = New Point(31, 229)
         Label7.Name = "Label7"
         Label7.Size = New Size(107, 25)
@@ -183,7 +183,7 @@ Partial Class articulos
         ' 
         ' txtdescuento
         ' 
-        txtdescuento.BackColor = SystemColors.ScrollBar
+        txtdescuento.BackColor = SystemColors.ButtonHighlight
         txtdescuento.Location = New Point(323, 170)
         txtdescuento.Name = "txtdescuento"
         txtdescuento.Size = New Size(116, 31)
@@ -191,7 +191,7 @@ Partial Class articulos
         ' 
         ' txtiva
         ' 
-        txtiva.BackColor = SystemColors.ScrollBar
+        txtiva.BackColor = SystemColors.ButtonHighlight
         txtiva.Location = New Point(170, 170)
         txtiva.Name = "txtiva"
         txtiva.Size = New Size(118, 31)
@@ -202,7 +202,7 @@ Partial Class articulos
         Label6.AutoSize = True
         Label6.BackColor = Color.Transparent
         Label6.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label6.ForeColor = Color.Lime
+        Label6.ForeColor = SystemColors.ActiveCaptionText
         Label6.Location = New Point(321, 142)
         Label6.Name = "Label6"
         Label6.Size = New Size(105, 25)
@@ -214,7 +214,7 @@ Partial Class articulos
         Label8.AutoSize = True
         Label8.BackColor = Color.Transparent
         Label8.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label8.ForeColor = Color.Lime
+        Label8.ForeColor = SystemColors.ActiveCaptionText
         Label8.Location = New Point(170, 142)
         Label8.Name = "Label8"
         Label8.Size = New Size(45, 25)
@@ -263,7 +263,7 @@ Partial Class articulos
         ' 
         ' Textnombrearti
         ' 
-        Textnombrearti.BackColor = SystemColors.ScrollBar
+        Textnombrearti.BackColor = SystemColors.ButtonHighlight
         Textnombrearti.CausesValidation = False
         Textnombrearti.ImeMode = ImeMode.NoControl
         Textnombrearti.Location = New Point(170, 101)
@@ -276,7 +276,7 @@ Partial Class articulos
         Label9.AutoSize = True
         Label9.BackColor = Color.Transparent
         Label9.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label9.ForeColor = Color.Lime
+        Label9.ForeColor = SystemColors.ActiveCaptionText
         Label9.Location = New Point(170, 61)
         Label9.Name = "Label9"
         Label9.Size = New Size(85, 25)
@@ -297,7 +297,7 @@ Partial Class articulos
         ' 
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = Color.Gray
+        BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
         ClientSize = New Size(599, 403)
         Controls.Add(bntlimpiar)

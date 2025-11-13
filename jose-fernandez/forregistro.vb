@@ -7,7 +7,7 @@ Public Class forregistro
     Dim c_Varias As New Varias
 
     ' --- INSERTAR USUARIO ---
-    Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles bntenviar.Click
+    Private Sub bntenviar_Click(sender As Object, e As EventArgs) Handles bntenviar.Click
         Try
             Dim camposObligatorios = New TextBox() {Textbuscador, UsernameTextBox, apelli, contra, correo}
 
@@ -45,7 +45,7 @@ Public Class forregistro
     End Sub
 
     ' --- ACTUALIZAR USUARIO ---
-    Private Sub txtactuali_Click(sender As Object, e As EventArgs) Handles txtactuali.Click
+    Private Sub txtactuali_Click_1(sender As Object, e As EventArgs) Handles txtactuali.Click
         If String.IsNullOrEmpty(Textbuscador.Text.Trim()) Then
             MessageBox.Show("Por favor, busca un usuario primero o ingresa su ID para actualizarlo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
@@ -85,7 +85,7 @@ Public Class forregistro
     End Sub
 
     ' --- ELIMINAR USUARIO ---
-    Private Sub txteliminar_Click(sender As Object, e As EventArgs) Handles txteliminar.Click
+    Private Sub txteliminar_Click_1(sender As Object, e As EventArgs) Handles txteliminar.Click
         Dim idUsuario As String = Textbuscador.Text.Trim()
         If String.IsNullOrEmpty(idUsuario) Then
             MessageBox.Show("Por favor, ingresa el ID del usuario que deseas eliminar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
@@ -203,12 +203,12 @@ Public Class forregistro
     End Sub
 
     ' --- CANCELAR ---
-    Private Sub Cancel_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles bntcancelar.Click
+    Private Sub bntcancelar_Click(sender As Object, e As EventArgs) Handles bntcancelar.Click
         Me.Close()
     End Sub
 
     ' --- CONSULTA ---
-    Private Sub btnConsulta_Click(sender As Object, e As EventArgs) Handles btnConsulta.Click
+    Private Sub btnConsulta_Click_1(sender As Object, e As EventArgs) Handles btnConsulta.Click
         Dim frmCons As New FrmConsulta()
         frmCons.TipoCarga = "USUARIO"
 
@@ -261,8 +261,11 @@ Public Class forregistro
     Private Sub bntnewcontra_Click(sender As Object, e As EventArgs) Handles bntnewcontra.Click
         'Abre el login solo para validar credenciales
         Dim login As New LoginForm1()
-        esCambioContra = True '👉 indicamos que este login es para cambio de contraseña
+        esCambioContra = True '👉 indicamos login es para cambio de contraseña
         login.ShowDialog()
     End Sub
+
+
+
 
 End Class
