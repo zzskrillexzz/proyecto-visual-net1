@@ -103,6 +103,7 @@ Partial Class clifor
         ' 
         ' Comboestado
         ' 
+        Comboestado.DropDownStyle = ComboBoxStyle.DropDownList
         Comboestado.FormattingEnabled = True
         Comboestado.Location = New Point(151, 335)
         Comboestado.Name = "Comboestado"
@@ -111,6 +112,7 @@ Partial Class clifor
         ' 
         ' cmbMunicipios
         ' 
+        cmbMunicipios.DropDownStyle = ComboBoxStyle.DropDownList
         cmbMunicipios.FormattingEnabled = True
         cmbMunicipios.Location = New Point(151, 449)
         cmbMunicipios.Name = "cmbMunicipios"
@@ -119,6 +121,7 @@ Partial Class clifor
         ' 
         ' cmbDepartamentos
         ' 
+        cmbDepartamentos.DropDownStyle = ComboBoxStyle.DropDownList
         cmbDepartamentos.FormattingEnabled = True
         cmbDepartamentos.Location = New Point(151, 389)
         cmbDepartamentos.Name = "cmbDepartamentos"

@@ -173,6 +173,7 @@ Partial Class forregistro
         ' 
         ' Comborol
         ' 
+        Comborol.DropDownStyle = ComboBoxStyle.DropDownList
         Comborol.FormattingEnabled = True
         Comborol.Location = New Point(151, 349)
         Comborol.Name = "Comborol"
@@ -211,6 +212,7 @@ Partial Class forregistro
         ' 
         ' cmbDepartamentos
         ' 
+        cmbDepartamentos.DropDownStyle = ComboBoxStyle.DropDownList
         cmbDepartamentos.FormattingEnabled = True
         cmbDepartamentos.Location = New Point(151, 465)
         cmbDepartamentos.Name = "cmbDepartamentos"
@@ -219,6 +221,7 @@ Partial Class forregistro
         ' 
         ' cmbMunicipios
         ' 
+        cmbMunicipios.DropDownStyle = ComboBoxStyle.DropDownList
         cmbMunicipios.FormattingEnabled = True
         cmbMunicipios.Location = New Point(151, 520)
         cmbMunicipios.Name = "cmbMunicipios"
@@ -227,6 +230,7 @@ Partial Class forregistro
         ' 
         ' Comboestado
         ' 
+        Comboestado.DropDownStyle = ComboBoxStyle.DropDownList
         Comboestado.FormattingEnabled = True
         Comboestado.Location = New Point(151, 406)
         Comboestado.Name = "Comboestado"
@@ -290,6 +294,7 @@ Partial Class forregistro
         ' 
         ' bntenviar
         ' 
+        bntenviar.Enabled = False
         bntenviar.Image = CType(resources.GetObject("bntenviar.Image"), Image)
         bntenviar.Location = New Point(38, 12)
         bntenviar.Name = "bntenviar"

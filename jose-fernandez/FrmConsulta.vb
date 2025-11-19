@@ -65,4 +65,17 @@ Public Class FrmConsulta
         End Try
     End Sub
 
+    Private Sub DgvConsulta_KeyDown(sender As Object, e As KeyEventArgs) Handles DgvConsulta.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+            If DgvConsulta.CurrentRow IsNot Nothing Then
+                SelectedID = DgvConsulta.CurrentRow.Cells("ID").Value.ToString()
+                Me.DialogResult = DialogResult.OK
+                Me.Close()
+            End If
+        End If
+    End Sub
+
+
+
 End Class

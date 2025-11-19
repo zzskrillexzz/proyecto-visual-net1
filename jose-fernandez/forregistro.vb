@@ -265,6 +265,20 @@ Public Class forregistro
         login.ShowDialog()
     End Sub
 
+    Private Sub Textbuscador_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Textbuscador.KeyPress
+        SoloNumeros(e)
+    End Sub
+
+
+    Private Sub txtCorreo_Leave(sender As Object, e As EventArgs) Handles correo.Leave
+        ValidarCorreo(correo)
+    End Sub
+
+    Private Sub txtCorreo_TextChanged(sender As Object, e As EventArgs) Handles correo.TextChanged
+        ColorCorreo(correo)
+    End Sub
+
+
 
 
 

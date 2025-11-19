@@ -224,7 +224,7 @@ Public Class clifor
         End If
     End Sub
 
-    ' --- CANCELAR / CERRAR ---
+    'CANCELAR / CERRAR
     Private Sub bntcancelar_Click(sender As Object, e As EventArgs) Handles bntcancelar.Click
         Me.Close()
     End Sub
@@ -243,14 +243,14 @@ Public Class clifor
         frmCons.Dispose()
     End Sub
 
-    ' --- LOAD ---
+    'LOAD
     Private Sub clifor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         basexd.conectar("root", "")
         conexion = basexd.conexion
         Textbuscador.AcceptsReturn = True
         Me.AcceptButton = Nothing
 
-        ' --- Cargar combos antes de cualquier otra cosa ---
+        ' Cargar combos antes de cualquier otra cosa ---
         Dim sqlEstado As String = "SELECT id_estado, estado FROM tb_estado ORDER BY id_estado"
         c_Varias.llena_combo(Comboestado, sqlEstado, "id_estado", "estado")
 
@@ -261,7 +261,7 @@ Public Class clifor
         If FocusFactura = 0 Then
             LimpiarCampos(True)
         Else
-            ' 🔒 Bloquear controles cuando viene desde factura
+            'Bloquear controles cuando viene desde factura
             Textbuscador.Enabled = False
             Textbuscador.ReadOnly = True
             Textbuscador.BackColor = SystemColors.ControlLight
@@ -274,7 +274,7 @@ Public Class clifor
         End If
     End Sub
 
-    ' --- CARGAR MUNICIPIOS SEGÚN DEPARTAMENTO ---
+    'CARGAR MUNICIPIOS SEGÚN DEPARTAMENTO
     Private Sub cmbDepartamentos_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cmbDepartamentos.SelectionChangeCommitted
         CargarMunicipios()
     End Sub
@@ -299,11 +299,25 @@ Public Class clifor
         End Try
     End Sub
 
-    Private Sub bntvolver_Click(sender As Object, e As EventArgs) Handles bntvolver.Click
+    Private Sub bntvolver_Click_1(sender As Object, e As EventArgs) Handles bntvolver.Click
         Dim frmSeleccion As New usu_clien()
         frmSeleccion.Show()
         Me.Close()
     End Sub
+
+    Private Sub Textbuscador_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Textbuscador.KeyPress
+        SoloNumeros(e)
+    End Sub
+
+
+    Private Sub txtCorreo_Leave(sender As Object, e As EventArgs) Handles correo.Leave
+        ValidarCorreo(correo)
+    End Sub
+
+    Private Sub txtCorreo_TextChanged(sender As Object, e As EventArgs) Handles correo.TextChanged
+        ColorCorreo(correo)
+    End Sub
+
 
 
 
