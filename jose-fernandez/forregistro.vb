@@ -207,20 +207,22 @@ Public Class forregistro
         Me.Close()
     End Sub
 
+
     ' --- CONSULTA ---
     Private Sub btnConsulta_Click_1(sender As Object, e As EventArgs) Handles btnConsulta.Click
-        Dim frmCons As New FrmConsulta()
+        Dim frmCons As New FrmConsulta() ' <-- Aquí se crea la instancia
         frmCons.TipoCarga = "USUARIO"
 
         If frmCons.ShowDialog() = DialogResult.OK Then
             Dim selectedID As String = frmCons.SelectedID
             If Not String.IsNullOrEmpty(selectedID) Then
                 Textbuscador.Text = selectedID
-                BuscarUsuario()
+                BuscarUsuario() ' <-- Luego de obtener el ID, busca el usuario en este formulario
             End If
         End If
         frmCons.Dispose()
     End Sub
+
 
     ' --- LOAD DEL FORMULARIO ---
     Private Sub forregistro_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -259,16 +261,21 @@ Public Class forregistro
     End Sub
 
     Private Sub bntnewcontra_Click(sender As Object, e As EventArgs) Handles bntnewcontra.Click
-        'Abre el login solo para validar credenciales
+        If Textbuscador.Text = "" Then
+            MsgBox("Debe seleccionar un usuario.", MsgBoxStyle.Exclamation)
+            Exit Sub
+
+        End If
+        idUsuarioACambiar = CInt(Textbuscador.Text) ' <-- GUARDAMOS EL ID SELECCIONADO
+        esCambioContra = True
+
         Dim login As New LoginForm1()
-        esCambioContra = True '👉 indicamos login es para cambio de contraseña
         login.ShowDialog()
     End Sub
 
     Private Sub Textbuscador_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Textbuscador.KeyPress
         SoloNumeros(e)
     End Sub
-
 
     Private Sub txtCorreo_Leave(sender As Object, e As EventArgs) Handles correo.Leave
         ValidarCorreo(correo)
@@ -278,8 +285,9 @@ Public Class forregistro
         ColorCorreo(correo)
     End Sub
 
-
-
+    Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
+        Mprincipal_p.LimpiarFormulario(Me)
+    End Sub
 
 
 End Class

@@ -23,7 +23,6 @@ Partial Class clifor
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(clifor))
-        bntvolver = New PictureBox()
         Label8 = New Label()
         Label7 = New Label()
         Label4 = New Label()
@@ -38,41 +37,25 @@ Partial Class clifor
         Label2 = New Label()
         apelli = New TextBox()
         Label1 = New Label()
-        contra = New TextBox()
         UsernameTextBox = New TextBox()
-        PasswordLabel = New Label()
         UsernameLabel = New Label()
         LogoPictureBox = New PictureBox()
-        bntcancelar = New PictureBox()
-        txteliminar = New PictureBox()
-        txtactuali = New PictureBox()
-        btnConsulta = New PictureBox()
-        bntenviar = New PictureBox()
-        CType(bntvolver, ComponentModel.ISupportInitialize).BeginInit()
+        ToolStrip1 = New ToolStrip()
+        bntvolver = New ToolStripButton()
+        bntenviar = New ToolStripButton()
+        txtactuali = New ToolStripButton()
+        txteliminar = New ToolStripButton()
+        btnConsulta = New ToolStripButton()
+        bntlimpiar = New ToolStripButton()
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).BeginInit()
-        CType(bntcancelar, ComponentModel.ISupportInitialize).BeginInit()
-        CType(txteliminar, ComponentModel.ISupportInitialize).BeginInit()
-        CType(txtactuali, ComponentModel.ISupportInitialize).BeginInit()
-        CType(btnConsulta, ComponentModel.ISupportInitialize).BeginInit()
-        CType(bntenviar, ComponentModel.ISupportInitialize).BeginInit()
+        ToolStrip1.SuspendLayout()
         SuspendLayout()
-        ' 
-        ' bntvolver
-        ' 
-        bntvolver.BackColor = Color.Transparent
-        bntvolver.Image = CType(resources.GetObject("bntvolver.Image"), Image)
-        bntvolver.Location = New Point(9, 12)
-        bntvolver.Name = "bntvolver"
-        bntvolver.Size = New Size(16, 16)
-        bntvolver.SizeMode = PictureBoxSizeMode.AutoSize
-        bntvolver.TabIndex = 55
-        bntvolver.TabStop = False
         ' 
         ' Label8
         ' 
         Label8.BackColor = Color.Transparent
         Label8.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label8.Location = New Point(5, 449)
+        Label8.Location = New Point(5, 378)
         Label8.Name = "Label8"
         Label8.Size = New Size(115, 23)
         Label8.TabIndex = 76
@@ -83,7 +66,7 @@ Partial Class clifor
         ' 
         Label7.BackColor = Color.Transparent
         Label7.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label7.Location = New Point(4, 393)
+        Label7.Location = New Point(4, 322)
         Label7.Name = "Label7"
         Label7.Size = New Size(141, 23)
         Label7.TabIndex = 75
@@ -94,7 +77,7 @@ Partial Class clifor
         ' 
         Label4.BackColor = Color.Transparent
         Label4.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label4.Location = New Point(12, 71)
+        Label4.Location = New Point(7, 58)
         Label4.Name = "Label4"
         Label4.Size = New Size(35, 23)
         Label4.TabIndex = 74
@@ -105,34 +88,34 @@ Partial Class clifor
         ' 
         Comboestado.DropDownStyle = ComboBoxStyle.DropDownList
         Comboestado.FormattingEnabled = True
-        Comboestado.Location = New Point(151, 335)
+        Comboestado.Location = New Point(151, 264)
         Comboestado.Name = "Comboestado"
         Comboestado.Size = New Size(241, 33)
-        Comboestado.TabIndex = 73
+        Comboestado.TabIndex = 4
         ' 
         ' cmbMunicipios
         ' 
         cmbMunicipios.DropDownStyle = ComboBoxStyle.DropDownList
         cmbMunicipios.FormattingEnabled = True
-        cmbMunicipios.Location = New Point(151, 449)
+        cmbMunicipios.Location = New Point(151, 378)
         cmbMunicipios.Name = "cmbMunicipios"
         cmbMunicipios.Size = New Size(241, 33)
-        cmbMunicipios.TabIndex = 72
+        cmbMunicipios.TabIndex = 6
         ' 
         ' cmbDepartamentos
         ' 
         cmbDepartamentos.DropDownStyle = ComboBoxStyle.DropDownList
         cmbDepartamentos.FormattingEnabled = True
-        cmbDepartamentos.Location = New Point(151, 389)
+        cmbDepartamentos.Location = New Point(151, 318)
         cmbDepartamentos.Name = "cmbDepartamentos"
         cmbDepartamentos.Size = New Size(241, 33)
-        cmbDepartamentos.TabIndex = 71
+        cmbDepartamentos.TabIndex = 5
         ' 
         ' Label6
         ' 
         Label6.BackColor = Color.Transparent
         Label6.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label6.Location = New Point(7, 534)
+        Label6.Location = New Point(7, 439)
         Label6.Name = "Label6"
         Label6.Size = New Size(142, 23)
         Label6.TabIndex = 70
@@ -141,24 +124,24 @@ Partial Class clifor
         ' 
         ' txtobservaciones
         ' 
-        txtobservaciones.Location = New Point(9, 574)
+        txtobservaciones.Location = New Point(9, 479)
         txtobservaciones.Name = "txtobservaciones"
         txtobservaciones.Size = New Size(379, 126)
-        txtobservaciones.TabIndex = 69
+        txtobservaciones.TabIndex = 7
         txtobservaciones.Text = ""
         ' 
         ' Textbuscador
         ' 
-        Textbuscador.Location = New Point(181, 71)
+        Textbuscador.Location = New Point(181, 58)
         Textbuscador.Name = "Textbuscador"
         Textbuscador.Size = New Size(211, 31)
-        Textbuscador.TabIndex = 66
+        Textbuscador.TabIndex = 0
         ' 
         ' Label3
         ' 
         Label3.BackColor = Color.Transparent
         Label3.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label3.Location = New Point(5, 335)
+        Label3.Location = New Point(5, 264)
         Label3.Name = "Label3"
         Label3.Size = New Size(99, 23)
         Label3.TabIndex = 65
@@ -167,16 +150,16 @@ Partial Class clifor
         ' 
         ' correo
         ' 
-        correo.Location = New Point(151, 285)
+        correo.Location = New Point(151, 214)
         correo.Name = "correo"
         correo.Size = New Size(241, 31)
-        correo.TabIndex = 64
+        correo.TabIndex = 3
         ' 
         ' Label2
         ' 
         Label2.BackColor = Color.Transparent
         Label2.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label2.Location = New Point(5, 285)
+        Label2.Location = New Point(5, 214)
         Label2.Name = "Label2"
         Label2.Size = New Size(79, 23)
         Label2.TabIndex = 63
@@ -185,53 +168,34 @@ Partial Class clifor
         ' 
         ' apelli
         ' 
-        apelli.Location = New Point(151, 174)
+        apelli.Location = New Point(151, 161)
         apelli.Name = "apelli"
         apelli.Size = New Size(241, 31)
-        apelli.TabIndex = 62
+        apelli.TabIndex = 2
         ' 
         ' Label1
         ' 
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label1.Location = New Point(6, 174)
+        Label1.Location = New Point(6, 161)
         Label1.Name = "Label1"
         Label1.Size = New Size(97, 23)
         Label1.TabIndex = 61
         Label1.Text = "&Apellido"
         Label1.TextAlign = ContentAlignment.MiddleLeft
         ' 
-        ' contra
-        ' 
-        contra.Location = New Point(151, 232)
-        contra.Name = "contra"
-        contra.PasswordChar = "*"c
-        contra.Size = New Size(241, 31)
-        contra.TabIndex = 60
-        ' 
         ' UsernameTextBox
         ' 
-        UsernameTextBox.Location = New Point(151, 123)
+        UsernameTextBox.Location = New Point(151, 110)
         UsernameTextBox.Name = "UsernameTextBox"
         UsernameTextBox.Size = New Size(241, 31)
-        UsernameTextBox.TabIndex = 58
-        ' 
-        ' PasswordLabel
-        ' 
-        PasswordLabel.BackColor = Color.Transparent
-        PasswordLabel.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        PasswordLabel.Location = New Point(6, 231)
-        PasswordLabel.Name = "PasswordLabel"
-        PasswordLabel.Size = New Size(114, 23)
-        PasswordLabel.TabIndex = 59
-        PasswordLabel.Text = "&Contraseña"
-        PasswordLabel.TextAlign = ContentAlignment.MiddleLeft
+        UsernameTextBox.TabIndex = 1
         ' 
         ' UsernameLabel
         ' 
         UsernameLabel.BackColor = Color.Transparent
         UsernameLabel.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        UsernameLabel.Location = New Point(6, 113)
+        UsernameLabel.Location = New Point(6, 100)
         UsernameLabel.Name = "UsernameLabel"
         UsernameLabel.Size = New Size(94, 23)
         UsernameLabel.TabIndex = 57
@@ -242,62 +206,77 @@ Partial Class clifor
         ' 
         LogoPictureBox.BackColor = Color.Transparent
         LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), Image)
-        LogoPictureBox.Location = New Point(148, 69)
+        LogoPictureBox.Location = New Point(148, 56)
         LogoPictureBox.Name = "LogoPictureBox"
         LogoPictureBox.Size = New Size(24, 24)
         LogoPictureBox.SizeMode = PictureBoxSizeMode.AutoSize
         LogoPictureBox.TabIndex = 56
         LogoPictureBox.TabStop = False
         ' 
-        ' bntcancelar
+        ' ToolStrip1
         ' 
-        bntcancelar.Image = CType(resources.GetObject("bntcancelar.Image"), Image)
-        bntcancelar.Location = New Point(179, 12)
-        bntcancelar.Name = "bntcancelar"
-        bntcancelar.Size = New Size(16, 16)
-        bntcancelar.SizeMode = PictureBoxSizeMode.AutoSize
-        bntcancelar.TabIndex = 81
-        bntcancelar.TabStop = False
+        ToolStrip1.BackColor = Color.WhiteSmoke
+        ToolStrip1.Items.AddRange(New ToolStripItem() {bntvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar})
+        ToolStrip1.Location = New Point(0, 0)
+        ToolStrip1.Name = "ToolStrip1"
+        ToolStrip1.Size = New Size(434, 33)
+        ToolStrip1.TabIndex = 83
+        ToolStrip1.Text = "ToolStrip1"
         ' 
-        ' txteliminar
+        ' bntvolver
         ' 
-        txteliminar.Image = CType(resources.GetObject("txteliminar.Image"), Image)
-        txteliminar.Location = New Point(147, 12)
-        txteliminar.Name = "txteliminar"
-        txteliminar.Size = New Size(16, 16)
-        txteliminar.SizeMode = PictureBoxSizeMode.AutoSize
-        txteliminar.TabIndex = 80
-        txteliminar.TabStop = False
-        ' 
-        ' txtactuali
-        ' 
-        txtactuali.Image = CType(resources.GetObject("txtactuali.Image"), Image)
-        txtactuali.Location = New Point(115, 12)
-        txtactuali.Name = "txtactuali"
-        txtactuali.Size = New Size(16, 16)
-        txtactuali.SizeMode = PictureBoxSizeMode.AutoSize
-        txtactuali.TabIndex = 79
-        txtactuali.TabStop = False
-        ' 
-        ' btnConsulta
-        ' 
-        btnConsulta.Image = CType(resources.GetObject("btnConsulta.Image"), Image)
-        btnConsulta.Location = New Point(84, 12)
-        btnConsulta.Name = "btnConsulta"
-        btnConsulta.Size = New Size(16, 16)
-        btnConsulta.SizeMode = PictureBoxSizeMode.AutoSize
-        btnConsulta.TabIndex = 78
-        btnConsulta.TabStop = False
+        bntvolver.DisplayStyle = ToolStripItemDisplayStyle.Image
+        bntvolver.Image = CType(resources.GetObject("bntvolver.Image"), Image)
+        bntvolver.ImageTransparentColor = Color.Magenta
+        bntvolver.Name = "bntvolver"
+        bntvolver.Size = New Size(34, 28)
+        bntvolver.Text = "ToolStripButton1"
         ' 
         ' bntenviar
         ' 
+        bntenviar.BackColor = Color.Transparent
+        bntenviar.DisplayStyle = ToolStripItemDisplayStyle.Image
         bntenviar.Image = CType(resources.GetObject("bntenviar.Image"), Image)
-        bntenviar.Location = New Point(52, 12)
+        bntenviar.ImageTransparentColor = Color.Magenta
         bntenviar.Name = "bntenviar"
-        bntenviar.Size = New Size(16, 16)
-        bntenviar.SizeMode = PictureBoxSizeMode.AutoSize
-        bntenviar.TabIndex = 77
-        bntenviar.TabStop = False
+        bntenviar.Size = New Size(34, 28)
+        bntenviar.Text = "ToolStripButton2"
+        ' 
+        ' txtactuali
+        ' 
+        txtactuali.DisplayStyle = ToolStripItemDisplayStyle.Image
+        txtactuali.Image = CType(resources.GetObject("txtactuali.Image"), Image)
+        txtactuali.ImageTransparentColor = Color.Magenta
+        txtactuali.Name = "txtactuali"
+        txtactuali.Size = New Size(34, 28)
+        txtactuali.Text = "ToolStripButton3"
+        ' 
+        ' txteliminar
+        ' 
+        txteliminar.DisplayStyle = ToolStripItemDisplayStyle.Image
+        txteliminar.Image = CType(resources.GetObject("txteliminar.Image"), Image)
+        txteliminar.ImageTransparentColor = Color.Magenta
+        txteliminar.Name = "txteliminar"
+        txteliminar.Size = New Size(34, 28)
+        txteliminar.Text = "ToolStripButton4"
+        ' 
+        ' btnConsulta
+        ' 
+        btnConsulta.DisplayStyle = ToolStripItemDisplayStyle.Image
+        btnConsulta.Image = CType(resources.GetObject("btnConsulta.Image"), Image)
+        btnConsulta.ImageTransparentColor = Color.Magenta
+        btnConsulta.Name = "btnConsulta"
+        btnConsulta.Size = New Size(34, 28)
+        btnConsulta.Text = "ToolStripButton5"
+        ' 
+        ' bntlimpiar
+        ' 
+        bntlimpiar.DisplayStyle = ToolStripItemDisplayStyle.Image
+        bntlimpiar.Image = CType(resources.GetObject("bntlimpiar.Image"), Image)
+        bntlimpiar.ImageTransparentColor = Color.Magenta
+        bntlimpiar.Name = "bntlimpiar"
+        bntlimpiar.Size = New Size(34, 28)
+        bntlimpiar.Text = "ToolStripButton6"
         ' 
         ' clifor
         ' 
@@ -305,12 +284,8 @@ Partial Class clifor
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(434, 766)
-        Controls.Add(bntcancelar)
-        Controls.Add(txteliminar)
-        Controls.Add(txtactuali)
-        Controls.Add(btnConsulta)
-        Controls.Add(bntenviar)
+        ClientSize = New Size(434, 617)
+        Controls.Add(ToolStrip1)
         Controls.Add(Label8)
         Controls.Add(Label7)
         Controls.Add(Label4)
@@ -325,26 +300,18 @@ Partial Class clifor
         Controls.Add(Label2)
         Controls.Add(apelli)
         Controls.Add(Label1)
-        Controls.Add(contra)
         Controls.Add(UsernameTextBox)
-        Controls.Add(PasswordLabel)
         Controls.Add(UsernameLabel)
         Controls.Add(LogoPictureBox)
-        Controls.Add(bntvolver)
         Name = "clifor"
         StartPosition = FormStartPosition.CenterScreen
         Text = "clifor"
-        CType(bntvolver, ComponentModel.ISupportInitialize).EndInit()
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).EndInit()
-        CType(bntcancelar, ComponentModel.ISupportInitialize).EndInit()
-        CType(txteliminar, ComponentModel.ISupportInitialize).EndInit()
-        CType(txtactuali, ComponentModel.ISupportInitialize).EndInit()
-        CType(btnConsulta, ComponentModel.ISupportInitialize).EndInit()
-        CType(bntenviar, ComponentModel.ISupportInitialize).EndInit()
+        ToolStrip1.ResumeLayout(False)
+        ToolStrip1.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
-    Friend WithEvents bntvolver As PictureBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label4 As Label
@@ -359,14 +326,14 @@ Partial Class clifor
     Friend WithEvents Label2 As Label
     Friend WithEvents apelli As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents contra As TextBox
     Friend WithEvents UsernameTextBox As TextBox
-    Friend WithEvents PasswordLabel As Label
     Friend WithEvents UsernameLabel As Label
     Friend WithEvents LogoPictureBox As PictureBox
-    Friend WithEvents bntcancelar As PictureBox
-    Friend WithEvents txteliminar As PictureBox
-    Friend WithEvents txtactuali As PictureBox
-    Friend WithEvents btnConsulta As PictureBox
-    Friend WithEvents bntenviar As PictureBox
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents bntvolver As ToolStripButton
+    Friend WithEvents bntenviar As ToolStripButton
+    Friend WithEvents txtactuali As ToolStripButton
+    Friend WithEvents txteliminar As ToolStripButton
+    Friend WithEvents btnConsulta As ToolStripButton
+    Friend WithEvents bntlimpiar As ToolStripButton
 End Class

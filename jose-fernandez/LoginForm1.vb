@@ -1,38 +1,44 @@
-Imports System.Data.Odbc
+ÔªøImports System.Data.Odbc
 
 Public Class LoginForm1
     Dim SQL As String
     Dim rst As OdbcDataReader
 
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
-        ' Validar usuario y contraseÒa
-        SQL = "SELECT * FROM tb_usuarios WHERE id_usuario=" & UsernameTextBox.Text & " AND contraseÒa='" & PasswordTextBox.Text & "'"
+        ' Validaci√≥n b√°sica (igual que ten√≠as)
+        SQL = "SELECT * FROM tb_usuarios WHERE id_usuario=" & UsernameTextBox.Text & " AND contrase√±a='" & PasswordTextBox.Text & "'"
         rst = basexd.leer_Registro(SQL)
 
         If rst IsNot Nothing AndAlso rst.Read() Then
-            ' ? Guardar el ID real del usuario (no el nombre)
+            ' Guardar el ID del usuario que se acaba de loguear (si lo necesitas en otras partes)
             codusuario = rst("id_usuario").ToString()
 
-            ' Si se est· accediendo desde "Cambio de contraseÒa"
             If esCambioContra Then
-                Dim cambio As New formcontra()
-                cambio.ShowDialog()
+                ' Pasamos expl√≠citamente el idUsuarioACambiar al formulario de cambio
+                Dim idTarget As Integer = idUsuarioACambiar ' viene de forregistro antes de abrir el login
+
+                ' Si por alguna raz√≥n no hay id target v√°lido, prevenir
+                If idTarget <= 0 Then
+                    MessageBox.Show("No se defini√≥ correctamente el ID del usuario a cambiar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                    esCambioContra = False
+                    Me.Close()
+                    Exit Sub
+                End If
+
+                Dim cambio As New formcontra(idTarget) ' <-- usamos constructor con par√°metro
                 esCambioContra = False
+                cambio.ShowDialog()
                 Me.Close()
                 Exit Sub
             End If
 
-            ' Si es un login normal, abrir men˙ principal
+            ' Flujo normal de login
             Dim menuPrincipal As New usu_clien()
             menuPrincipal.Show()
             Me.Hide()
         Else
-            MsgBox("Usuario o contraseÒa incorrectos.", MsgBoxStyle.Critical, "Error")
+            MsgBox("Usuario o contrase√±a incorrectos.", MsgBoxStyle.Critical)
         End If
-    End Sub
-
-    Private Sub Cancel_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Cancel.Click
-        Me.Close()
     End Sub
 
     Private Sub LoginForm1_Load(sender As Object, e As EventArgs) Handles MyBase.Load

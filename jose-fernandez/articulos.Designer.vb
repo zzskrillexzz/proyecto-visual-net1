@@ -130,7 +130,7 @@ Partial Class articulos
         Texstock.Location = New Point(33, 170)
         Texstock.Name = "Texstock"
         Texstock.Size = New Size(107, 31)
-        Texstock.TabIndex = 12
+        Texstock.TabIndex = 4
         ' 
         ' txtprecio
         ' 
@@ -140,14 +140,14 @@ Partial Class articulos
         txtprecio.Location = New Point(321, 101)
         txtprecio.Name = "txtprecio"
         txtprecio.Size = New Size(118, 31)
-        txtprecio.TabIndex = 10
+        txtprecio.TabIndex = 3
         ' 
         ' rtbdescripcion
         ' 
         rtbdescripcion.Location = New Point(170, 285)
         rtbdescripcion.Name = "rtbdescripcion"
         rtbdescripcion.Size = New Size(368, 105)
-        rtbdescripcion.TabIndex = 13
+        rtbdescripcion.TabIndex = 8
         rtbdescripcion.Text = ""
         ' 
         ' Cmbcategoria
@@ -157,7 +157,7 @@ Partial Class articulos
         Cmbcategoria.Location = New Point(170, 226)
         Cmbcategoria.Name = "Cmbcategoria"
         Cmbcategoria.Size = New Size(368, 33)
-        Cmbcategoria.TabIndex = 15
+        Cmbcategoria.TabIndex = 7
         ' 
         ' Label7
         ' 
@@ -187,7 +187,7 @@ Partial Class articulos
         txtdescuento.Location = New Point(323, 170)
         txtdescuento.Name = "txtdescuento"
         txtdescuento.Size = New Size(116, 31)
-        txtdescuento.TabIndex = 19
+        txtdescuento.TabIndex = 6
         ' 
         ' txtiva
         ' 
@@ -195,7 +195,7 @@ Partial Class articulos
         txtiva.Location = New Point(170, 170)
         txtiva.Name = "txtiva"
         txtiva.Size = New Size(118, 31)
-        txtiva.TabIndex = 20
+        txtiva.TabIndex = 5
         ' 
         ' Label6
         ' 
@@ -269,7 +269,7 @@ Partial Class articulos
         Textnombrearti.Location = New Point(170, 101)
         Textnombrearti.Name = "Textnombrearti"
         Textnombrearti.Size = New Size(118, 31)
-        Textnombrearti.TabIndex = 28
+        Textnombrearti.TabIndex = 2
         ' 
         ' Label9
         ' 

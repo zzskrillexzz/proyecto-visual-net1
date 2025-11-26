@@ -5,7 +5,13 @@ Public Class factura
     Dim SQL As String
     Dim rst As OdbcDataReader
 
+    ' TOTALES
+    Dim dscoTotal As Double = 0
+    Dim ivaTotal As Double = 0
+    Dim total As Double = 0
+
     Private Sub factura_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.KeyPreview = True
         basexd.conectar("root", "")
         SQL = "SELECT IFNULL(MAX(id_factura), 0) + 1 AS siguiente FROM factura"
         rst = basexd.leer_Registro(SQL)
@@ -16,11 +22,17 @@ Public Class factura
         Else
             lblnumerofactura.Text = "N° 1"
         End If
+
         If grilla_inv.Columns.Count = 0 Then
             grilla_inv.Columns.Add("Codigo", "Código")
-            grilla_inv.Columns.Add("nombre", "Nombre del Artículo")
+            grilla_inv.Columns.Add("Nombre", "Nombre")
             grilla_inv.Columns.Add("Cantidad", "Cantidad")
+            grilla_inv.Columns.Add("Precio", "Precio")
+            grilla_inv.Columns.Add("Descuento", "Desc (%)")
+            grilla_inv.Columns.Add("IVA", "IVA (%)")
+            grilla_inv.Columns.Add("Subtotal", "Subtotal")
         End If
+
         grilla_inv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         grilla_inv.AllowUserToAddRows = False
         grilla_inv.SelectionMode = DataGridViewSelectionMode.CellSelect
@@ -33,99 +45,167 @@ Public Class factura
         tssusuario.Text = "Usuario: " & codusuario
     End Sub
 
-    Private Sub PictureBox5_Click(sender As Object, e As EventArgs) Handles ptbreverse.Click
-        Dim frmSeleccion As New usu_clien()
-        frmSeleccion.Show()
-        Me.Close()
+
+    'calculo
+    Sub recorrerDataGrid()
+        dscoTotal = 0
+        ivaTotal = 0
+        total = 0
+
+        For i As Integer = 0 To grilla_inv.RowCount - 1
+            If grilla_inv.Rows(i).Cells(0).Value Is Nothing Then Continue For
+
+            Dim precio As Double = Val(grilla_inv.Rows(i).Cells(3).Value)
+            Dim cantidad As Double = Val(grilla_inv.Rows(i).Cells(2).Value)
+            Dim descPorc As Double = Val(grilla_inv.Rows(i).Cells(4).Value) / 100
+            Dim ivaPorc As Double = Val(grilla_inv.Rows(i).Cells(5).Value) / 100
+
+            Dim subtotalSinDesc = precio * cantidad
+            Dim valorDescuento = subtotalSinDesc * descPorc
+            Dim subtotalConDesc = subtotalSinDesc - valorDescuento
+            Dim valorIva = subtotalConDesc * ivaPorc
+            Dim subtotalFinal = subtotalConDesc + valorIva
+
+            grilla_inv.Rows(i).Cells(6).Value = subtotalFinal.ToString("N2")
+
+            dscoTotal += valorDescuento
+            ivaTotal += valorIva
+            total += subtotalFinal
+        Next
+
+        txtIva.Text = "$ " & ivaTotal.ToString("N2")
+        txtDesc.Text = "$ " & dscoTotal.ToString("N2")
+        txtTotal.Text = "$ " & total.ToString("N2")
     End Sub
-    Private Sub txtIdCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles txtIdCliente.KeyDown
+
+
+
+    'subtotal
+    Private Sub grilla_inv_KeyDown(sender As Object, e As KeyEventArgs) Handles grilla_inv.KeyDown
+
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
 
-            'codigo is el cliente existe o no
-            SQL = "SELECT * FROM tb_clientes WHERE id_cliente=" & txtIdCliente.Text
+            Dim col = grilla_inv.CurrentCell.ColumnIndex
+            Dim row = grilla_inv.CurrentCell.RowIndex
+
+            ' =============== AUTO-LLENAR SI DIGITA EL CÓDIGO ==================
+            If col = 0 Then
+                Dim cod As String = grilla_inv.Rows(row).Cells(0).Value
+
+                If cod <> "" Then
+                    SQL = "SELECT id_articulo, nombre_articulo, precio, iva, descuento 
+                       FROM articulos 
+                       WHERE id_articulo = " & cod
+
+                    rst = basexd.leer_Registro(SQL)
+
+                    If rst.Read() Then
+                        grilla_inv.Item(1, row).Value = rst("nombre_articulo")
+                        grilla_inv.Item(3, row).Value = rst("precio")
+                        grilla_inv.Item(4, row).Value = CInt(rst("descuento"))   ' <--- SIN "%"
+                        grilla_inv.Item(5, row).Value = CInt(rst("iva"))         ' <--- SIN "%"
+
+                        rst.Close()
+
+                        ' Pasar a cantidad
+                        grilla_inv.CurrentCell = grilla_inv.Rows(row).Cells(2)
+                        Exit Sub
+                    End If
+
+                    rst.Close()
+                End If
+            End If
+
+
+            ' =================== SI NO EXISTE → ABRIR CONSULTA =================
+            If col = 0 Then
+                Try
+                    frmconsulta2.Text = "Planilla de Artículos"
+                    frmconsulta2.grd.DataSource = ""
+
+                    SQL = "SELECT id_articulo AS Id, nombre_articulo AS Nombre, precio, iva, descuento 
+                       FROM articulos ORDER BY nombre_articulo;"
+
+                    frmconsulta2.bind.DataSource = basexd.Listar_datos(SQL)
+                    frmconsulta2.grd.DataSource = frmconsulta2.bind.DataSource
+
+                    frmconsulta2.ShowDialog()
+
+                    If sw_Regreso = 1 Then
+                        grilla_inv.Item(0, row).Value = vec(0)
+                        grilla_inv.Item(1, row).Value = vec(1)
+                        grilla_inv.Item(3, row).Value = vec(2)
+                        grilla_inv.Item(4, row).Value = CInt(vec(4))
+                        grilla_inv.Item(5, row).Value = CInt(vec(3))
+
+                        grilla_inv.CurrentCell = grilla_inv.Rows(row).Cells(2)
+                    Else
+                        SendKeys.Send("{TAB}")
+                    End If
+
+                Catch ex As Exception
+                    MsgBox("Error al abrir artículos: " & ex.Message)
+                End Try
+            End If
+
+
+            ' ========================= RECALCULAR ==============================
+            If col = 2 Or col = 3 Or col = 4 Or col = 5 Then
+                Try
+                    grilla_inv.CommitEdit(DataGridViewDataErrorContexts.Commit)
+                    recorrerDataGrid()
+                    SendKeys.Send("{TAB}")
+                Catch
+                End Try
+            End If
+
+        End If
+
+
+        ' ======================= INSERTAR FILA ================================
+        If e.KeyCode = Keys.Insert Then
+            grilla_inv.Rows.Add()
+            grilla_inv.CurrentCell = grilla_inv.Rows(grilla_inv.Rows.Count - 1).Cells(0)
+        End If
+
+    End Sub
+
+
+
+
+
+    Private Sub txtIdCliente_KeyDown(sender As Object, e As KeyEventArgs) Handles txtIdCliented.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True
+
+            SQL = "SELECT * FROM tb_clientes WHERE id_cliente=" & txtIdCliented.Text
             rst = basexd.leer_Registro(SQL)
 
             If rst IsNot Nothing AndAlso rst.Read() Then
-
                 txtNombreCliente.Text = rst("nombre").ToString() & " " & rst("apellido").ToString()
                 txtcorreo.Text = rst("correo").ToString()
                 rst.Close()
             Else
-
-                Dim Rpta As MsgBoxResult
-                Rpta = MsgBox("Cliente no registrado. ¿Desea agregarlo?", MsgBoxStyle.YesNo + MsgBoxStyle.Question, "Error")
-
-                If Rpta = vbYes Then
+                If MsgBox("Cliente no registrado. ¿Desea agregarlo?", MsgBoxStyle.YesNo + MsgBoxStyle.Question) = vbYes Then
                     Dim frm As New clifor()
-                    frm.Textbuscador.Text = txtIdCliente.Text
+                    frm.Textbuscador.Text = txtIdCliented.Text
                     frm.FocusFactura = 1
-                    frm.FormFactura = Me   ' 🔹 (usa esto si ya lo tienes en tu clifor)
+                    frm.FormFactura = Me
                     frm.ShowDialog()
-                    Exit Sub
-                Else
-                    Exit Sub
                 End If
-
-
-
-
-
             End If
         End If
     End Sub
-    Private Sub grilla_inv_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles grilla_inv.KeyDown
-        Select Case e.KeyCode
-            Case Keys.Enter
-                Select Case grilla_inv.CurrentCell.ColumnIndex
-                    Case 0
-                        e.Handled = True
-                        SendKeys.Send("{TAB}")
-
-                    Case 1
-                        Try
-
-                            frmconsulta2.Text = "Planilla de Articulos"
-                            frmconsulta2.grd.DataSource = ""
-                            SQL = "SELECT id_articulo AS Id, nombre_articulo AS Nombre " &
-                                  "FROM articulos ORDER BY nombre_articulo"
 
 
-                            frmconsulta2.bind.DataSource = basexd.Listar_datos(SQL)
-                            frmconsulta2.grd.DataSource = frmconsulta2.bind.DataSource
-
-                            frmconsulta2.ShowDialog()
-
-
-                            If sw_Regreso = 1 Then
-                                grilla_inv.Item(0, grilla_inv.CurrentRow.Index).Value = vec(0)
-                                grilla_inv.Item(1, grilla_inv.CurrentRow.Index).Value = vec(1)
-                            Else
-                                grilla_inv.CurrentCell = grilla_inv.Rows(grilla_inv.CurrentRow.Index).Cells(1)
-
-                            End If
-                        Catch ex As Exception
-                            MsgBox("Error al cargar artículo: " & ex.Message)
-                        End Try
-
-                    Case 2, 3
-                        e.Handled = True
-                        SendKeys.Send("{TAB}")
-                End Select
-
-            Case Keys.Insert
-                grilla_inv.Rows.Add()
-                grilla_inv.CurrentCell = grilla_inv.Rows(grilla_inv.CurrentRow.Index + 1).Cells(1)
-        End Select
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles bntreverse.Click
+        Dim frmSeleccion As New usu_clien()
+        frmSeleccion.Show()
+        Me.Close()
     End Sub
 
     Private Sub lblnumerofactura_Click(sender As Object, e As EventArgs) Handles lblnumerofactura.Click
-    End Sub
-
-    Private Sub tssusuario_Click(sender As Object, e As EventArgs) Handles tssusuario.Click
-    End Sub
-
-    Private Sub txtid_TextChanged(sender As Object, e As EventArgs) Handles txtIdCliente.TextChanged
 
     End Sub
 End Class

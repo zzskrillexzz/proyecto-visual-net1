@@ -9,10 +9,10 @@ Public Class clifor
     Public FormFactura As factura
 
     ' --- INSERTAR CLIENTE ---
-    Private Sub bntenviar_Click(sender As Object, e As EventArgs) Handles bntenviar.Click
+    Private Sub bntenviar_Click_1(sender As Object, e As EventArgs) Handles bntenviar.Click
         Try
             'Validar campos vacíos
-            Dim camposObligatorios = New TextBox() {Textbuscador, UsernameTextBox, apelli, contra, correo}
+            Dim camposObligatorios = New TextBox() {Textbuscador, UsernameTextBox, apelli, correo}
             If camposObligatorios.Any(Function(c) String.IsNullOrWhiteSpace(c.Text)) Then
                 MessageBox.Show("Todos los campos, incluyendo el ID, son obligatorios.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 Exit Sub
@@ -43,9 +43,10 @@ Public Class clifor
 
             ' Preparar SQL de inserción
             Dim sql As String =
-            "INSERT INTO tb_clientes (id_cliente, nombre, apellido, correo, contraseña, id_estado, rol, id_departamento, id_municipio, observacion) " &
-            "VALUES (" & idManual & ", '" & UsernameTextBox.Text.Trim() & "', '" & apelli.Text.Trim() & "', '" & correo.Text.Trim() & "', '" & contra.Text.Trim() & "', 1, 'cliente', " &
+            "INSERT INTO tb_clientes (id_cliente, nombre, apellido, correo, id_estado, rol, id_departamento, id_municipio, observacion) " &
+            "VALUES (" & idManual & ", '" & UsernameTextBox.Text.Trim() & "', '" & apelli.Text.Trim() & "', '" & correo.Text.Trim() & "', 1, 'cliente', " &
             cmbDepartamentos.SelectedValue & ", " & cmbMunicipios.SelectedValue & ", '" & txtobservaciones.Text.Trim() & "')"
+
 
             ' Ejecutar inserción
             If basexd.ingresar_registros(sql) Then
@@ -53,14 +54,14 @@ Public Class clifor
 
                 ' Si vino desde factura
                 If FocusFactura = 1 AndAlso FormFactura IsNot Nothing Then
-                    FormFactura.txtIdCliente.Text = idManual.ToString()
+                    FormFactura.txtIdCliented.Text = idManual.ToString()
                     SendKeys.Send("{ENTER}")
                     Me.Close()
                     Exit Sub
                 End If
 
                 ' Limpiar formulario
-                LimpiarCampos(True)
+
             End If
 
         Catch ex As Exception
@@ -69,7 +70,7 @@ Public Class clifor
     End Sub
 
     ' --- ACTUALIZAR CLIENTE ---
-    Private Sub txtactuali_Click_1(sender As Object, e As EventArgs) Handles txtactuali.Click
+    Private Sub ToolStripButton3_Click(sender As Object, e As EventArgs) Handles txtactuali.Click
         If String.IsNullOrEmpty(Textbuscador.Text.Trim()) Then
             MessageBox.Show("Por favor, busca un cliente primero o ingresa su ID para actualizarlo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
@@ -84,22 +85,23 @@ Public Class clifor
 
         Try
             Dim sql As String =
-                "UPDATE tb_clientes SET nombre='" & UsernameTextBox.Text.Trim() &
-                "', apellido='" & apelli.Text.Trim() &
-                "', correo='" & correo.Text.Trim() &
-                "', id_departamento=" & cmbDepartamentos.SelectedValue &
-                ", id_municipio=" & cmbMunicipios.SelectedValue &
-                ", id_estado=" & Comboestado.SelectedValue &
-                ", observacion='" & txtobservaciones.Text.Trim() &
-                "' WHERE id_cliente=" & Textbuscador.Text.Trim()
+        "UPDATE tb_clientes SET nombre='" & UsernameTextBox.Text.Trim() &
+        "', apellido='" & apelli.Text.Trim() &
+        "', correo='" & correo.Text.Trim() &
+        "', id_departamento=" & cmbDepartamentos.SelectedValue &
+        ", id_municipio=" & cmbMunicipios.SelectedValue &
+        ", id_estado=" & Comboestado.SelectedValue &
+        ", observacion='" & txtobservaciones.Text.Trim() &
+        "' WHERE id_cliente=" & Textbuscador.Text.Trim()
 
             Dim cmd As New OdbcCommand(sql, conexion)
             Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
 
+
             If rowsAffected > 0 Then
                 MessageBox.Show("Cliente actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
-                MessageBox.Show("No se pudo actualizar el cliente. El ID no fue encontrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("No se pudo actualizar.no hubo ningun cambio.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
 
         Catch ex As Exception
@@ -122,7 +124,6 @@ Public Class clifor
                 Dim cmd As New OdbcCommand(sql, conexion)
                 cmd.ExecuteNonQuery()
                 MessageBox.Show("Cliente eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                LimpiarCampos(True)
             Catch ex As Exception
                 MessageBox.Show("Error al eliminar cliente: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End Try
@@ -134,7 +135,6 @@ Public Class clifor
         Dim idCliente As String = Textbuscador.Text.Trim()
         If idCliente = "" Then
             MessageBox.Show("Por favor ingresa un ID de cliente.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
-            LimpiarCampos(False)
             Exit Sub
         End If
 
@@ -157,7 +157,7 @@ Public Class clifor
 
                 cmbDepartamentos.SelectedValue = idDepartamento
 
-                ' 🔹 Llenar municipios después de asignar el departamento
+                ' Llenar municipios después de asignar el departamento
                 Dim sqlMunicipios As String = "SELECT id_municipio, nombre_municipio FROM municipios WHERE id_departamento = " & idDepartamento
                 c_Varias.llena_combo(cmbMunicipios, sqlMunicipios, "id_municipio", "nombre_municipio")
 
@@ -165,7 +165,7 @@ Public Class clifor
                 HabilitarCampos(True)
             Else
                 MessageBox.Show("ID libre. Ingrese los datos para registrar un nuevo cliente con ID: " & idCliente, "Nuevo Registro", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                LimpiarCampos(False)
+
                 HabilitarCampos(True)
             End If
             reader.Close()
@@ -182,7 +182,6 @@ Public Class clifor
         UsernameTextBox.ReadOnly = Not habilitar
         apelli.ReadOnly = Not habilitar
         correo.ReadOnly = Not habilitar
-        contra.ReadOnly = True
         cmbDepartamentos.Enabled = habilitar
         cmbMunicipios.Enabled = habilitar
         Comboestado.Enabled = habilitar
@@ -192,28 +191,9 @@ Public Class clifor
         bntenviar.Enabled = Not modoEdicion
         txtactuali.Enabled = modoEdicion
         txteliminar.Enabled = modoEdicion
-
-        If Not modoEdicion Then
-            contra.ReadOnly = Not habilitar
-        End If
     End Sub
 
-    ' --- LIMPIAR CAMPOS ---
-    Private Sub LimpiarCampos(Optional ByVal limpiarBuscador As Boolean = True)
-        UsernameTextBox.Clear()
-        apelli.Clear()
-        correo.Clear()
-        contra.Clear()
 
-        If limpiarBuscador Then Textbuscador.Clear()
-
-        Comboestado.SelectedIndex = -1
-        cmbDepartamentos.SelectedIndex = -1
-        cmbMunicipios.SelectedIndex = -1
-        txtobservaciones.Clear()
-
-        HabilitarCampos(True)
-    End Sub
 
     ' --- EVENTO ENTER EN TEXTBUSCADOR ---
     Private Sub Textbuscador_KeyDown(sender As Object, e As KeyEventArgs) Handles Textbuscador.KeyDown
@@ -225,8 +205,8 @@ Public Class clifor
     End Sub
 
     'CANCELAR / CERRAR
-    Private Sub bntcancelar_Click(sender As Object, e As EventArgs) Handles bntcancelar.Click
-        Me.Close()
+    Private Sub bntcancelar_Click(sender As Object, e As EventArgs)
+        Close()
     End Sub
 
     ' --- CONSULTA ---
@@ -259,7 +239,6 @@ Public Class clifor
 
         ' --- Comportamiento según si viene desde factura ---
         If FocusFactura = 0 Then
-            LimpiarCampos(True)
         Else
             'Bloquear controles cuando viene desde factura
             Textbuscador.Enabled = False
@@ -269,6 +248,8 @@ Public Class clifor
             txtactuali.Enabled = False
             btnConsulta.Enabled = False
             txteliminar.Enabled = False
+            bntvolver.Enabled = False
+
 
             UsernameTextBox.Focus()
         End If
@@ -299,16 +280,15 @@ Public Class clifor
         End Try
     End Sub
 
-    Private Sub bntvolver_Click_1(sender As Object, e As EventArgs) Handles bntvolver.Click
-        Dim frmSeleccion As New usu_clien()
+    Private Sub bntvolver_Click_1(sender As Object, e As EventArgs)
+        Dim frmSeleccion As New usu_clien
         frmSeleccion.Show()
-        Me.Close()
+        Close()
     End Sub
 
     Private Sub Textbuscador_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Textbuscador.KeyPress
         SoloNumeros(e)
     End Sub
-
 
     Private Sub txtCorreo_Leave(sender As Object, e As EventArgs) Handles correo.Leave
         ValidarCorreo(correo)
@@ -318,7 +298,16 @@ Public Class clifor
         ColorCorreo(correo)
     End Sub
 
+    Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
+        Mprincipal_p.LimpiarFormulario(Me)
+    End Sub
 
+    Private Sub bntvolver_Click(sender As Object, e As EventArgs) Handles bntvolver.Click
+        Dim frmSeleccion As New usu_clien()
+        frmSeleccion.Show()
+        Me.Close()
+
+    End Sub
 
 
 

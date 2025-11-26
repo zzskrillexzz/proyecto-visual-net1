@@ -36,7 +36,7 @@ Public Class articulos
                                 CInt(Cmbcategoria.SelectedValue) & ")"
 
             Dim cmd As New OdbcCommand(sql, conexion)
-            cmd.ExecuteNonQuery()
+
             conexion.Close()
 
             MsgBox("Artículo agregado correctamente.")

@@ -52,21 +52,18 @@ Partial Class forregistro
         Label4 = New Label()
         Label8 = New Label()
         Label7 = New Label()
-        Ptbvolver = New PictureBox()
         bntnewcontra = New PictureBox()
-        bntenviar = New PictureBox()
-        btnConsulta = New PictureBox()
-        txtactuali = New PictureBox()
-        txteliminar = New PictureBox()
-        bntcancelar = New PictureBox()
+        ToolStrip1 = New ToolStrip()
+        Ptbvolver = New ToolStripButton()
+        bntenviar = New ToolStripButton()
+        txtactuali = New ToolStripButton()
+        txteliminar = New ToolStripButton()
+        btnConsulta = New ToolStripButton()
+        bntlimpiar = New ToolStripButton()
+        bntcancelar = New ToolStripButton()
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).BeginInit()
-        CType(Ptbvolver, ComponentModel.ISupportInitialize).BeginInit()
         CType(bntnewcontra, ComponentModel.ISupportInitialize).BeginInit()
-        CType(bntenviar, ComponentModel.ISupportInitialize).BeginInit()
-        CType(btnConsulta, ComponentModel.ISupportInitialize).BeginInit()
-        CType(txtactuali, ComponentModel.ISupportInitialize).BeginInit()
-        CType(txteliminar, ComponentModel.ISupportInitialize).BeginInit()
-        CType(bntcancelar, ComponentModel.ISupportInitialize).BeginInit()
+        ToolStrip1.SuspendLayout()
         SuspendLayout()
         ' 
         ' LogoPictureBox
@@ -270,17 +267,6 @@ Partial Class forregistro
         Label7.Text = "&Departamento"
         Label7.TextAlign = ContentAlignment.MiddleLeft
         ' 
-        ' Ptbvolver
-        ' 
-        Ptbvolver.BackColor = Color.Transparent
-        Ptbvolver.Image = CType(resources.GetObject("Ptbvolver.Image"), Image)
-        Ptbvolver.Location = New Point(7, 12)
-        Ptbvolver.Name = "Ptbvolver"
-        Ptbvolver.Size = New Size(16, 16)
-        Ptbvolver.SizeMode = PictureBoxSizeMode.AutoSize
-        Ptbvolver.TabIndex = 54
-        Ptbvolver.TabStop = False
-        ' 
         ' bntnewcontra
         ' 
         bntnewcontra.BackColor = Color.Transparent
@@ -292,56 +278,79 @@ Partial Class forregistro
         bntnewcontra.TabIndex = 55
         bntnewcontra.TabStop = False
         ' 
+        ' ToolStrip1
+        ' 
+        ToolStrip1.BackColor = Color.Transparent
+        ToolStrip1.ImageScalingSize = New Size(24, 24)
+        ToolStrip1.Items.AddRange(New ToolStripItem() {Ptbvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, bntcancelar})
+        ToolStrip1.Location = New Point(0, 0)
+        ToolStrip1.Name = "ToolStrip1"
+        ToolStrip1.Size = New Size(434, 33)
+        ToolStrip1.TabIndex = 84
+        ToolStrip1.Text = "ToolStrip1"
+        ' 
+        ' Ptbvolver
+        ' 
+        Ptbvolver.DisplayStyle = ToolStripItemDisplayStyle.Image
+        Ptbvolver.Image = CType(resources.GetObject("Ptbvolver.Image"), Image)
+        Ptbvolver.ImageTransparentColor = Color.Magenta
+        Ptbvolver.Name = "Ptbvolver"
+        Ptbvolver.Size = New Size(34, 28)
+        Ptbvolver.Text = "ToolStripButton1"
+        ' 
         ' bntenviar
         ' 
-        bntenviar.Enabled = False
+        bntenviar.DisplayStyle = ToolStripItemDisplayStyle.Image
         bntenviar.Image = CType(resources.GetObject("bntenviar.Image"), Image)
-        bntenviar.Location = New Point(38, 12)
+        bntenviar.ImageTransparentColor = Color.Magenta
         bntenviar.Name = "bntenviar"
-        bntenviar.Size = New Size(16, 16)
-        bntenviar.SizeMode = PictureBoxSizeMode.AutoSize
-        bntenviar.TabIndex = 56
-        bntenviar.TabStop = False
-        ' 
-        ' btnConsulta
-        ' 
-        btnConsulta.Image = CType(resources.GetObject("btnConsulta.Image"), Image)
-        btnConsulta.Location = New Point(70, 12)
-        btnConsulta.Name = "btnConsulta"
-        btnConsulta.Size = New Size(16, 16)
-        btnConsulta.SizeMode = PictureBoxSizeMode.AutoSize
-        btnConsulta.TabIndex = 57
-        btnConsulta.TabStop = False
+        bntenviar.Size = New Size(34, 28)
+        bntenviar.Text = "ToolStripButton2"
         ' 
         ' txtactuali
         ' 
+        txtactuali.DisplayStyle = ToolStripItemDisplayStyle.Image
         txtactuali.Image = CType(resources.GetObject("txtactuali.Image"), Image)
-        txtactuali.Location = New Point(101, 12)
+        txtactuali.ImageTransparentColor = Color.Magenta
         txtactuali.Name = "txtactuali"
-        txtactuali.Size = New Size(16, 16)
-        txtactuali.SizeMode = PictureBoxSizeMode.AutoSize
-        txtactuali.TabIndex = 58
-        txtactuali.TabStop = False
+        txtactuali.Size = New Size(34, 28)
+        txtactuali.Text = "ToolStripButton3"
         ' 
         ' txteliminar
         ' 
+        txteliminar.DisplayStyle = ToolStripItemDisplayStyle.Image
         txteliminar.Image = CType(resources.GetObject("txteliminar.Image"), Image)
-        txteliminar.Location = New Point(133, 12)
+        txteliminar.ImageTransparentColor = Color.Magenta
         txteliminar.Name = "txteliminar"
-        txteliminar.Size = New Size(16, 16)
-        txteliminar.SizeMode = PictureBoxSizeMode.AutoSize
-        txteliminar.TabIndex = 59
-        txteliminar.TabStop = False
+        txteliminar.Size = New Size(34, 28)
+        txteliminar.Text = "ToolStripButton4"
+        ' 
+        ' btnConsulta
+        ' 
+        btnConsulta.DisplayStyle = ToolStripItemDisplayStyle.Image
+        btnConsulta.Image = CType(resources.GetObject("btnConsulta.Image"), Image)
+        btnConsulta.ImageTransparentColor = Color.Magenta
+        btnConsulta.Name = "btnConsulta"
+        btnConsulta.Size = New Size(34, 28)
+        btnConsulta.Text = "ToolStripButton5"
+        ' 
+        ' bntlimpiar
+        ' 
+        bntlimpiar.DisplayStyle = ToolStripItemDisplayStyle.Image
+        bntlimpiar.Image = CType(resources.GetObject("bntlimpiar.Image"), Image)
+        bntlimpiar.ImageTransparentColor = Color.Magenta
+        bntlimpiar.Name = "bntlimpiar"
+        bntlimpiar.Size = New Size(34, 28)
+        bntlimpiar.Text = "ToolStripButton6"
         ' 
         ' bntcancelar
         ' 
+        bntcancelar.DisplayStyle = ToolStripItemDisplayStyle.Image
         bntcancelar.Image = CType(resources.GetObject("bntcancelar.Image"), Image)
-        bntcancelar.Location = New Point(165, 12)
+        bntcancelar.ImageTransparentColor = Color.Magenta
         bntcancelar.Name = "bntcancelar"
-        bntcancelar.Size = New Size(16, 16)
-        bntcancelar.SizeMode = PictureBoxSizeMode.AutoSize
-        bntcancelar.TabIndex = 60
-        bntcancelar.TabStop = False
+        bntcancelar.Size = New Size(34, 28)
+        bntcancelar.Text = "ToolStripButton7"
         ' 
         ' forregistro
         ' 
@@ -349,14 +358,9 @@ Partial Class forregistro
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(434, 766)
-        Controls.Add(bntcancelar)
-        Controls.Add(txteliminar)
-        Controls.Add(txtactuali)
-        Controls.Add(btnConsulta)
-        Controls.Add(bntenviar)
+        ClientSize = New Size(434, 747)
+        Controls.Add(ToolStrip1)
         Controls.Add(bntnewcontra)
-        Controls.Add(Ptbvolver)
         Controls.Add(Label8)
         Controls.Add(Label7)
         Controls.Add(Label4)
@@ -385,15 +389,11 @@ Partial Class forregistro
         Name = "forregistro"
         SizeGripStyle = SizeGripStyle.Hide
         StartPosition = FormStartPosition.CenterScreen
-        Text = "forregistro"
+        Text = " "
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).EndInit()
-        CType(Ptbvolver, ComponentModel.ISupportInitialize).EndInit()
         CType(bntnewcontra, ComponentModel.ISupportInitialize).EndInit()
-        CType(bntenviar, ComponentModel.ISupportInitialize).EndInit()
-        CType(btnConsulta, ComponentModel.ISupportInitialize).EndInit()
-        CType(txtactuali, ComponentModel.ISupportInitialize).EndInit()
-        CType(txteliminar, ComponentModel.ISupportInitialize).EndInit()
-        CType(bntcancelar, ComponentModel.ISupportInitialize).EndInit()
+        ToolStrip1.ResumeLayout(False)
+        ToolStrip1.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
 
@@ -417,12 +417,15 @@ Partial Class forregistro
     Friend WithEvents Label4 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents Ptbvolver As PictureBox
     Friend WithEvents bntnewcontra As PictureBox
-    Friend WithEvents bntenviar As PictureBox
-    Friend WithEvents btnConsulta As PictureBox
-    Friend WithEvents txtactuali As PictureBox
-    Friend WithEvents txteliminar As PictureBox
-    Friend WithEvents bntcancelar As PictureBox
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents Ptbvolver As ToolStripButton
+    Friend WithEvents bntenviar As ToolStripButton
+    Friend WithEvents txtactuali As ToolStripButton
+    Friend WithEvents txteliminar As ToolStripButton
+    Friend WithEvents ToolStripButton5 As ToolStripButton
+    Friend WithEvents bntlimpiar As ToolStripButton
+    Friend WithEvents bntcancelar As ToolStripButton
+    Friend WithEvents btnConsulta As ToolStripButton
 
 End Class
