@@ -38,14 +38,14 @@ Partial Class frmconsulta2
         cbbFiltro.Location = New Point(12, 39)
         cbbFiltro.Name = "cbbFiltro"
         cbbFiltro.Size = New Size(174, 33)
-        cbbFiltro.TabIndex = 0
+        cbbFiltro.TabIndex = 1
         ' 
         ' txtFiltro
         ' 
         txtFiltro.Location = New Point(192, 39)
         txtFiltro.Name = "txtFiltro"
         txtFiltro.Size = New Size(464, 31)
-        txtFiltro.TabIndex = 1
+        txtFiltro.TabIndex = 2
         ' 
         ' grd
         ' 
@@ -54,7 +54,7 @@ Partial Class frmconsulta2
         grd.Name = "grd"
         grd.RowHeadersWidth = 62
         grd.Size = New Size(659, 280)
-        grd.TabIndex = 2
+        grd.TabIndex = 3
         ' 
         ' Label1
         ' 

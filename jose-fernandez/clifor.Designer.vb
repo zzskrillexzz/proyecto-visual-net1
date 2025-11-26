@@ -219,7 +219,7 @@ Partial Class clifor
         ToolStrip1.Items.AddRange(New ToolStripItem() {bntvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
-        ToolStrip1.Size = New Size(434, 33)
+        ToolStrip1.Size = New Size(404, 33)
         ToolStrip1.TabIndex = 83
         ToolStrip1.Text = "ToolStrip1"
         ' 
@@ -230,7 +230,7 @@ Partial Class clifor
         bntvolver.ImageTransparentColor = Color.Magenta
         bntvolver.Name = "bntvolver"
         bntvolver.Size = New Size(34, 28)
-        bntvolver.Text = "ToolStripButton1"
+        bntvolver.Text = "Volver"
         ' 
         ' bntenviar
         ' 
@@ -240,7 +240,7 @@ Partial Class clifor
         bntenviar.ImageTransparentColor = Color.Magenta
         bntenviar.Name = "bntenviar"
         bntenviar.Size = New Size(34, 28)
-        bntenviar.Text = "ToolStripButton2"
+        bntenviar.Text = "Agregar"
         ' 
         ' txtactuali
         ' 
@@ -249,7 +249,7 @@ Partial Class clifor
         txtactuali.ImageTransparentColor = Color.Magenta
         txtactuali.Name = "txtactuali"
         txtactuali.Size = New Size(34, 28)
-        txtactuali.Text = "ToolStripButton3"
+        txtactuali.Text = "Editar"
         ' 
         ' txteliminar
         ' 
@@ -258,7 +258,7 @@ Partial Class clifor
         txteliminar.ImageTransparentColor = Color.Magenta
         txteliminar.Name = "txteliminar"
         txteliminar.Size = New Size(34, 28)
-        txteliminar.Text = "ToolStripButton4"
+        txteliminar.Text = "Eliminar"
         ' 
         ' btnConsulta
         ' 
@@ -267,7 +267,7 @@ Partial Class clifor
         btnConsulta.ImageTransparentColor = Color.Magenta
         btnConsulta.Name = "btnConsulta"
         btnConsulta.Size = New Size(34, 28)
-        btnConsulta.Text = "ToolStripButton5"
+        btnConsulta.Text = "Consultar"
         ' 
         ' bntlimpiar
         ' 
@@ -276,7 +276,7 @@ Partial Class clifor
         bntlimpiar.ImageTransparentColor = Color.Magenta
         bntlimpiar.Name = "bntlimpiar"
         bntlimpiar.Size = New Size(34, 28)
-        bntlimpiar.Text = "ToolStripButton6"
+        bntlimpiar.Text = "Limpiar"
         ' 
         ' clifor
         ' 
@@ -284,7 +284,7 @@ Partial Class clifor
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(434, 617)
+        ClientSize = New Size(404, 617)
         Controls.Add(ToolStrip1)
         Controls.Add(Label8)
         Controls.Add(Label7)

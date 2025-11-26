@@ -261,7 +261,8 @@ Partial Class factura
         bntreverse.ImageTransparentColor = Color.Magenta
         bntreverse.Name = "bntreverse"
         bntreverse.Size = New Size(34, 28)
-        bntreverse.Text = "ToolStripButton1"
+        bntreverse.Text = "Volver"
+        bntreverse.ToolTipText = "volver"
         ' 
         ' bntagregar
         ' 
@@ -270,7 +271,8 @@ Partial Class factura
         bntagregar.ImageTransparentColor = Color.Magenta
         bntagregar.Name = "bntagregar"
         bntagregar.Size = New Size(34, 28)
-        bntagregar.Text = "ToolStripButton1"
+        bntagregar.Text = "Agregar"
+        bntagregar.ToolTipText = "agregar"
         ' 
         ' bntmodificar
         ' 
@@ -279,7 +281,7 @@ Partial Class factura
         bntmodificar.ImageTransparentColor = Color.Magenta
         bntmodificar.Name = "bntmodificar"
         bntmodificar.Size = New Size(34, 28)
-        bntmodificar.Text = "ToolStripButton2"
+        bntmodificar.Text = "Editar"
         ' 
         ' bnteliminar
         ' 
@@ -288,7 +290,7 @@ Partial Class factura
         bnteliminar.ImageTransparentColor = Color.Magenta
         bnteliminar.Name = "bnteliminar"
         bnteliminar.Size = New Size(34, 28)
-        bnteliminar.Text = "ToolStripButton4"
+        bnteliminar.Text = "Eliminar"
         ' 
         ' bnt
         ' 
@@ -297,7 +299,7 @@ Partial Class factura
         bnt.ImageTransparentColor = Color.Magenta
         bnt.Name = "bnt"
         bnt.Size = New Size(34, 28)
-        bnt.Text = "ToolStripButton3"
+        bnt.Text = "Consultar"
         bnt.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' ToolStripButton5
@@ -307,7 +309,7 @@ Partial Class factura
         ToolStripButton5.ImageTransparentColor = Color.Magenta
         ToolStripButton5.Name = "ToolStripButton5"
         ToolStripButton5.Size = New Size(34, 28)
-        ToolStripButton5.Text = "ToolStripButton5"
+        ToolStripButton5.Text = "Limpiar"
         ' 
         ' factura
         ' 

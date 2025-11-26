@@ -5,8 +5,11 @@ Public Class articulos
 
     ' CARGA INICIAL
     Private Sub articulos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        bnteliminar.Enabled = False
         CargarCategorias()
+
     End Sub
+
 
     ' Cargar categorías ComboBox
     Private Sub CargarCategorias()
@@ -23,7 +26,21 @@ Public Class articulos
     End Sub
 
     ' BOTÓN AGREGAR
-    Private Sub bntagregar_Click(sender As Object, e As EventArgs) Handles bntagregar.Click
+    Private Sub bntagregar_Click_1(sender As Object, e As EventArgs) Handles bntagregar.Click
+        ' ---- VALIDAR CAMPOS VACÍOS ----
+        If Textnombrearti.Text.Trim() = "" Or
+       rtbdescripcion.Text.Trim() = "" Or
+       txtprecio.Text.Trim() = "" Or
+       Texstock.Text.Trim() = "" Or
+       txtiva.Text.Trim() = "" Or
+       txtdescuento.Text.Trim() = "" Or
+       Cmbcategoria.SelectedIndex = -1 Then
+
+            MsgBox("Todos los campos son obligatorios. Por favor, completa la información.")
+            Exit Sub
+        End If
+
+
         Try
             conexion.Open()
             Dim sql As String = "INSERT INTO articulos (nombre_articulo, descripcion, precio, stock, iva, descuento, id_categoria) VALUES ('" &
@@ -48,7 +65,7 @@ Public Class articulos
 
     ' BOTÓN BUSCAR
 
-    Private Sub bntbuscar_Click(sender As Object, e As EventArgs) Handles bntbuscar.Click
+    Private Sub bntbuscar_Click_1(sender As Object, e As EventArgs) Handles bntbuscar.Click
         Try
             Dim f As New FrmConsulta()
             f.TipoCarga = "ARTICULO"
@@ -83,6 +100,10 @@ Public Class articulos
                 txtiva.Text = dr("iva").ToString()
                 txtdescuento.Text = dr("descuento").ToString()
                 Cmbcategoria.SelectedValue = dr("id_categoria")
+
+                txtid.Enabled = False
+                bnteliminar.Enabled = True
+
             End If
 
             conexion.Close()
@@ -95,7 +116,7 @@ Public Class articulos
 
     ' BOTÓN ACTUALIZAR
 
-    Private Sub bntactualizar_Click(sender As Object, e As EventArgs) Handles bntactualizar.Click
+    Private Sub bntactualizar_Click_1(sender As Object, e As EventArgs) Handles bntactualizar.Click
         If txtid.Text.Trim() = "" Then
             MsgBox("Ingresa el ID del artículo a actualizar.")
             Exit Sub
@@ -125,7 +146,10 @@ Public Class articulos
     End Sub
 
     ' BOTÓN ELIMINAR
-    Private Sub bnteliminar_Click(sender As Object, e As EventArgs) Handles bnteliminar.Click
+    Private Sub bnteliminar_Click_1(sender As Object, e As EventArgs) Handles bnteliminar.Click
+
+
+
         If txtid.Text.Trim() = "" Then
             MsgBox("Ingresa el ID del artículo a eliminar.")
             Exit Sub
@@ -159,9 +183,10 @@ Public Class articulos
     End Sub
 
     ' BOTÓN LIMPIAR CAMPOS
-    Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
+    Private Sub bntlimpiar_Click_1(sender As Object, e As EventArgs) Handles bntlimpiar.Click
         Try
             txtid.Clear()
+            txtid.Enabled = True
             Textnombrearti.Clear()
             rtbdescripcion.Clear()
             txtprecio.Clear()
@@ -172,7 +197,7 @@ Public Class articulos
             If Cmbcategoria.Items.Count > 0 Then
                 Cmbcategoria.SelectedIndex = 0
             End If
-
+            bnteliminar.Enabled = False
             Textnombrearti.Focus()
         Catch ex As Exception
             MsgBox("Error al limpiar los campos: " & ex.Message)
@@ -180,10 +205,26 @@ Public Class articulos
     End Sub
 
     ' BOTÓN RETROCEDER
-    Private Sub Ptbretroceder_Click(sender As Object, e As EventArgs) Handles Ptbretroceder.Click
+    Private Sub Ptbretroceder_Click_1(sender As Object, e As EventArgs) Handles Ptbretroceder.Click
         Dim ps As New usu_clien()
         ps.Show()
         Me.Close()
+    End Sub
+
+    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub Ptbretrocederd_Click(sender As Object, e As EventArgs)
+
+    End Sub
+
+    Private Sub txtid_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtid.Validating
+        If txtid.Text.Trim() <> "" AndAlso Not IsNumeric(txtid.Text) Then
+            MsgBox("ID no válido. Solo se permiten números.")
+            txtid.Clear()
+            e.Cancel = True
+        End If
     End Sub
 
 End Class

@@ -104,7 +104,7 @@ Partial Class forregistro
         UsernameTextBox.Location = New Point(151, 124)
         UsernameTextBox.Name = "UsernameTextBox"
         UsernameTextBox.Size = New Size(243, 32)
-        UsernameTextBox.TabIndex = 1
+        UsernameTextBox.TabIndex = 2
         ' 
         ' contra
         ' 
@@ -112,14 +112,14 @@ Partial Class forregistro
         contra.Name = "contra"
         contra.PasswordChar = "*"c
         contra.Size = New Size(242, 32)
-        contra.TabIndex = 3
+        contra.TabIndex = 4
         ' 
         ' apelli
         ' 
         apelli.Location = New Point(151, 178)
         apelli.Name = "apelli"
         apelli.Size = New Size(242, 32)
-        apelli.TabIndex = 7
+        apelli.TabIndex = 3
         ' 
         ' Label1
         ' 
@@ -137,7 +137,7 @@ Partial Class forregistro
         correo.Location = New Point(151, 295)
         correo.Name = "correo"
         correo.Size = New Size(242, 32)
-        correo.TabIndex = 9
+        correo.TabIndex = 5
         ' 
         ' Label2
         ' 
@@ -166,7 +166,7 @@ Partial Class forregistro
         Textbuscador.Location = New Point(181, 70)
         Textbuscador.Name = "Textbuscador"
         Textbuscador.Size = New Size(212, 32)
-        Textbuscador.TabIndex = 16
+        Textbuscador.TabIndex = 1
         ' 
         ' Comborol
         ' 
@@ -175,7 +175,7 @@ Partial Class forregistro
         Comborol.Location = New Point(151, 349)
         Comborol.Name = "Comborol"
         Comborol.Size = New Size(242, 33)
-        Comborol.TabIndex = 18
+        Comborol.TabIndex = 6
         ' 
         ' Label5
         ' 
@@ -193,7 +193,7 @@ Partial Class forregistro
         txtobservaciones.Location = New Point(12, 604)
         txtobservaciones.Name = "txtobservaciones"
         txtobservaciones.Size = New Size(386, 129)
-        txtobservaciones.TabIndex = 20
+        txtobservaciones.TabIndex = 10
         txtobservaciones.Text = ""
         ' 
         ' Label6
@@ -214,7 +214,7 @@ Partial Class forregistro
         cmbDepartamentos.Location = New Point(151, 465)
         cmbDepartamentos.Name = "cmbDepartamentos"
         cmbDepartamentos.Size = New Size(243, 33)
-        cmbDepartamentos.TabIndex = 22
+        cmbDepartamentos.TabIndex = 8
         ' 
         ' cmbMunicipios
         ' 
@@ -223,7 +223,7 @@ Partial Class forregistro
         cmbMunicipios.Location = New Point(151, 520)
         cmbMunicipios.Name = "cmbMunicipios"
         cmbMunicipios.Size = New Size(243, 33)
-        cmbMunicipios.TabIndex = 23
+        cmbMunicipios.TabIndex = 9
         ' 
         ' Comboestado
         ' 
@@ -232,7 +232,7 @@ Partial Class forregistro
         Comboestado.Location = New Point(151, 406)
         Comboestado.Name = "Comboestado"
         Comboestado.Size = New Size(242, 33)
-        Comboestado.TabIndex = 24
+        Comboestado.TabIndex = 7
         ' 
         ' Label4
         ' 
@@ -271,7 +271,7 @@ Partial Class forregistro
         ' 
         bntnewcontra.BackColor = Color.Transparent
         bntnewcontra.Image = CType(resources.GetObject("bntnewcontra.Image"), Image)
-        bntnewcontra.Location = New Point(408, 238)
+        bntnewcontra.Location = New Point(405, 243)
         bntnewcontra.Name = "bntnewcontra"
         bntnewcontra.Size = New Size(16, 16)
         bntnewcontra.SizeMode = PictureBoxSizeMode.AutoSize
@@ -280,13 +280,14 @@ Partial Class forregistro
         ' 
         ' ToolStrip1
         ' 
-        ToolStrip1.BackColor = Color.Transparent
+        ToolStrip1.BackColor = SystemColors.Window
         ToolStrip1.ImageScalingSize = New Size(24, 24)
         ToolStrip1.Items.AddRange(New ToolStripItem() {Ptbvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, bntcancelar})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
         ToolStrip1.Size = New Size(434, 33)
-        ToolStrip1.TabIndex = 84
+        ToolStrip1.TabIndex = 11
+        ToolStrip1.TabStop = True
         ToolStrip1.Text = "ToolStrip1"
         ' 
         ' Ptbvolver
@@ -297,6 +298,7 @@ Partial Class forregistro
         Ptbvolver.Name = "Ptbvolver"
         Ptbvolver.Size = New Size(34, 28)
         Ptbvolver.Text = "ToolStripButton1"
+        Ptbvolver.ToolTipText = "Volver"
         ' 
         ' bntenviar
         ' 
@@ -306,6 +308,7 @@ Partial Class forregistro
         bntenviar.Name = "bntenviar"
         bntenviar.Size = New Size(34, 28)
         bntenviar.Text = "ToolStripButton2"
+        bntenviar.ToolTipText = "Agregar"
         ' 
         ' txtactuali
         ' 
@@ -315,6 +318,7 @@ Partial Class forregistro
         txtactuali.Name = "txtactuali"
         txtactuali.Size = New Size(34, 28)
         txtactuali.Text = "ToolStripButton3"
+        txtactuali.ToolTipText = "Editar"
         ' 
         ' txteliminar
         ' 
@@ -324,6 +328,7 @@ Partial Class forregistro
         txteliminar.Name = "txteliminar"
         txteliminar.Size = New Size(34, 28)
         txteliminar.Text = "ToolStripButton4"
+        txteliminar.ToolTipText = "Eliminar"
         ' 
         ' btnConsulta
         ' 
@@ -333,6 +338,7 @@ Partial Class forregistro
         btnConsulta.Name = "btnConsulta"
         btnConsulta.Size = New Size(34, 28)
         btnConsulta.Text = "ToolStripButton5"
+        btnConsulta.ToolTipText = "Consultar"
         ' 
         ' bntlimpiar
         ' 
@@ -342,6 +348,7 @@ Partial Class forregistro
         bntlimpiar.Name = "bntlimpiar"
         bntlimpiar.Size = New Size(34, 28)
         bntlimpiar.Text = "ToolStripButton6"
+        bntlimpiar.ToolTipText = "Limpiar"
         ' 
         ' bntcancelar
         ' 
@@ -351,6 +358,7 @@ Partial Class forregistro
         bntcancelar.Name = "bntcancelar"
         bntcancelar.Size = New Size(34, 28)
         bntcancelar.Text = "ToolStripButton7"
+        bntcancelar.ToolTipText = "Cancelar"
         ' 
         ' forregistro
         ' 

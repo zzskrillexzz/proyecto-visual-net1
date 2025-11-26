@@ -27,26 +27,25 @@ Partial Class addcategoria
         txtnombre = New TextBox()
         Label1 = New Label()
         Label2 = New Label()
-        bntadd = New PictureBox()
-        bntconsultar = New PictureBox()
-        bntactualizar = New PictureBox()
-        bnteliminar = New PictureBox()
-        CType(bntadd, ComponentModel.ISupportInitialize).BeginInit()
-        CType(bntconsultar, ComponentModel.ISupportInitialize).BeginInit()
-        CType(bntactualizar, ComponentModel.ISupportInitialize).BeginInit()
-        CType(bnteliminar, ComponentModel.ISupportInitialize).BeginInit()
+        ToolStrip1 = New ToolStrip()
+        bntadd = New ToolStripButton()
+        bntconsultar = New ToolStripButton()
+        bntactualizar = New ToolStripButton()
+        bnteliminar = New ToolStripButton()
+        bntlimpiar = New ToolStripButton()
+        ToolStrip1.SuspendLayout()
         SuspendLayout()
         ' 
         ' txtid
         ' 
-        txtid.Location = New Point(29, 85)
+        txtid.Location = New Point(21, 82)
         txtid.Name = "txtid"
         txtid.Size = New Size(150, 31)
         txtid.TabIndex = 0
         ' 
         ' txtnombre
         ' 
-        txtnombre.Location = New Point(29, 162)
+        txtnombre.Location = New Point(21, 154)
         txtnombre.Name = "txtnombre"
         txtnombre.Size = New Size(150, 31)
         txtnombre.TabIndex = 1
@@ -54,8 +53,8 @@ Partial Class addcategoria
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI Black", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(29, 49)
+        Label1.Font = New Font("Segoe UI Black", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(23, 51)
         Label1.Name = "Label1"
         Label1.Size = New Size(148, 28)
         Label1.TabIndex = 2
@@ -64,63 +63,76 @@ Partial Class addcategoria
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI Black", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(29, 126)
+        Label2.Font = New Font("Segoe UI Black", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.Location = New Point(21, 123)
         Label2.Name = "Label2"
         Label2.Size = New Size(90, 28)
         Label2.TabIndex = 3
         Label2.Text = "nombre"
         ' 
+        ' ToolStrip1
+        ' 
+        ToolStrip1.ImageScalingSize = New Size(24, 24)
+        ToolStrip1.Items.AddRange(New ToolStripItem() {bntadd, bntconsultar, bntactualizar, bnteliminar, bntlimpiar})
+        ToolStrip1.Location = New Point(0, 0)
+        ToolStrip1.Name = "ToolStrip1"
+        ToolStrip1.Size = New Size(220, 33)
+        ToolStrip1.TabIndex = 2
+        ToolStrip1.Text = "ToolStrip1"
+        ' 
         ' bntadd
         ' 
+        bntadd.DisplayStyle = ToolStripItemDisplayStyle.Image
         bntadd.Image = CType(resources.GetObject("bntadd.Image"), Image)
-        bntadd.Location = New Point(29, 10)
+        bntadd.ImageTransparentColor = Color.Magenta
         bntadd.Name = "bntadd"
-        bntadd.Size = New Size(16, 16)
-        bntadd.SizeMode = PictureBoxSizeMode.AutoSize
-        bntadd.TabIndex = 4
-        bntadd.TabStop = False
+        bntadd.Size = New Size(34, 28)
+        bntadd.Text = "Agregar"
         ' 
         ' bntconsultar
         ' 
+        bntconsultar.DisplayStyle = ToolStripItemDisplayStyle.Image
         bntconsultar.Image = CType(resources.GetObject("bntconsultar.Image"), Image)
-        bntconsultar.Location = New Point(58, 10)
+        bntconsultar.ImageTransparentColor = Color.Magenta
         bntconsultar.Name = "bntconsultar"
-        bntconsultar.Size = New Size(16, 16)
-        bntconsultar.SizeMode = PictureBoxSizeMode.AutoSize
-        bntconsultar.TabIndex = 5
-        bntconsultar.TabStop = False
+        bntconsultar.Size = New Size(34, 28)
+        bntconsultar.Text = "Consultar"
         ' 
         ' bntactualizar
         ' 
+        bntactualizar.DisplayStyle = ToolStripItemDisplayStyle.Image
         bntactualizar.Image = CType(resources.GetObject("bntactualizar.Image"), Image)
-        bntactualizar.Location = New Point(86, 10)
+        bntactualizar.ImageTransparentColor = Color.Magenta
         bntactualizar.Name = "bntactualizar"
-        bntactualizar.Size = New Size(16, 16)
-        bntactualizar.SizeMode = PictureBoxSizeMode.AutoSize
-        bntactualizar.TabIndex = 6
-        bntactualizar.TabStop = False
+        bntactualizar.Size = New Size(34, 28)
+        bntactualizar.Text = "Editar"
         ' 
         ' bnteliminar
         ' 
+        bnteliminar.DisplayStyle = ToolStripItemDisplayStyle.Image
         bnteliminar.Image = CType(resources.GetObject("bnteliminar.Image"), Image)
-        bnteliminar.Location = New Point(112, 10)
+        bnteliminar.ImageTransparentColor = Color.Magenta
         bnteliminar.Name = "bnteliminar"
-        bnteliminar.Size = New Size(16, 16)
-        bnteliminar.SizeMode = PictureBoxSizeMode.AutoSize
-        bnteliminar.TabIndex = 7
-        bnteliminar.TabStop = False
+        bnteliminar.Size = New Size(34, 28)
+        bnteliminar.Text = "Eliminar"
+        ' 
+        ' bntlimpiar
+        ' 
+        bntlimpiar.DisplayStyle = ToolStripItemDisplayStyle.Image
+        bntlimpiar.Image = CType(resources.GetObject("bntlimpiar.Image"), Image)
+        bntlimpiar.ImageTransparentColor = Color.Magenta
+        bntlimpiar.Name = "bntlimpiar"
+        bntlimpiar.Size = New Size(34, 28)
+        bntlimpiar.Text = "ToolStripButton1"
+        bntlimpiar.ToolTipText = "Limpiar"
         ' 
         ' addcategoria
         ' 
-        AutoScaleDimensions = New SizeF(10F, 25F)
+        AutoScaleDimensions = New SizeF(10.0F, 25.0F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Silver
-        ClientSize = New Size(209, 245)
-        Controls.Add(bnteliminar)
-        Controls.Add(bntactualizar)
-        Controls.Add(bntconsultar)
-        Controls.Add(bntadd)
+        ClientSize = New Size(220, 201)
+        Controls.Add(ToolStrip1)
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(txtnombre)
@@ -128,10 +140,8 @@ Partial Class addcategoria
         Name = "addcategoria"
         StartPosition = FormStartPosition.CenterScreen
         Text = "addcategoria"
-        CType(bntadd, ComponentModel.ISupportInitialize).EndInit()
-        CType(bntconsultar, ComponentModel.ISupportInitialize).EndInit()
-        CType(bntactualizar, ComponentModel.ISupportInitialize).EndInit()
-        CType(bnteliminar, ComponentModel.ISupportInitialize).EndInit()
+        ToolStrip1.ResumeLayout(False)
+        ToolStrip1.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -140,8 +150,10 @@ Partial Class addcategoria
     Friend WithEvents txtnombre As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents bntadd As PictureBox
-    Friend WithEvents bntconsultar As PictureBox
-    Friend WithEvents bntactualizar As PictureBox
-    Friend WithEvents bnteliminar As PictureBox
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents bntadd As ToolStripButton
+    Friend WithEvents bntconsultar As ToolStripButton
+    Friend WithEvents bntactualizar As ToolStripButton
+    Friend WithEvents bnteliminar As ToolStripButton
+    Friend WithEvents bntlimpiar As ToolStripButton
 End Class

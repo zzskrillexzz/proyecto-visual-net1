@@ -5,7 +5,7 @@ Public Class addcategoria
     Dim conexion As New MySqlConnection("server=localhost;user=root;password=;database=db_login")
 
     ' AGREGAR CATEGORÍA
-    Private Sub PictureBox1_Click(sender As Object, e As EventArgs) Handles bntadd.Click
+    Private Sub bntadd_Click(sender As Object, e As EventArgs) Handles bntadd.Click
         Try
             If txtnombre.Text = "" Then
                 MessageBox.Show("Por favor ingresa el nombre de la categoría.")
@@ -28,7 +28,7 @@ Public Class addcategoria
     End Sub
 
     ' CONSULTAR CATEGORÍAS (ABRIR FrmConsulta)
-    Private Sub PictureBox2_Click(sender As Object, e As EventArgs) Handles bntconsultar.Click
+    Private Sub bntconsultar_Click(sender As Object, e As EventArgs) Handles bntconsultar.Click
         Try
             Dim f As New FrmConsulta()
             f.TipoCarga = "CATEGORIA"
@@ -56,6 +56,7 @@ Public Class addcategoria
             If dr.Read() Then
                 txtid.Text = id.ToString()
                 txtnombre.Text = dr("nombre_categoria").ToString()
+                txtid.Enabled = False
             End If
 
         Catch ex As Exception
@@ -66,7 +67,7 @@ Public Class addcategoria
     End Sub
 
     ' ACTUALIZAR CATEGORÍA
-    Private Sub PictureBox3_Click(sender As Object, e As EventArgs) Handles bntactualizar.Click
+    Private Sub bntactualizar_Click(sender As Object, e As EventArgs) Handles bntactualizar.Click
         Try
             If txtid.Text = "" Then
                 MessageBox.Show("Por favor ingresa el ID de la categoría a actualizar.")
@@ -95,7 +96,7 @@ Public Class addcategoria
     End Sub
 
     ' ELIMINAR CATEGORÍA
-    Private Sub PictureBox4_Click(sender As Object, e As EventArgs) Handles bnteliminar.Click
+    Private Sub bnteliminar_Click(sender As Object, e As EventArgs) Handles bnteliminar.Click
         Try
             If txtid.Text = "" Then
                 MessageBox.Show("Por favor ingresa el ID de la categoría a eliminar.")
@@ -126,6 +127,10 @@ Public Class addcategoria
     Private Sub LimpiarCampos()
         txtid.Clear()
         txtnombre.Clear()
+        txtid.Enabled = True
     End Sub
 
+    Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
+        LimpiarCampos()
+    End Sub
 End Class
