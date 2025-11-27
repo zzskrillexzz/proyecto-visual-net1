@@ -10,6 +10,7 @@ Module Mprincipal_p
     Public UsuarioActual As String = ""
     Public idUsuarioACambiar As Integer
 
+
     ' Conexión global
     Public conexion As OdbcConnection
 
@@ -26,29 +27,24 @@ Module Mprincipal_p
         End If
     End Sub
 
+    Public Function CorreoValido(caja As TextBox) As Boolean
+        Dim regex As New System.Text.RegularExpressions.Regex("^[\w\-\.]+@([\w\-]+\.)+[\w\-]{2,4}$")
 
-    'VALIDAR CORREO AL SALIR
-    Public Sub ValidarCorreo(caja As TextBox)
-        If Not caja.Text.Contains("@") Then
-            caja.BackColor = Color.LightCoral
-            MessageBox.Show("El correo debe contener '@'.",
-                            "Correo no válido",
-                            MessageBoxButtons.OK,
-                            MessageBoxIcon.Warning)
-        Else
-            caja.BackColor = Color.White
+        If Not regex.IsMatch(caja.Text.Trim()) Then
+            MessageBox.Show("Correo inválido. Debe contener un formato válido como ejemplo@correo.com",
+                        "Correo incorrecto",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning)
+            caja.Focus()
+            Return False
         End If
-    End Sub
+
+        Return True
+    End Function
 
 
-    'COLOR DE CORREO MIENTRAS ESCRIBE
-    Public Sub ColorCorreo(caja As TextBox)
-        If caja.Text.Length > 0 AndAlso Not caja.Text.Contains("@") Then
-            caja.BackColor = Color.LightCoral
-        Else
-            caja.BackColor = Color.White
-        End If
-    End Sub
+
+
 
     ' VALIDACIÓN DE CONTRASEÑA
 
@@ -90,7 +86,7 @@ Module Mprincipal_p
     End Sub
 
 
-    ' Función recursiva que limpia paneles, groupbox, etc.
+    ' Función  que limpia paneles, groupbox, etc.
     Private Sub LimpiarControl(ctrl As Control)
 
         If TypeOf ctrl Is TextBox Then
@@ -109,5 +105,28 @@ Module Mprincipal_p
         End If
 
     End Sub
+    'Función para Enter: busca o avanza
+    Public Sub EnterAvanzaOBusca(ctrlActual As Control,
+                             e As KeyPressEventArgs,
+                             ctrlSiguiente As Object,
+                             Optional accionBusqueda As Action = Nothing)
+
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
+
+            ' Ejecutar acción de búsqueda si la hay
+            accionBusqueda?.Invoke()
+
+            ' Avanzar o hacer click según tipo
+            If TypeOf ctrlSiguiente Is Control Then
+                CType(ctrlSiguiente, Control).Focus()
+            ElseIf TypeOf ctrlSiguiente Is ToolStripButton Then
+                CType(ctrlSiguiente, ToolStripButton).PerformClick()
+            End If
+        End If
+    End Sub
+
+
+
 
 End Module

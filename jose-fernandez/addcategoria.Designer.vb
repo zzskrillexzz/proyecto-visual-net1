@@ -53,7 +53,7 @@ Partial Class addcategoria
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Segoe UI Black", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Font = New Font("Segoe UI Black", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.Location = New Point(23, 51)
         Label1.Name = "Label1"
         Label1.Size = New Size(148, 28)
@@ -63,7 +63,7 @@ Partial Class addcategoria
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI Black", 10.0F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label2.Font = New Font("Segoe UI Black", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label2.Location = New Point(21, 123)
         Label2.Name = "Label2"
         Label2.Size = New Size(90, 28)
@@ -128,7 +128,7 @@ Partial Class addcategoria
         ' 
         ' addcategoria
         ' 
-        AutoScaleDimensions = New SizeF(10.0F, 25.0F)
+        AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Silver
         ClientSize = New Size(220, 201)

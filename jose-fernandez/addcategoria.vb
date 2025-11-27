@@ -133,4 +133,8 @@ Public Class addcategoria
     Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
         LimpiarCampos()
     End Sub
+
+    Private Sub addcategoria_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        txtid.ReadOnly = True
+    End Sub
 End Class

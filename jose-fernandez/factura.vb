@@ -93,6 +93,7 @@ Public Class factura
             If col = 0 Then
                 Dim cod As String = grilla_inv.Rows(row).Cells(0).Value
 
+
                 If cod <> "" Then
                     SQL = "SELECT id_articulo, nombre_articulo, precio, iva, descuento 
                        FROM articulos 
@@ -133,6 +134,17 @@ Public Class factura
                     frmconsulta2.ShowDialog()
 
                     If sw_Regreso = 1 Then
+                        ' --- Verificar duplicado antes de asignar ---
+                        Dim codSeleccionado As String = vec(0)
+                        For i As Integer = 0 To grilla_inv.RowCount - 1
+                            If i = row Then Continue For
+                            If grilla_inv.Rows(i).Cells(0).Value IsNot Nothing AndAlso grilla_inv.Rows(i).Cells(0).Value.ToString() = codSeleccionado Then
+                                MsgBox("¡Este producto ya está agregado en la grilla!", MsgBoxStyle.Exclamation)
+                                Exit Sub
+                            End If
+                        Next
+
+                        ' --- Asignar valores si no hay duplicado ---
                         grilla_inv.Item(0, row).Value = vec(0)
                         grilla_inv.Item(1, row).Value = vec(1)
                         grilla_inv.Item(3, row).Value = vec(2)
@@ -143,6 +155,7 @@ Public Class factura
                     Else
                         SendKeys.Send("{TAB}")
                     End If
+
 
                 Catch ex As Exception
                     MsgBox("Error al abrir artículos: " & ex.Message)
@@ -171,6 +184,30 @@ Public Class factura
 
     End Sub
 
+    ' --- EVITAR DUPLICADOS EN LA GRILLA ---
+    Private Sub grilla_inv_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles grilla_inv.CellValidating
+        ' Verificar solo la columna de Código (0)
+        If e.ColumnIndex = 0 Then
+            Dim nuevoCodigo As String = e.FormattedValue.ToString().Trim()
+
+            If String.IsNullOrEmpty(nuevoCodigo) Then
+                Return ' No validar si está vacío
+            End If
+
+            ' Revisar todas las filas excepto la actual
+            For i As Integer = 0 To grilla_inv.RowCount - 1
+                If i = e.RowIndex Then Continue For
+                If grilla_inv.Rows(i).Cells(0).Value IsNot Nothing AndAlso
+               grilla_inv.Rows(i).Cells(0).Value.ToString() = nuevoCodigo Then
+                    MessageBox.Show("¡Este producto ya está agregado en la grilla!", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+                    e.Cancel = True ' Cancela la edición y no deja duplicar
+                    Exit Sub
+                End If
+            Next
+        End If
+    End Sub
+
+
 
 
 
@@ -187,21 +224,33 @@ Public Class factura
                 txtcorreo.Text = rst("correo").ToString()
                 rst.Close()
             Else
-                If MsgBox("Cliente no registrado. ¿Desea agregarlo?", MsgBoxStyle.YesNo + MsgBoxStyle.Question) = vbYes Then
+                rst?.Close()
+                ' Cliente no registrado
+                Dim result As MsgBoxResult = MsgBox("Cliente no registrado. ¿Desea agregarlo?", vbYesNo + vbQuestion)
+                If result = vbYes Then
                     Dim frm As New clifor()
                     frm.Textbuscador.Text = txtIdCliented.Text
                     frm.FocusFactura = 1
                     frm.FormFactura = Me
                     frm.ShowDialog()
+                Else
+                    ' Limpiar automáticamente el campo de ID
+                    txtIdCliented.Clear()
+                    txtNombreCliente.Clear()
+                    txtcorreo.Clear()
+                    txtIdCliented.Focus()
                 End If
             End If
         End If
     End Sub
 
+    Private Sub txtIdCliented_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtIdCliented.KeyPress
+        If Not Char.IsDigit(e.KeyChar) AndAlso e.KeyChar <> ChrW(Keys.Back) Then
+            e.Handled = True
+        End If
+    End Sub
 
     Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs) Handles bntreverse.Click
-        Dim frmSeleccion As New usu_clien()
-        frmSeleccion.Show()
         Me.Close()
     End Sub
 

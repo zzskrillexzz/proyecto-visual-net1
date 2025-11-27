@@ -206,8 +206,6 @@ Public Class articulos
 
     ' BOTÓN RETROCEDER
     Private Sub Ptbretroceder_Click_1(sender As Object, e As EventArgs) Handles Ptbretroceder.Click
-        Dim ps As New usu_clien()
-        ps.Show()
         Me.Close()
     End Sub
 

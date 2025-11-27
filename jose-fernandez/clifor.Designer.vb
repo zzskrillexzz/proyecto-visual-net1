@@ -220,7 +220,8 @@ Partial Class clifor
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
         ToolStrip1.Size = New Size(404, 33)
-        ToolStrip1.TabIndex = 83
+        ToolStrip1.TabIndex = 8
+        ToolStrip1.TabStop = True
         ToolStrip1.Text = "ToolStrip1"
         ' 
         ' bntvolver

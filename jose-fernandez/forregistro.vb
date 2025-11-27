@@ -108,10 +108,11 @@ Public Class forregistro
 
     ' --- BUSCAR USUARIO ---
     Private Sub BuscarUsuario()
-        Dim idUsuario As String = Textbuscador.Text.Trim()
-        If idUsuario = "" Then
-            MessageBox.Show("Por favor ingresa un ID de usuario.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        Dim idUsuario As Integer
+        If Not Integer.TryParse(Textbuscador.Text.Trim, idUsuario) Then
+            MessageBox.Show("El ID debe ser un número válido.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             LimpiarCampos(False)
+            Textbuscador.Focus()
             Exit Sub
         End If
 
@@ -121,59 +122,102 @@ Public Class forregistro
             Dim reader As OdbcDataReader = cmd.ExecuteReader()
 
             If reader.Read() Then
+                ' Cargar datos
                 UsernameTextBox.Text = reader("nombre")
                 apelli.Text = reader("apellido")
                 correo.Text = reader("correo")
+                contra.Text = "******"
                 txtobservaciones.Text = reader("observacion")
                 Comboestado.SelectedValue = CInt(reader("id_estado"))
-
-                ' Asignar el rol textual
-                If Not IsDBNull(reader("rol")) Then
-                    Comborol.Text = reader("rol").ToString()
-                End If
-
+                Comborol.Text = reader("rol").ToString()
                 cmbDepartamentos.SelectedValue = reader("id_departamento")
+
+                ' Cargar municipios
                 Dim idDepartamento As Integer = CInt(cmbDepartamentos.SelectedValue)
                 Dim sqlMunicipios As String = "SELECT id_municipio, nombre_municipio FROM municipios WHERE id_departamento = " & idDepartamento
                 c_Varias.llena_combo(cmbMunicipios, sqlMunicipios, "id_municipio", "nombre_municipio")
                 cmbMunicipios.SelectedValue = reader("id_municipio")
 
-                HabilitarCampos(True)
-            Else
-                MessageBox.Show("ID libre. Ingrese los datos para registrar un nuevo usuario con ID: " & idUsuario, "Nuevo Registro", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                LimpiarCampos(False)
-                HabilitarCampos(True)
-            End If
-            reader.Close()
+                ' ID bloqueado, resto desbloqueado para editar
+                Textbuscador.ReadOnly = True
+                Textbuscador.BackColor = SystemColors.ControlLight
 
+                UsernameTextBox.ReadOnly = False
+                apelli.ReadOnly = False
+                correo.ReadOnly = False
+                contra.ReadOnly = True ' La contraseña solo cambia con botón
+                Comborol.Enabled = True
+                cmbDepartamentos.Enabled = True
+                cmbMunicipios.Enabled = True
+                Comboestado.Enabled = True
+                txtobservaciones.ReadOnly = False
+
+                ' Botones
+                bntenviar.Enabled = False
+                txtactuali.Enabled = True
+                txteliminar.Enabled = True
+
+            Else
+                ' ID no existe → nuevo registro
+                MessageBox.Show("ID libre. Ingrese los datos para registrar un nuevo usuario con ID: " & idUsuario, "Nuevo Registro", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+                ' Limpiar campos excepto ID
+                UsernameTextBox.Clear()
+                apelli.Clear()
+                correo.Clear()
+                contra.Clear()
+                Comborol.SelectedIndex = -1
+                Comboestado.SelectedIndex = -1
+                cmbDepartamentos.SelectedIndex = -1
+                cmbMunicipios.SelectedIndex = -1
+                txtobservaciones.Clear()
+
+                ' Desbloquear todos los campos para registrar nuevo usuario
+                UsernameTextBox.ReadOnly = False
+                apelli.ReadOnly = False
+                correo.ReadOnly = False
+                contra.ReadOnly = False
+                Comborol.Enabled = True
+                cmbDepartamentos.Enabled = True
+                cmbMunicipios.Enabled = True
+                Comboestado.Enabled = True
+                txtobservaciones.ReadOnly = False
+
+                ' Botones
+                bntenviar.Enabled = True
+                txtactuali.Enabled = False
+                txteliminar.Enabled = False
+
+                UsernameTextBox.Focus()
+            End If
+
+
+            reader.Close()
         Catch ex As Exception
             MessageBox.Show("Error al buscar usuario: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            HabilitarCampos(True)
         End Try
     End Sub
 
+
     ' --- HABILITAR / DESHABILITAR CAMPOS ---
     Private Sub HabilitarCampos(ByVal habilitar As Boolean)
-        Textbuscador.ReadOnly = Not habilitar
         UsernameTextBox.ReadOnly = Not habilitar
         apelli.ReadOnly = Not habilitar
         correo.ReadOnly = Not habilitar
-        contra.ReadOnly = True
+        contra.ReadOnly = True ' Solo cambia con botón
         Comborol.Enabled = habilitar
         cmbDepartamentos.Enabled = habilitar
         cmbMunicipios.Enabled = habilitar
         Comboestado.Enabled = habilitar
         txtobservaciones.ReadOnly = Not habilitar
 
+        ' Botones según si hay datos cargados
         Dim modoEdicion As Boolean = Not String.IsNullOrWhiteSpace(UsernameTextBox.Text)
         bntenviar.Enabled = Not modoEdicion
         txtactuali.Enabled = modoEdicion
         txteliminar.Enabled = modoEdicion
-
-        If Not modoEdicion Then
-            contra.ReadOnly = Not habilitar
-        End If
     End Sub
+
 
     ' --- LIMPIAR CAMPOS ---
     Private Sub LimpiarCampos(Optional ByVal limpiarBuscador As Boolean = True)
@@ -181,17 +225,36 @@ Public Class forregistro
         apelli.Clear()
         correo.Clear()
         contra.Clear()
-
-        If limpiarBuscador Then Textbuscador.Clear()
-
         Comborol.SelectedIndex = -1
         Comboestado.SelectedIndex = -1
         cmbDepartamentos.SelectedIndex = -1
         cmbMunicipios.SelectedIndex = -1
         txtobservaciones.Clear()
 
-        HabilitarCampos(True)
+        If limpiarBuscador Then
+            Textbuscador.Clear()
+            Textbuscador.ReadOnly = False
+            Textbuscador.BackColor = Color.White
+        End If
+
+        ' Bloquear todos los campos menos ID
+        UsernameTextBox.ReadOnly = True
+        apelli.ReadOnly = True
+        correo.ReadOnly = True
+        contra.ReadOnly = True
+        Comborol.Enabled = False
+        cmbDepartamentos.Enabled = False
+        cmbMunicipios.Enabled = False
+        Comboestado.Enabled = False
+        txtobservaciones.ReadOnly = True
+
+        ' Botones deshabilitados
+        bntenviar.Enabled = False
+        txtactuali.Enabled = False
+        txteliminar.Enabled = False
     End Sub
+
+
 
     ' --- EVENTO ENTER PARA BUSCAR ---
     Private Sub Textbuscador_KeyDown(sender As Object, e As KeyEventArgs) Handles Textbuscador.KeyDown
@@ -230,12 +293,13 @@ Public Class forregistro
         conexion = basexd.conexion
         Textbuscador.AcceptsReturn = True
         Me.AcceptButton = Nothing
+        contra.UseSystemPasswordChar = True
 
-        ' Rellenar roles directamente
+        ' Rellenar roles
         Comborol.Items.Clear()
         Comborol.Items.AddRange(New String() {"admin", "usuario", "invitado"})
 
-        ' Estados desde la BD
+        ' Estados desde BD
         Dim sqlEstado As String = "SELECT id_estado, estado FROM tb_estado ORDER BY id_estado"
         c_Varias.llena_combo(Comboestado, sqlEstado, "id_estado", "estado")
 
@@ -243,8 +307,26 @@ Public Class forregistro
         Dim sqlDepartamentos As String = "SELECT id_departamento, nombre_departamento FROM departamentos ORDER BY nombre_departamento"
         c_Varias.llena_combo(cmbDepartamentos, sqlDepartamentos, "id_departamento", "nombre_departamento")
 
-        LimpiarCampos(True)
+        ' Solo ID desbloqueado al inicio, resto bloqueado
+        LimpiarCampos(False)
+        Textbuscador.ReadOnly = False
+        Textbuscador.BackColor = Color.White
+
+        ' Asignar función EnterAvanzaOBusca a cada control
+        AddHandler Textbuscador.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Textbuscador, ev, UsernameTextBox)
+        AddHandler UsernameTextBox.KeyPress, Sub(s, ev) EnterAvanzaOBusca(UsernameTextBox, ev, apelli)
+        AddHandler apelli.KeyPress, Sub(s, ev) EnterAvanzaOBusca(apelli, ev, contra)
+        AddHandler contra.KeyPress, Sub(s, ev) EnterAvanzaOBusca(contra, ev, correo)
+        AddHandler correo.KeyPress, Sub(s, ev) EnterAvanzaOBusca(correo, ev, Comborol)
+        AddHandler Comborol.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Comborol, ev, Comboestado)
+        AddHandler Comboestado.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Comboestado, ev, cmbDepartamentos)
+        AddHandler cmbDepartamentos.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbDepartamentos, ev, cmbMunicipios)
+        AddHandler cmbMunicipios.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbMunicipios, ev, txtobservaciones)
+        AddHandler txtobservaciones.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtobservaciones, ev, bntenviar)
+
     End Sub
+
+
 
     Private Sub cmbDepartamentos_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cmbDepartamentos.SelectionChangeCommitted
         If cmbDepartamentos.SelectedValue IsNot Nothing Then
@@ -255,8 +337,6 @@ Public Class forregistro
     End Sub
 
     Private Sub Ptbvolver_Click(sender As Object, e As EventArgs) Handles Ptbvolver.Click
-        Dim frmSeleccion As New usu_clien()
-        frmSeleccion.Show()
         Me.Close()
     End Sub
 
@@ -276,18 +356,22 @@ Public Class forregistro
     Private Sub Textbuscador_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Textbuscador.KeyPress
         SoloNumeros(e)
     End Sub
-
-    Private Sub txtCorreo_Leave(sender As Object, e As EventArgs) Handles correo.Leave
-        ValidarCorreo(correo)
+    Private Sub txtobservaciones_KeyPress_Handler(sender As Object, e As KeyPressEventArgs) Handles txtobservaciones.KeyPress
+        EnterAvanzaOBusca(txtobservaciones, e, Nothing, Sub() bntenviar.PerformClick())
     End Sub
 
-    Private Sub txtCorreo_TextChanged(sender As Object, e As EventArgs) Handles correo.TextChanged
-        ColorCorreo(correo)
-    End Sub
+
+
+
+
+
 
     Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
-        Mprincipal_p.LimpiarFormulario(Me)
+
+        LimpiarCampos(True)
     End Sub
+
+
 
 
 End Class
