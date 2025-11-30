@@ -40,7 +40,6 @@ Partial Class forregistro
         Label1 = New Label()
         correo = New TextBox()
         Label2 = New Label()
-        Label3 = New Label()
         Textbuscador = New TextBox()
         Comborol = New ComboBox()
         Label5 = New Label()
@@ -48,7 +47,6 @@ Partial Class forregistro
         Label6 = New Label()
         cmbDepartamentos = New ComboBox()
         cmbMunicipios = New ComboBox()
-        Comboestado = New ComboBox()
         Label4 = New Label()
         Label8 = New Label()
         Label7 = New Label()
@@ -61,6 +59,7 @@ Partial Class forregistro
         btnConsulta = New ToolStripButton()
         bntlimpiar = New ToolStripButton()
         bntcancelar = New ToolStripButton()
+        btndesbloquearusu = New ToolStripButton()
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).BeginInit()
         CType(bntnewcontra, ComponentModel.ISupportInitialize).BeginInit()
         ToolStrip1.SuspendLayout()
@@ -150,17 +149,6 @@ Partial Class forregistro
         Label2.Text = "&Correo"
         Label2.TextAlign = ContentAlignment.MiddleLeft
         ' 
-        ' Label3
-        ' 
-        Label3.BackColor = Color.Transparent
-        Label3.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label3.Location = New Point(7, 406)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(99, 23)
-        Label3.TabIndex = 10
-        Label3.Text = "&Estado"
-        Label3.TextAlign = ContentAlignment.MiddleLeft
-        ' 
         ' Textbuscador
         ' 
         Textbuscador.Location = New Point(181, 70)
@@ -190,9 +178,9 @@ Partial Class forregistro
         ' 
         ' txtobservaciones
         ' 
-        txtobservaciones.Location = New Point(12, 604)
+        txtobservaciones.Location = New Point(12, 541)
         txtobservaciones.Name = "txtobservaciones"
-        txtobservaciones.Size = New Size(386, 129)
+        txtobservaciones.Size = New Size(386, 114)
         txtobservaciones.TabIndex = 10
         txtobservaciones.Text = ""
         ' 
@@ -200,7 +188,7 @@ Partial Class forregistro
         ' 
         Label6.BackColor = Color.Transparent
         Label6.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label6.Location = New Point(10, 572)
+        Label6.Location = New Point(10, 509)
         Label6.Name = "Label6"
         Label6.Size = New Size(142, 23)
         Label6.TabIndex = 21
@@ -211,7 +199,7 @@ Partial Class forregistro
         ' 
         cmbDepartamentos.DropDownStyle = ComboBoxStyle.DropDownList
         cmbDepartamentos.FormattingEnabled = True
-        cmbDepartamentos.Location = New Point(151, 465)
+        cmbDepartamentos.Location = New Point(151, 402)
         cmbDepartamentos.Name = "cmbDepartamentos"
         cmbDepartamentos.Size = New Size(243, 33)
         cmbDepartamentos.TabIndex = 8
@@ -220,19 +208,10 @@ Partial Class forregistro
         ' 
         cmbMunicipios.DropDownStyle = ComboBoxStyle.DropDownList
         cmbMunicipios.FormattingEnabled = True
-        cmbMunicipios.Location = New Point(151, 520)
+        cmbMunicipios.Location = New Point(151, 457)
         cmbMunicipios.Name = "cmbMunicipios"
         cmbMunicipios.Size = New Size(243, 33)
         cmbMunicipios.TabIndex = 9
-        ' 
-        ' Comboestado
-        ' 
-        Comboestado.DropDownStyle = ComboBoxStyle.DropDownList
-        Comboestado.FormattingEnabled = True
-        Comboestado.Location = New Point(151, 406)
-        Comboestado.Name = "Comboestado"
-        Comboestado.Size = New Size(242, 33)
-        Comboestado.TabIndex = 7
         ' 
         ' Label4
         ' 
@@ -249,7 +228,7 @@ Partial Class forregistro
         ' 
         Label8.BackColor = Color.Transparent
         Label8.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label8.Location = New Point(6, 520)
+        Label8.Location = New Point(6, 457)
         Label8.Name = "Label8"
         Label8.Size = New Size(115, 23)
         Label8.TabIndex = 52
@@ -260,7 +239,7 @@ Partial Class forregistro
         ' 
         Label7.BackColor = Color.Transparent
         Label7.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label7.Location = New Point(3, 465)
+        Label7.Location = New Point(3, 402)
         Label7.Name = "Label7"
         Label7.Size = New Size(141, 23)
         Label7.TabIndex = 51
@@ -282,7 +261,7 @@ Partial Class forregistro
         ' 
         ToolStrip1.BackColor = SystemColors.Window
         ToolStrip1.ImageScalingSize = New Size(24, 24)
-        ToolStrip1.Items.AddRange(New ToolStripItem() {Ptbvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, bntcancelar})
+        ToolStrip1.Items.AddRange(New ToolStripItem() {Ptbvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, bntcancelar, btndesbloquearusu})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
         ToolStrip1.Size = New Size(434, 33)
@@ -360,19 +339,29 @@ Partial Class forregistro
         bntcancelar.Text = "ToolStripButton7"
         bntcancelar.ToolTipText = "Cancelar"
         ' 
+        ' btndesbloquearusu
+        ' 
+        btndesbloquearusu.DisplayStyle = ToolStripItemDisplayStyle.Image
+        btndesbloquearusu.Enabled = False
+        btndesbloquearusu.Image = CType(resources.GetObject("btndesbloquearusu.Image"), Image)
+        btndesbloquearusu.ImageTransparentColor = Color.Magenta
+        btndesbloquearusu.Name = "btndesbloquearusu"
+        btndesbloquearusu.Size = New Size(34, 28)
+        btndesbloquearusu.Text = "ToolStripButton1"
+        btndesbloquearusu.Visible = False
+        ' 
         ' forregistro
         ' 
         AutoScaleDimensions = New SizeF(11F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(434, 747)
+        ClientSize = New Size(434, 705)
         Controls.Add(ToolStrip1)
         Controls.Add(bntnewcontra)
         Controls.Add(Label8)
         Controls.Add(Label7)
         Controls.Add(Label4)
-        Controls.Add(Comboestado)
         Controls.Add(cmbMunicipios)
         Controls.Add(cmbDepartamentos)
         Controls.Add(Label6)
@@ -380,7 +369,6 @@ Partial Class forregistro
         Controls.Add(Label5)
         Controls.Add(Comborol)
         Controls.Add(Textbuscador)
-        Controls.Add(Label3)
         Controls.Add(correo)
         Controls.Add(Label2)
         Controls.Add(apelli)
@@ -397,7 +385,7 @@ Partial Class forregistro
         Name = "forregistro"
         SizeGripStyle = SizeGripStyle.Hide
         StartPosition = FormStartPosition.CenterScreen
-        Text = " "
+        Text = "Usuario"
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).EndInit()
         CType(bntnewcontra, ComponentModel.ISupportInitialize).EndInit()
         ToolStrip1.ResumeLayout(False)
@@ -411,7 +399,6 @@ Partial Class forregistro
     Friend WithEvents Label1 As Label
     Friend WithEvents correo As TextBox
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents txtactualid As Button
     Friend WithEvents txteliminard As Button
     Friend WithEvents Textbuscador As TextBox
@@ -421,7 +408,6 @@ Partial Class forregistro
     Friend WithEvents Label6 As Label
     Friend WithEvents cmbDepartamentos As ComboBox
     Friend WithEvents cmbMunicipios As ComboBox
-    Friend WithEvents Comboestado As ComboBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
@@ -435,5 +421,6 @@ Partial Class forregistro
     Friend WithEvents bntlimpiar As ToolStripButton
     Friend WithEvents bntcancelar As ToolStripButton
     Friend WithEvents btnConsulta As ToolStripButton
+    Friend WithEvents btndesbloquearusu As ToolStripButton
 
 End Class

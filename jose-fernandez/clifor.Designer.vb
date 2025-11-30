@@ -26,13 +26,11 @@ Partial Class clifor
         Label8 = New Label()
         Label7 = New Label()
         Label4 = New Label()
-        Comboestado = New ComboBox()
         cmbMunicipios = New ComboBox()
         cmbDepartamentos = New ComboBox()
         Label6 = New Label()
         txtobservaciones = New RichTextBox()
         Textbuscador = New TextBox()
-        Label3 = New Label()
         correo = New TextBox()
         Label2 = New Label()
         apelli = New TextBox()
@@ -47,6 +45,8 @@ Partial Class clifor
         txteliminar = New ToolStripButton()
         btnConsulta = New ToolStripButton()
         bntlimpiar = New ToolStripButton()
+        btndesbloquearcli = New ToolStripButton()
+        ToolStripButton1 = New ToolStripButton()
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).BeginInit()
         ToolStrip1.SuspendLayout()
         SuspendLayout()
@@ -55,7 +55,7 @@ Partial Class clifor
         ' 
         Label8.BackColor = Color.Transparent
         Label8.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label8.Location = New Point(5, 378)
+        Label8.Location = New Point(5, 323)
         Label8.Name = "Label8"
         Label8.Size = New Size(115, 23)
         Label8.TabIndex = 76
@@ -66,7 +66,7 @@ Partial Class clifor
         ' 
         Label7.BackColor = Color.Transparent
         Label7.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label7.Location = New Point(4, 322)
+        Label7.Location = New Point(4, 267)
         Label7.Name = "Label7"
         Label7.Size = New Size(141, 23)
         Label7.TabIndex = 75
@@ -84,20 +84,11 @@ Partial Class clifor
         Label4.Text = "ID"
         Label4.TextAlign = ContentAlignment.MiddleLeft
         ' 
-        ' Comboestado
-        ' 
-        Comboestado.DropDownStyle = ComboBoxStyle.DropDownList
-        Comboestado.FormattingEnabled = True
-        Comboestado.Location = New Point(151, 264)
-        Comboestado.Name = "Comboestado"
-        Comboestado.Size = New Size(241, 33)
-        Comboestado.TabIndex = 4
-        ' 
         ' cmbMunicipios
         ' 
         cmbMunicipios.DropDownStyle = ComboBoxStyle.DropDownList
         cmbMunicipios.FormattingEnabled = True
-        cmbMunicipios.Location = New Point(151, 378)
+        cmbMunicipios.Location = New Point(151, 323)
         cmbMunicipios.Name = "cmbMunicipios"
         cmbMunicipios.Size = New Size(241, 33)
         cmbMunicipios.TabIndex = 6
@@ -106,7 +97,7 @@ Partial Class clifor
         ' 
         cmbDepartamentos.DropDownStyle = ComboBoxStyle.DropDownList
         cmbDepartamentos.FormattingEnabled = True
-        cmbDepartamentos.Location = New Point(151, 318)
+        cmbDepartamentos.Location = New Point(151, 263)
         cmbDepartamentos.Name = "cmbDepartamentos"
         cmbDepartamentos.Size = New Size(241, 33)
         cmbDepartamentos.TabIndex = 5
@@ -115,7 +106,7 @@ Partial Class clifor
         ' 
         Label6.BackColor = Color.Transparent
         Label6.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label6.Location = New Point(7, 439)
+        Label6.Location = New Point(7, 384)
         Label6.Name = "Label6"
         Label6.Size = New Size(142, 23)
         Label6.TabIndex = 70
@@ -124,7 +115,7 @@ Partial Class clifor
         ' 
         ' txtobservaciones
         ' 
-        txtobservaciones.Location = New Point(9, 479)
+        txtobservaciones.Location = New Point(9, 424)
         txtobservaciones.Name = "txtobservaciones"
         txtobservaciones.Size = New Size(379, 126)
         txtobservaciones.TabIndex = 7
@@ -136,17 +127,6 @@ Partial Class clifor
         Textbuscador.Name = "Textbuscador"
         Textbuscador.Size = New Size(211, 31)
         Textbuscador.TabIndex = 0
-        ' 
-        ' Label3
-        ' 
-        Label3.BackColor = Color.Transparent
-        Label3.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label3.Location = New Point(5, 264)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(99, 23)
-        Label3.TabIndex = 65
-        Label3.Text = "&Estado"
-        Label3.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' correo
         ' 
@@ -216,7 +196,8 @@ Partial Class clifor
         ' ToolStrip1
         ' 
         ToolStrip1.BackColor = Color.WhiteSmoke
-        ToolStrip1.Items.AddRange(New ToolStripItem() {bntvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar})
+        ToolStrip1.ImageScalingSize = New Size(24, 24)
+        ToolStrip1.Items.AddRange(New ToolStripItem() {bntvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, btndesbloquearcli, ToolStripButton1})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
         ToolStrip1.Size = New Size(404, 33)
@@ -279,24 +260,41 @@ Partial Class clifor
         bntlimpiar.Size = New Size(34, 28)
         bntlimpiar.Text = "Limpiar"
         ' 
+        ' btndesbloquearcli
+        ' 
+        btndesbloquearcli.DisplayStyle = ToolStripItemDisplayStyle.Image
+        btndesbloquearcli.Image = CType(resources.GetObject("btndesbloquearcli.Image"), Image)
+        btndesbloquearcli.ImageTransparentColor = Color.Magenta
+        btndesbloquearcli.Name = "btndesbloquearcli"
+        btndesbloquearcli.Size = New Size(34, 28)
+        btndesbloquearcli.Text = "ToolStripButton1"
+        btndesbloquearcli.Visible = False
+        ' 
+        ' ToolStripButton1
+        ' 
+        ToolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image
+        ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), Image)
+        ToolStripButton1.ImageTransparentColor = Color.Magenta
+        ToolStripButton1.Name = "ToolStripButton1"
+        ToolStripButton1.Size = New Size(34, 28)
+        ToolStripButton1.Text = "ToolStripButton1"
+        ' 
         ' clifor
         ' 
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(404, 617)
+        ClientSize = New Size(404, 581)
         Controls.Add(ToolStrip1)
         Controls.Add(Label8)
         Controls.Add(Label7)
         Controls.Add(Label4)
-        Controls.Add(Comboestado)
         Controls.Add(cmbMunicipios)
         Controls.Add(cmbDepartamentos)
         Controls.Add(Label6)
         Controls.Add(txtobservaciones)
         Controls.Add(Textbuscador)
-        Controls.Add(Label3)
         Controls.Add(correo)
         Controls.Add(Label2)
         Controls.Add(apelli)
@@ -316,13 +314,11 @@ Partial Class clifor
     Friend WithEvents Label8 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label4 As Label
-    Friend WithEvents Comboestado As ComboBox
     Friend WithEvents cmbMunicipios As ComboBox
     Friend WithEvents cmbDepartamentos As ComboBox
     Friend WithEvents Label6 As Label
     Friend WithEvents txtobservaciones As RichTextBox
     Friend WithEvents Textbuscador As TextBox
-    Friend WithEvents Label3 As Label
     Friend WithEvents correo As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents apelli As TextBox
@@ -337,4 +333,6 @@ Partial Class clifor
     Friend WithEvents txteliminar As ToolStripButton
     Friend WithEvents btnConsulta As ToolStripButton
     Friend WithEvents bntlimpiar As ToolStripButton
+    Friend WithEvents btndesbloquearcli As ToolStripButton
+    Friend WithEvents ToolStripButton1 As ToolStripButton
 End Class

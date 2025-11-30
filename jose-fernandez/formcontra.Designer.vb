@@ -28,23 +28,25 @@ Partial Class formcontra
         txtcambio2 = New TextBox()
         BackgroundWorker1 = New ComponentModel.BackgroundWorker()
         btnguardar = New Button()
+        txtAnterior = New TextBox()
+        Label1 = New Label()
         SuspendLayout()
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
         Label2.Font = New Font("Segoe UI Black", 11F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(117, 27)
+        Label2.Location = New Point(38, 134)
         Label2.Name = "Label2"
-        Label2.Size = New Size(135, 30)
+        Label2.Size = New Size(206, 30)
         Label2.TabIndex = 1
-        Label2.Text = "Contraseña"
+        Label2.Text = "Contraseña nueva"
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
         Label3.Font = New Font("Segoe UI Black", 11F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label3.Location = New Point(60, 126)
+        Label3.Location = New Point(15, 235)
         Label3.Name = "Label3"
         Label3.Size = New Size(252, 30)
         Label3.TabIndex = 2
@@ -53,33 +55,55 @@ Partial Class formcontra
         ' 
         ' txtcambio1
         ' 
-        txtcambio1.Location = New Point(99, 72)
+        txtcambio1.Location = New Point(54, 184)
         txtcambio1.Name = "txtcambio1"
+        txtcambio1.PasswordChar = "*"c
         txtcambio1.Size = New Size(174, 31)
-        txtcambio1.TabIndex = 3
+        txtcambio1.TabIndex = 2
         ' 
         ' txtcambio2
         ' 
-        txtcambio2.Location = New Point(99, 173)
+        txtcambio2.Location = New Point(54, 285)
         txtcambio2.Name = "txtcambio2"
+        txtcambio2.PasswordChar = "*"c
         txtcambio2.Size = New Size(174, 31)
-        txtcambio2.TabIndex = 4
+        txtcambio2.TabIndex = 3
         ' 
         ' btnguardar
         ' 
-        btnguardar.Location = New Point(134, 235)
+        btnguardar.Location = New Point(84, 336)
         btnguardar.Name = "btnguardar"
         btnguardar.Size = New Size(114, 41)
         btnguardar.TabIndex = 6
         btnguardar.Text = "Guardar"
         btnguardar.UseVisualStyleBackColor = True
         ' 
+        ' txtAnterior
+        ' 
+        txtAnterior.Location = New Point(54, 83)
+        txtAnterior.Name = "txtAnterior"
+        txtAnterior.PasswordChar = "*"c
+        txtAnterior.Size = New Size(174, 31)
+        txtAnterior.TabIndex = 1
+        ' 
+        ' Label1
+        ' 
+        Label1.AutoSize = True
+        Label1.Font = New Font("Segoe UI Black", 11F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        Label1.Location = New Point(27, 33)
+        Label1.Name = "Label1"
+        Label1.Size = New Size(229, 30)
+        Label1.TabIndex = 8
+        Label1.Text = "Contraseña anterior"
+        ' 
         ' formcontra
         ' 
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveBorder
-        ClientSize = New Size(357, 314)
+        ClientSize = New Size(289, 416)
+        Controls.Add(Label1)
+        Controls.Add(txtAnterior)
         Controls.Add(btnguardar)
         Controls.Add(txtcambio2)
         Controls.Add(txtcambio1)
@@ -87,7 +111,7 @@ Partial Class formcontra
         Controls.Add(Label2)
         Name = "formcontra"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "formcontra"
+        Text = "contraseña C."
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -97,4 +121,6 @@ Partial Class formcontra
     Friend WithEvents txtcambio2 As TextBox
     Friend WithEvents BackgroundWorker1 As System.ComponentModel.BackgroundWorker
     Friend WithEvents btnguardar As Button
+    Friend WithEvents txtAnterior As TextBox
+    Friend WithEvents Label1 As Label
 End Class

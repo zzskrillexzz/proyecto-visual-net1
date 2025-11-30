@@ -113,7 +113,6 @@ Partial Class LoginForm1
         Name = "LoginForm1"
         SizeGripStyle = SizeGripStyle.Hide
         StartPosition = FormStartPosition.CenterScreen
-        Text = "LoginForm1"
         ResumeLayout(False)
         PerformLayout()
 

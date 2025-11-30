@@ -8,6 +8,7 @@ Public Class forregistro
 
     ' --- INSERTAR USUARIO ---
     Private Sub bntenviar_Click(sender As Object, e As EventArgs) Handles bntenviar.Click
+        If Not CorreoValido(correo) Then Exit Sub
         Try
             Dim camposObligatorios = New TextBox() {Textbuscador, UsernameTextBox, apelli, contra, correo}
 
@@ -66,7 +67,6 @@ Public Class forregistro
                 "', rol='" & Comborol.Text & "'" &
                 ", id_departamento=" & cmbDepartamentos.SelectedValue &
                 ", id_municipio=" & cmbMunicipios.SelectedValue &
-                ", id_estado=" & Comboestado.SelectedValue &
                 ", observacion='" & txtobservaciones.Text.Trim() &
                 "' WHERE id_usuario=" & Textbuscador.Text.Trim()
 
@@ -76,7 +76,7 @@ Public Class forregistro
             If rowsAffected > 0 Then
                 MessageBox.Show("Usuario actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Else
-                MessageBox.Show("No se pudo actualizar el usuario. El ID no fue encontrado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                MessageBox.Show("No se pudo actualizar el usuario. no hubo ningun cambio o usuario bloqueado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
 
         Catch ex As Exception
@@ -84,26 +84,31 @@ Public Class forregistro
         End Try
     End Sub
 
-    ' --- ELIMINAR USUARIO ---
+    ' --- ELIMINAR (BLOQUEAR) USUARIO ---
     Private Sub txteliminar_Click_1(sender As Object, e As EventArgs) Handles txteliminar.Click
-        Dim idUsuario As String = Textbuscador.Text.Trim()
-        If String.IsNullOrEmpty(idUsuario) Then
-            MessageBox.Show("Por favor, ingresa el ID del usuario que deseas eliminar.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        If Textbuscador.Text.Trim() = "" Then
+            MessageBox.Show("Ingresa un ID válido.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             Exit Sub
         End If
 
-        Dim respuesta As DialogResult = MessageBox.Show("¿Seguro que deseas eliminar el usuario con ID " & idUsuario & "?", "Confirmar eliminación", MessageBoxButtons.YesNo, MessageBoxIcon.Warning)
-        If respuesta = DialogResult.Yes Then
-            Try
-                Dim sql As String = "DELETE FROM tb_usuarios WHERE id_usuario = " & idUsuario
-                Dim cmd As New OdbcCommand(sql, conexion)
-                cmd.ExecuteNonQuery()
-                MessageBox.Show("Usuario eliminado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                LimpiarCampos(True)
-            Catch ex As Exception
-                MessageBox.Show("Error al eliminar usuario: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-            End Try
-        End If
+        Dim r = MessageBox.Show("¿Seguro que desea BLOQUEAR este usuario?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If r = DialogResult.No Then Exit Sub
+
+        Try
+            Dim sql As String = "UPDATE tb_usuarios SET id_estado = 2, observacion = 'Usuario bloqueado' WHERE id_usuario = " & Textbuscador.Text.Trim()
+            Dim cmd As New OdbcCommand(sql, conexion)
+            Dim rows As Integer = cmd.ExecuteNonQuery()
+
+            If rows > 0 Then
+                MessageBox.Show("El usuario fue bloqueado.", "Listo", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                BuscarUsuario()
+            Else
+                MessageBox.Show("El usuario no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+
+        Catch ex As Exception
+            MessageBox.Show("Error: " & ex.Message)
+        End Try
     End Sub
 
     ' --- BUSCAR USUARIO ---
@@ -128,20 +133,28 @@ Public Class forregistro
                 correo.Text = reader("correo")
                 contra.Text = "******"
                 txtobservaciones.Text = reader("observacion")
-                Comboestado.SelectedValue = CInt(reader("id_estado"))
                 Comborol.Text = reader("rol").ToString()
-                cmbDepartamentos.SelectedValue = reader("id_departamento")
 
-                ' Cargar municipios
-                Dim idDepartamento As Integer = CInt(cmbDepartamentos.SelectedValue)
-                Dim sqlMunicipios As String = "SELECT id_municipio, nombre_municipio FROM municipios WHERE id_departamento = " & idDepartamento
-                c_Varias.llena_combo(cmbMunicipios, sqlMunicipios, "id_municipio", "nombre_municipio")
-                cmbMunicipios.SelectedValue = reader("id_municipio")
-
-                ' ID bloqueado, resto desbloqueado para editar
+                ' ID bloqueado visual
                 Textbuscador.ReadOnly = True
                 Textbuscador.BackColor = SystemColors.ControlLight
 
+                ' Cargar combos (departamento -> municipios)
+                If Not IsDBNull(reader("id_departamento")) Then
+                    Dim idDepartamento As Integer = CInt(reader("id_departamento"))
+                    cmbDepartamentos.SelectedValue = idDepartamento
+                    Dim sqlMunicipios As String = "SELECT id_municipio, nombre_municipio FROM municipios WHERE id_departamento = " & idDepartamento
+                    c_Varias.llena_combo(cmbMunicipios, sqlMunicipios, "id_municipio", "nombre_municipio")
+                Else
+                    cmbDepartamentos.SelectedIndex = -1
+                    cmbMunicipios.DataSource = Nothing
+                End If
+
+                If Not IsDBNull(reader("id_municipio")) Then
+                    cmbMunicipios.SelectedValue = reader("id_municipio")
+                End If
+
+                ' Por defecto: habilitar edición (pero lo ajustamos según estado)
                 UsernameTextBox.ReadOnly = False
                 apelli.ReadOnly = False
                 correo.ReadOnly = False
@@ -149,48 +162,48 @@ Public Class forregistro
                 Comborol.Enabled = True
                 cmbDepartamentos.Enabled = True
                 cmbMunicipios.Enabled = True
-                Comboestado.Enabled = True
                 txtobservaciones.ReadOnly = False
 
-                ' Botones
+                ' Botones por defecto cuando existe registro
                 bntenviar.Enabled = False
                 txtactuali.Enabled = True
                 txteliminar.Enabled = True
 
+                ' Verificar si el usuario está bloqueado con función del módulo
+                If Mprincipal_p.UsuarioBloqueado(conexion, idUsuario) Then
+                    ' Bloqueado → deshabilitar edición y botones relevantes
+                    HabilitarCampos(False)
+
+                    bntenviar.Enabled = False
+                    txtactuali.Enabled = False
+                    ' permites desbloquear pero no editar
+                    bntnewcontra.Enabled = False
+                    txteliminar.Enabled = False
+
+                    btndesbloquearusu.Visible = True
+                    btndesbloquearusu.Enabled = True
+
+                    MessageBox.Show("Este usuario está BLOQUEADO y no se puede modificar hasta ser desbloqueado.", "Usuario bloqueado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+                Else
+                    ' Activo → todo habilitado
+                    HabilitarCampos(True)
+                    btndesbloquearusu.Visible = False
+                    bntnewcontra.Enabled = True
+
+                    ' Asegurar botones correctos
+                    bntenviar.Enabled = False
+                    txtactuali.Enabled = True
+                    txteliminar.Enabled = True
+                End If
+
             Else
                 ' ID no existe → nuevo registro
+                LimpiarCampos(False)
                 MessageBox.Show("ID libre. Ingrese los datos para registrar un nuevo usuario con ID: " & idUsuario, "Nuevo Registro", MessageBoxButtons.OK, MessageBoxIcon.Information)
 
-                ' Limpiar campos excepto ID
-                UsernameTextBox.Clear()
-                apelli.Clear()
-                correo.Clear()
-                contra.Clear()
-                Comborol.SelectedIndex = -1
-                Comboestado.SelectedIndex = -1
-                cmbDepartamentos.SelectedIndex = -1
-                cmbMunicipios.SelectedIndex = -1
-                txtobservaciones.Clear()
-
-                ' Desbloquear todos los campos para registrar nuevo usuario
-                UsernameTextBox.ReadOnly = False
-                apelli.ReadOnly = False
-                correo.ReadOnly = False
-                contra.ReadOnly = False
-                Comborol.Enabled = True
-                cmbDepartamentos.Enabled = True
-                cmbMunicipios.Enabled = True
-                Comboestado.Enabled = True
-                txtobservaciones.ReadOnly = False
-
-                ' Botones
-                bntenviar.Enabled = True
-                txtactuali.Enabled = False
-                txteliminar.Enabled = False
-
                 UsernameTextBox.Focus()
+                bntenviar.Enabled = True
             End If
-
 
             reader.Close()
         Catch ex As Exception
@@ -198,8 +211,7 @@ Public Class forregistro
         End Try
     End Sub
 
-
-    ' --- HABILITAR / DESHABILITAR CAMPOS ---
+    ' --- HABILITAR / DESHABILITAR CAMPOS (solo campos) ---
     Private Sub HabilitarCampos(ByVal habilitar As Boolean)
         UsernameTextBox.ReadOnly = Not habilitar
         apelli.ReadOnly = Not habilitar
@@ -208,16 +220,8 @@ Public Class forregistro
         Comborol.Enabled = habilitar
         cmbDepartamentos.Enabled = habilitar
         cmbMunicipios.Enabled = habilitar
-        Comboestado.Enabled = habilitar
         txtobservaciones.ReadOnly = Not habilitar
-
-        ' Botones según si hay datos cargados
-        Dim modoEdicion As Boolean = Not String.IsNullOrWhiteSpace(UsernameTextBox.Text)
-        bntenviar.Enabled = Not modoEdicion
-        txtactuali.Enabled = modoEdicion
-        txteliminar.Enabled = modoEdicion
     End Sub
-
 
     ' --- LIMPIAR CAMPOS ---
     Private Sub LimpiarCampos(Optional ByVal limpiarBuscador As Boolean = True)
@@ -226,7 +230,6 @@ Public Class forregistro
         correo.Clear()
         contra.Clear()
         Comborol.SelectedIndex = -1
-        Comboestado.SelectedIndex = -1
         cmbDepartamentos.SelectedIndex = -1
         cmbMunicipios.SelectedIndex = -1
         txtobservaciones.Clear()
@@ -235,6 +238,7 @@ Public Class forregistro
             Textbuscador.Clear()
             Textbuscador.ReadOnly = False
             Textbuscador.BackColor = Color.White
+            Textbuscador.Focus()
         End If
 
         ' Bloquear todos los campos menos ID
@@ -245,16 +249,14 @@ Public Class forregistro
         Comborol.Enabled = False
         cmbDepartamentos.Enabled = False
         cmbMunicipios.Enabled = False
-        Comboestado.Enabled = False
         txtobservaciones.ReadOnly = True
 
         ' Botones deshabilitados
         bntenviar.Enabled = False
         txtactuali.Enabled = False
         txteliminar.Enabled = False
+        bntnewcontra.Enabled = False
     End Sub
-
-
 
     ' --- EVENTO ENTER PARA BUSCAR ---
     Private Sub Textbuscador_KeyDown(sender As Object, e As KeyEventArgs) Handles Textbuscador.KeyDown
@@ -270,22 +272,19 @@ Public Class forregistro
         Me.Close()
     End Sub
 
-
     ' --- CONSULTA ---
     Private Sub btnConsulta_Click_1(sender As Object, e As EventArgs) Handles btnConsulta.Click
-        Dim frmCons As New FrmConsulta() ' <-- Aquí se crea la instancia
+        Dim frmCons As New FrmConsulta()
         frmCons.TipoCarga = "USUARIO"
-
         If frmCons.ShowDialog() = DialogResult.OK Then
             Dim selectedID As String = frmCons.SelectedID
             If Not String.IsNullOrEmpty(selectedID) Then
                 Textbuscador.Text = selectedID
-                BuscarUsuario() ' <-- Luego de obtener el ID, busca el usuario en este formulario
+                BuscarUsuario()
             End If
         End If
         frmCons.Dispose()
     End Sub
-
 
     ' --- LOAD DEL FORMULARIO ---
     Private Sub forregistro_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -295,13 +294,12 @@ Public Class forregistro
         Me.AcceptButton = Nothing
         contra.UseSystemPasswordChar = True
 
+        btndesbloquearusu.Visible = False
+        bntnewcontra.Enabled = False
+
         ' Rellenar roles
         Comborol.Items.Clear()
         Comborol.Items.AddRange(New String() {"admin", "usuario", "invitado"})
-
-        ' Estados desde BD
-        Dim sqlEstado As String = "SELECT id_estado, estado FROM tb_estado ORDER BY id_estado"
-        c_Varias.llena_combo(Comboestado, sqlEstado, "id_estado", "estado")
 
         ' Departamentos
         Dim sqlDepartamentos As String = "SELECT id_departamento, nombre_departamento FROM departamentos ORDER BY nombre_departamento"
@@ -318,15 +316,11 @@ Public Class forregistro
         AddHandler apelli.KeyPress, Sub(s, ev) EnterAvanzaOBusca(apelli, ev, contra)
         AddHandler contra.KeyPress, Sub(s, ev) EnterAvanzaOBusca(contra, ev, correo)
         AddHandler correo.KeyPress, Sub(s, ev) EnterAvanzaOBusca(correo, ev, Comborol)
-        AddHandler Comborol.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Comborol, ev, Comboestado)
-        AddHandler Comboestado.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Comboestado, ev, cmbDepartamentos)
+        AddHandler Comborol.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Comborol, ev, cmbDepartamentos)
         AddHandler cmbDepartamentos.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbDepartamentos, ev, cmbMunicipios)
         AddHandler cmbMunicipios.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbMunicipios, ev, txtobservaciones)
         AddHandler txtobservaciones.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtobservaciones, ev, bntenviar)
-
     End Sub
-
-
 
     Private Sub cmbDepartamentos_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cmbDepartamentos.SelectionChangeCommitted
         If cmbDepartamentos.SelectedValue IsNot Nothing Then
@@ -341,37 +335,78 @@ Public Class forregistro
     End Sub
 
     Private Sub bntnewcontra_Click(sender As Object, e As EventArgs) Handles bntnewcontra.Click
-        If Textbuscador.Text = "" Then
-            MsgBox("Debe seleccionar un usuario.", MsgBoxStyle.Exclamation)
+        If String.IsNullOrWhiteSpace(Textbuscador.Text) Then
+            MsgBox("Seleccione un usuario primero.", MsgBoxStyle.Exclamation)
             Exit Sub
-
         End If
-        idUsuarioACambiar = CInt(Textbuscador.Text) ' <-- GUARDAMOS EL ID SELECCIONADO
-        esCambioContra = True
 
-        Dim login As New LoginForm1()
-        login.ShowDialog()
+        If Mprincipal_p.conexion Is Nothing OrElse Mprincipal_p.conexion.State <> ConnectionState.Open Then
+            basexd.conectar("root", "")
+            Mprincipal_p.conexion = basexd.conexion
+        End If
+
+        If Not Mprincipal_p.UsuarioExiste(Textbuscador.Text) Then
+            MsgBox("Ese usuario no existe.", MsgBoxStyle.Critical)
+            Exit Sub
+        End If
+
+        ' Pregunta sí/no antes de continuar
+        Dim r = MessageBox.Show("¿Desea cambiar la contraseña del usuario seleccionado?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If r = DialogResult.No Then Exit Sub
+
+        Dim contraIngresada As String = InputBox("Ingrese su contraseña:", "Verificación de seguridad")
+        If contraIngresada.Trim() = "" Then
+            MsgBox("Debe ingresar la contraseña para continuar.", MsgBoxStyle.Exclamation)
+            Exit Sub
+        End If
+
+        Dim contraReal As String = Mprincipal_p.ObtenerContraActual(codusuario)
+        If contraReal = "" Then
+            MsgBox("Error al obtener la contraseña del usuario logueado.", MsgBoxStyle.Critical)
+            Exit Sub
+        End If
+
+        If contraIngresada.Trim() <> contraReal.Trim() Then
+            MsgBox("Contraseña incorrecta.", MsgBoxStyle.Critical)
+            Exit Sub
+        End If
+
+        Dim frm As New formcontra(CInt(Textbuscador.Text))
+        frm.ShowDialog()
+        frm.Dispose()
+    End Sub
+
+    Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
+        LimpiarCampos(True)
     End Sub
 
     Private Sub Textbuscador_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Textbuscador.KeyPress
         SoloNumeros(e)
     End Sub
-    Private Sub txtobservaciones_KeyPress_Handler(sender As Object, e As KeyPressEventArgs) Handles txtobservaciones.KeyPress
-        EnterAvanzaOBusca(txtobservaciones, e, Nothing, Sub() bntenviar.PerformClick())
+
+    Private Sub txtcorreo_KeyPress(sender As Object, e As KeyPressEventArgs) Handles correo.KeyPress
+        If e.KeyChar = ChrW(Keys.Enter) Then
+            e.Handled = True
+            If Not CorreoValido(correo) Then Exit Sub
+        End If
     End Sub
 
+    Private Sub btndesbloquearusu_Click(sender As Object, e As EventArgs) Handles btndesbloquearusu.Click
+        Dim idUsuario As Integer
+        If Not Integer.TryParse(Textbuscador.Text.Trim, idUsuario) Then Exit Sub
 
-
-
-
-
-
-    Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
-
-        LimpiarCampos(True)
+        Try
+            Dim sql As String = "UPDATE tb_usuarios SET id_estado = 1, observacion = '' WHERE id_usuario = " & idUsuario
+            Dim cmd As New OdbcCommand(sql, conexion)
+            If cmd.ExecuteNonQuery() > 0 Then
+                MessageBox.Show("Usuario desbloqueado correctamente", "Listo", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                BuscarUsuario()
+            Else
+                MessageBox.Show("No se pudo desbloquear.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("Error al desbloquear usuario: " & ex.Message, "Error")
+        End Try
     End Sub
-
-
-
 
 End Class

@@ -11,6 +11,7 @@ Module Mprincipal_p
     Public idUsuarioACambiar As Integer
 
 
+
     ' Conexión global
     Public conexion As OdbcConnection
 
@@ -125,6 +126,56 @@ Module Mprincipal_p
             End If
         End If
     End Sub
+
+    Public Function UsuarioExiste(idUsuario As String) As Boolean
+        Try
+            Dim sql As String = "SELECT COUNT(*) FROM tb_usuarios WHERE id_usuario = ?"
+            Using cmd As New OdbcCommand(sql, conexion)
+                cmd.Parameters.AddWithValue("p1", idUsuario)
+
+                Dim count As Integer = CInt(cmd.ExecuteScalar())
+                Return count > 0
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error al verificar usuario: " & ex.Message)
+            Return False
+        End Try
+    End Function
+
+
+
+    Public Function ClienteBloqueado(conexion As OdbcConnection, idCliente As Integer) As Boolean
+        Try
+            Dim sql As String = "SELECT id_estado FROM tb_clientes WHERE id_cliente = " & idCliente
+            Dim cmd As New OdbcCommand(sql, conexion)
+            Dim estado As Integer = Convert.ToInt32(cmd.ExecuteScalar())
+            Return estado = 2 ' 2 = bloqueado
+        Catch ex As Exception
+            MessageBox.Show("Error al verificar estado del cliente: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+    Public Function UsuarioBloqueado(conexion As OdbcConnection, idUsuario As Integer) As Boolean
+        Try
+            Dim sql As String = "SELECT id_estado FROM tb_usuarios WHERE id_usuario = " & idUsuario
+            Dim cmd As New OdbcCommand(sql, conexion)
+            Dim resultado = cmd.ExecuteScalar()
+            If resultado Is Nothing OrElse IsDBNull(resultado) Then
+                Return False
+            End If
+            Dim estado As Integer = Convert.ToInt32(resultado)
+            Return estado = 2 ' 2 = bloqueado
+        Catch ex As Exception
+            MessageBox.Show("Error al verificar estado del usuario: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            Return False
+        End Try
+    End Function
+
+
+
+
 
 
 
