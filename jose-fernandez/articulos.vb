@@ -46,8 +46,8 @@ Public Class articulos
         rtbdescripcion.Clear()
         txtprecio.Clear()
         Texstock.Clear()
-        txtiva.Clear()
-        txtdescuento.Clear()
+        txtiva.Text = "19"
+        txtdescuento.Text = "0"
 
         If Cmbcategoria.Items.Count > 0 Then
             Cmbcategoria.SelectedIndex = -1
@@ -63,7 +63,6 @@ Public Class articulos
     ' BOTÓN AGREGAR
     Private Sub bntagregar_Click_1(sender As Object, e As EventArgs) Handles bntagregar.Click
         If String.IsNullOrWhiteSpace(Textnombrearti.Text) OrElse
-           String.IsNullOrWhiteSpace(rtbdescripcion.Text) OrElse
            String.IsNullOrWhiteSpace(txtprecio.Text) OrElse
            String.IsNullOrWhiteSpace(Texstock.Text) OrElse
            String.IsNullOrWhiteSpace(txtiva.Text) OrElse
@@ -101,18 +100,15 @@ Public Class articulos
     ' BOTÓN BUSCAR
     Private Sub bntbuscar_Click_1(sender As Object, e As EventArgs) Handles bntbuscar.Click
         Try
-            Dim f As New FrmConsulta()
-            f.TipoCarga = "ARTICULO"
-            f.ShowDialog()
-
-            If f.DialogResult = DialogResult.OK AndAlso Not String.IsNullOrEmpty(f.SelectedID) Then
-                txtid.Text = f.SelectedID
-                Dim id As Integer
-                If Integer.TryParse(f.SelectedID, id) Then
-                    CargarArticuloPorID(id)
-                Else
-                    MsgBox("ID no válido.")
-                End If
+            Dim frm As New frmconsulta2()
+            frm.Text = "Buscar Artículo"
+            frm.TipoCarga = "ARTICULO"
+            frm.Size = New Size(600, 400)
+            frm.grd.Size = New Size(580, 300)
+            frm.grd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
+            frm.ShowDialog()
+            If sw_Regreso = 1 AndAlso vec IsNot Nothing AndAlso vec.Length > 0 Then
+                CargarArticuloPorID(vec(0))
             End If
         Catch ex As Exception
             MsgBox("Error al abrir la consulta: " & ex.Message)
@@ -146,6 +142,7 @@ Public Class articulos
 
             Else
                 ' ID no existe → nuevo registro
+
                 MsgBox("ID no encontrado. Puedes registrar un nuevo artículo con este ID.", MsgBoxStyle.Information)
                 LimpiarCamposParaNuevo(id)
             End If
@@ -165,7 +162,16 @@ Public Class articulos
             MsgBox("Ingresa el ID del artículo a actualizar.")
             Exit Sub
         End If
+        If String.IsNullOrWhiteSpace(Textnombrearti.Text) OrElse
+           String.IsNullOrWhiteSpace(txtprecio.Text) OrElse
+           String.IsNullOrWhiteSpace(Texstock.Text) OrElse
+           String.IsNullOrWhiteSpace(txtiva.Text) OrElse
+           String.IsNullOrWhiteSpace(txtdescuento.Text) OrElse
+           Cmbcategoria.SelectedIndex = -1 Then
 
+            MsgBox("Todos los campos son obligatorios. Por favor, completa la información.")
+            Exit Sub
+        End If
         Try
             conexion.Open()
             Dim sql As String = "UPDATE articulos SET " &
@@ -183,9 +189,10 @@ Public Class articulos
             conexion.Close()
 
             If rows > 0 Then
-                MsgBox("Artículo actualizado correctamente.")
+                MsgBox("Artículo actualizado correctamente.", MsgBoxStyle.Information)
             Else
-                MsgBox("No se encontró el artículo con ese ID.")
+                MsgBox("No se detectaron cambios para actualizar.", MsgBoxStyle.Information)
+
             End If
 
         Catch ex As Exception
@@ -277,6 +284,30 @@ Public Class articulos
 
     Private Sub txtdescuento_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtdescuento.KeyPress
         Mprincipal_p.SoloNumeros(e)
+    End Sub
+    Private Sub txtiva_LostFocus(sender As Object, e As EventArgs) Handles txtiva.LostFocus, txtdescuento.LostFocus
+        Dim txt As TextBox = DirectCast(sender, TextBox)
+        Dim valor As Double
+
+        ' Si el campo está vacío, ponerlo en 0
+        If txt.Text.Trim() = "" Then
+            txt.Text = "0"
+            Exit Sub
+        End If
+
+        ' Intentar convertir a número
+        If Not Double.TryParse(txt.Text, valor) Then
+            MsgBox("Debe ingresar un valor numérico entre 0 y 100.", vbExclamation)
+            txt.Text = "0"
+            Exit Sub
+        End If
+
+        ' Corregir límites inferiores y superiores
+        If valor < 0 Then valor = 0
+        If valor > 100 Then valor = 100
+
+        ' Establecer el valor corregido
+        txt.Text = valor.ToString()
     End Sub
 
 End Class

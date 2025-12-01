@@ -56,9 +56,10 @@ Partial Class articulos
         txtid.BackColor = SystemColors.ButtonHighlight
         txtid.CausesValidation = False
         txtid.ImeMode = ImeMode.NoControl
-        txtid.Location = New Point(18, 83)
+        txtid.Location = New Point(13, 50)
+        txtid.Margin = New Padding(2, 2, 2, 2)
         txtid.Name = "txtid"
-        txtid.Size = New Size(123, 31)
+        txtid.Size = New Size(87, 23)
         txtid.TabIndex = 1
         ' 
         ' Label1
@@ -67,9 +68,10 @@ Partial Class articulos
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = SystemColors.ActiveCaptionText
-        Label1.Location = New Point(18, 55)
+        Label1.Location = New Point(13, 33)
+        Label1.Margin = New Padding(2, 0, 2, 0)
         Label1.Name = "Label1"
-        Label1.Size = New Size(106, 25)
+        Label1.Size = New Size(71, 15)
         Label1.TabIndex = 4
         Label1.Text = "id_articulo"
         ' 
@@ -79,9 +81,10 @@ Partial Class articulos
         Label3.BackColor = Color.Transparent
         Label3.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
         Label3.ForeColor = SystemColors.ActiveCaptionText
-        Label3.Location = New Point(18, 267)
+        Label3.Location = New Point(13, 160)
+        Label3.Margin = New Padding(2, 0, 2, 0)
         Label3.Name = "Label3"
-        Label3.Size = New Size(117, 25)
+        Label3.Size = New Size(78, 15)
         Label3.TabIndex = 6
         Label3.Text = "Descripcion"
         ' 
@@ -91,9 +94,10 @@ Partial Class articulos
         Label4.BackColor = Color.Transparent
         Label4.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label4.ForeColor = SystemColors.ActiveCaptionText
-        Label4.Location = New Point(392, 53)
+        Label4.Location = New Point(274, 32)
+        Label4.Margin = New Padding(2, 0, 2, 0)
         Label4.Name = "Label4"
-        Label4.Size = New Size(68, 25)
+        Label4.Size = New Size(45, 15)
         Label4.TabIndex = 7
         Label4.Text = "Precio"
         ' 
@@ -103,18 +107,20 @@ Partial Class articulos
         Label5.BackColor = Color.Transparent
         Label5.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
         Label5.ForeColor = SystemColors.ActiveCaptionText
-        Label5.Location = New Point(18, 124)
+        Label5.Location = New Point(13, 74)
+        Label5.Margin = New Padding(2, 0, 2, 0)
         Label5.Name = "Label5"
-        Label5.Size = New Size(61, 25)
+        Label5.Size = New Size(40, 15)
         Label5.TabIndex = 8
         Label5.Text = "Stock"
         ' 
         ' Texstock
         ' 
         Texstock.BackColor = SystemColors.ButtonHighlight
-        Texstock.Location = New Point(18, 152)
+        Texstock.Location = New Point(13, 91)
+        Texstock.Margin = New Padding(2, 2, 2, 2)
         Texstock.Name = "Texstock"
-        Texstock.Size = New Size(123, 31)
+        Texstock.Size = New Size(87, 23)
         Texstock.TabIndex = 4
         ' 
         ' txtprecio
@@ -122,16 +128,18 @@ Partial Class articulos
         txtprecio.BackColor = SystemColors.ButtonHighlight
         txtprecio.CausesValidation = False
         txtprecio.ImeMode = ImeMode.NoControl
-        txtprecio.Location = New Point(391, 81)
+        txtprecio.Location = New Point(274, 49)
+        txtprecio.Margin = New Padding(2, 2, 2, 2)
         txtprecio.Name = "txtprecio"
-        txtprecio.Size = New Size(134, 31)
+        txtprecio.Size = New Size(95, 23)
         txtprecio.TabIndex = 3
         ' 
         ' rtbdescripcion
         ' 
-        rtbdescripcion.Location = New Point(157, 267)
+        rtbdescripcion.Location = New Point(110, 160)
+        rtbdescripcion.Margin = New Padding(2, 2, 2, 2)
         rtbdescripcion.Name = "rtbdescripcion"
-        rtbdescripcion.Size = New Size(368, 105)
+        rtbdescripcion.Size = New Size(259, 65)
         rtbdescripcion.TabIndex = 8
         rtbdescripcion.Text = ""
         ' 
@@ -140,9 +148,10 @@ Partial Class articulos
         Cmbcategoria.DropDownStyle = ComboBoxStyle.DropDownList
         Cmbcategoria.ForeColor = SystemColors.WindowText
         Cmbcategoria.FormattingEnabled = True
-        Cmbcategoria.Location = New Point(157, 208)
+        Cmbcategoria.Location = New Point(110, 125)
+        Cmbcategoria.Margin = New Padding(2, 2, 2, 2)
         Cmbcategoria.Name = "Cmbcategoria"
-        Cmbcategoria.Size = New Size(368, 33)
+        Cmbcategoria.Size = New Size(259, 23)
         Cmbcategoria.TabIndex = 7
         ' 
         ' Label7
@@ -151,16 +160,18 @@ Partial Class articulos
         Label7.BackColor = Color.Transparent
         Label7.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
         Label7.ForeColor = SystemColors.ActiveCaptionText
-        Label7.Location = New Point(18, 211)
+        Label7.Location = New Point(13, 127)
+        Label7.Margin = New Padding(2, 0, 2, 0)
         Label7.Name = "Label7"
-        Label7.Size = New Size(107, 25)
+        Label7.Size = New Size(72, 15)
         Label7.TabIndex = 17
         Label7.Text = "Categorias"
         ' 
         ' bntadd
         ' 
         bntadd.Image = CType(resources.GetObject("bntadd.Image"), Image)
-        bntadd.Location = New Point(538, 216)
+        bntadd.Location = New Point(377, 130)
+        bntadd.Margin = New Padding(2, 2, 2, 2)
         bntadd.Name = "bntadd"
         bntadd.Size = New Size(16, 16)
         bntadd.SizeMode = PictureBoxSizeMode.AutoSize
@@ -170,18 +181,22 @@ Partial Class articulos
         ' txtdescuento
         ' 
         txtdescuento.BackColor = SystemColors.ButtonHighlight
-        txtdescuento.Location = New Point(392, 152)
+        txtdescuento.Location = New Point(274, 91)
+        txtdescuento.Margin = New Padding(2, 2, 2, 2)
         txtdescuento.Name = "txtdescuento"
-        txtdescuento.Size = New Size(133, 31)
+        txtdescuento.Size = New Size(94, 23)
         txtdescuento.TabIndex = 6
+        txtdescuento.Text = "0"
         ' 
         ' txtiva
         ' 
         txtiva.BackColor = SystemColors.ButtonHighlight
-        txtiva.Location = New Point(193, 152)
+        txtiva.Location = New Point(135, 91)
+        txtiva.Margin = New Padding(2, 2, 2, 2)
         txtiva.Name = "txtiva"
-        txtiva.Size = New Size(146, 31)
+        txtiva.Size = New Size(103, 23)
         txtiva.TabIndex = 5
+        txtiva.Text = "19"
         ' 
         ' Label6
         ' 
@@ -189,9 +204,10 @@ Partial Class articulos
         Label6.BackColor = Color.Transparent
         Label6.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
         Label6.ForeColor = SystemColors.ActiveCaptionText
-        Label6.Location = New Point(392, 124)
+        Label6.Location = New Point(274, 74)
+        Label6.Margin = New Padding(2, 0, 2, 0)
         Label6.Name = "Label6"
-        Label6.Size = New Size(105, 25)
+        Label6.Size = New Size(71, 15)
         Label6.TabIndex = 21
         Label6.Text = "Descuento"
         ' 
@@ -201,9 +217,10 @@ Partial Class articulos
         Label8.BackColor = Color.Transparent
         Label8.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
         Label8.ForeColor = SystemColors.ActiveCaptionText
-        Label8.Location = New Point(194, 124)
+        Label8.Location = New Point(136, 74)
+        Label8.Margin = New Padding(2, 0, 2, 0)
         Label8.Name = "Label8"
-        Label8.Size = New Size(45, 25)
+        Label8.Size = New Size(28, 15)
         Label8.TabIndex = 22
         Label8.Text = "IVA"
         ' 
@@ -212,9 +229,10 @@ Partial Class articulos
         Textnombrearti.BackColor = SystemColors.ButtonHighlight
         Textnombrearti.CausesValidation = False
         Textnombrearti.ImeMode = ImeMode.NoControl
-        Textnombrearti.Location = New Point(193, 83)
+        Textnombrearti.Location = New Point(135, 50)
+        Textnombrearti.Margin = New Padding(2, 2, 2, 2)
         Textnombrearti.Name = "Textnombrearti"
-        Textnombrearti.Size = New Size(146, 31)
+        Textnombrearti.Size = New Size(103, 23)
         Textnombrearti.TabIndex = 2
         ' 
         ' Label9
@@ -223,9 +241,10 @@ Partial Class articulos
         Label9.BackColor = Color.Transparent
         Label9.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label9.ForeColor = SystemColors.ActiveCaptionText
-        Label9.Location = New Point(193, 55)
+        Label9.Location = New Point(135, 33)
+        Label9.Margin = New Padding(2, 0, 2, 0)
         Label9.Name = "Label9"
-        Label9.Size = New Size(85, 25)
+        Label9.Size = New Size(56, 15)
         Label9.TabIndex = 27
         Label9.Text = "Nombre"
         ' 
@@ -235,7 +254,7 @@ Partial Class articulos
         ToolStrip1.Items.AddRange(New ToolStripItem() {Ptbretroceder, bntagregar, bnteliminar, bntbuscar, bntlimpiar, bntactualizar})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
-        ToolStrip1.Size = New Size(563, 33)
+        ToolStrip1.Size = New Size(394, 31)
         ToolStrip1.TabIndex = 9
         ToolStrip1.TabStop = True
         ToolStrip1.Text = "ToolStrip1"
@@ -246,7 +265,7 @@ Partial Class articulos
         Ptbretroceder.Image = CType(resources.GetObject("Ptbretroceder.Image"), Image)
         Ptbretroceder.ImageTransparentColor = Color.Magenta
         Ptbretroceder.Name = "Ptbretroceder"
-        Ptbretroceder.Size = New Size(34, 28)
+        Ptbretroceder.Size = New Size(28, 28)
         Ptbretroceder.Text = "Volver"
         ' 
         ' bntagregar
@@ -255,7 +274,7 @@ Partial Class articulos
         bntagregar.Image = CType(resources.GetObject("bntagregar.Image"), Image)
         bntagregar.ImageTransparentColor = Color.Magenta
         bntagregar.Name = "bntagregar"
-        bntagregar.Size = New Size(34, 28)
+        bntagregar.Size = New Size(28, 28)
         bntagregar.Text = "Agregar"
         ' 
         ' bnteliminar
@@ -264,7 +283,7 @@ Partial Class articulos
         bnteliminar.Image = CType(resources.GetObject("bnteliminar.Image"), Image)
         bnteliminar.ImageTransparentColor = Color.Magenta
         bnteliminar.Name = "bnteliminar"
-        bnteliminar.Size = New Size(34, 28)
+        bnteliminar.Size = New Size(28, 28)
         bnteliminar.Text = "Eliminar"
         ' 
         ' bntbuscar
@@ -273,7 +292,7 @@ Partial Class articulos
         bntbuscar.Image = CType(resources.GetObject("bntbuscar.Image"), Image)
         bntbuscar.ImageTransparentColor = Color.Magenta
         bntbuscar.Name = "bntbuscar"
-        bntbuscar.Size = New Size(34, 28)
+        bntbuscar.Size = New Size(28, 28)
         bntbuscar.Text = "Consultar"
         ' 
         ' bntlimpiar
@@ -282,7 +301,7 @@ Partial Class articulos
         bntlimpiar.Image = CType(resources.GetObject("bntlimpiar.Image"), Image)
         bntlimpiar.ImageTransparentColor = Color.Magenta
         bntlimpiar.Name = "bntlimpiar"
-        bntlimpiar.Size = New Size(34, 28)
+        bntlimpiar.Size = New Size(28, 28)
         bntlimpiar.Text = "Limpiar"
         ' 
         ' bntactualizar
@@ -291,16 +310,16 @@ Partial Class articulos
         bntactualizar.Image = CType(resources.GetObject("bntactualizar.Image"), Image)
         bntactualizar.ImageTransparentColor = Color.Magenta
         bntactualizar.Name = "bntactualizar"
-        bntactualizar.Size = New Size(34, 28)
+        bntactualizar.Size = New Size(28, 28)
         bntactualizar.Text = "Editar"
         ' 
         ' articulos
         ' 
-        AutoScaleDimensions = New SizeF(10F, 25F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(563, 419)
+        ClientSize = New Size(394, 251)
         Controls.Add(ToolStrip1)
         Controls.Add(Textnombrearti)
         Controls.Add(Label9)
@@ -319,6 +338,7 @@ Partial Class articulos
         Controls.Add(Label3)
         Controls.Add(Label1)
         Controls.Add(txtid)
+        Margin = New Padding(2, 2, 2, 2)
         Name = "articulos"
         StartPosition = FormStartPosition.CenterScreen
         Text = "articulos"

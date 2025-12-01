@@ -33,9 +33,6 @@
     End Sub
 
     Private Sub temp_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
-        c_varias.carga_combo_filtro(Me, cbbFiltro, grd)
-        sw_Regreso = 0
-
         Dim sql As String = ""
         Select Case TipoCarga.ToUpper()
             Case "CLIENTE"
@@ -51,6 +48,8 @@
 
         bind.DataSource = basexd.Listar_datos(sql)
         grd.DataSource = bind.DataSource
+        c_varias.carga_combo_filtro(Me, cbbFiltro, grd)
+        sw_Regreso = 0
     End Sub
 
     Private Sub cbbFiltro_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbbFiltro.SelectedIndexChanged
