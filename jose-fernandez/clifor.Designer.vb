@@ -46,9 +46,11 @@ Partial Class clifor
         btnConsulta = New ToolStripButton()
         bntlimpiar = New ToolStripButton()
         btndesbloquearcli = New ToolStripButton()
-        ToolStripButton1 = New ToolStripButton()
+        ingresos = New StatusStrip()
+        ingresonombre = New ToolStripStatusLabel()
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).BeginInit()
         ToolStrip1.SuspendLayout()
+        ingresos.SuspendLayout()
         SuspendLayout()
         ' 
         ' Label8
@@ -197,7 +199,7 @@ Partial Class clifor
         ' 
         ToolStrip1.BackColor = Color.WhiteSmoke
         ToolStrip1.ImageScalingSize = New Size(24, 24)
-        ToolStrip1.Items.AddRange(New ToolStripItem() {bntvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, btndesbloquearcli, ToolStripButton1})
+        ToolStrip1.Items.AddRange(New ToolStripItem() {bntvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, btndesbloquearcli})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
         ToolStrip1.Size = New Size(404, 33)
@@ -270,14 +272,21 @@ Partial Class clifor
         btndesbloquearcli.Text = "ToolStripButton1"
         btndesbloquearcli.Visible = False
         ' 
-        ' ToolStripButton1
+        ' ingresos
         ' 
-        ToolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image
-        ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), Image)
-        ToolStripButton1.ImageTransparentColor = Color.Magenta
-        ToolStripButton1.Name = "ToolStripButton1"
-        ToolStripButton1.Size = New Size(34, 28)
-        ToolStripButton1.Text = "ToolStripButton1"
+        ingresos.ImageScalingSize = New Size(24, 24)
+        ingresos.Items.AddRange(New ToolStripItem() {ingresonombre})
+        ingresos.Location = New Point(0, 581)
+        ingresos.Name = "ingresos"
+        ingresos.Size = New Size(404, 32)
+        ingresos.TabIndex = 77
+        ingresos.Text = "StatusStrip1"
+        ' 
+        ' ingresonombre
+        ' 
+        ingresonombre.Name = "ingresonombre"
+        ingresonombre.Size = New Size(180, 25)
+        ingresonombre.Text = "ToolStripStatusLabel1"
         ' 
         ' clifor
         ' 
@@ -285,7 +294,8 @@ Partial Class clifor
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(404, 581)
+        ClientSize = New Size(404, 613)
+        Controls.Add(ingresos)
         Controls.Add(ToolStrip1)
         Controls.Add(Label8)
         Controls.Add(Label7)
@@ -308,6 +318,8 @@ Partial Class clifor
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).EndInit()
         ToolStrip1.ResumeLayout(False)
         ToolStrip1.PerformLayout()
+        ingresos.ResumeLayout(False)
+        ingresos.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -334,5 +346,6 @@ Partial Class clifor
     Friend WithEvents btnConsulta As ToolStripButton
     Friend WithEvents bntlimpiar As ToolStripButton
     Friend WithEvents btndesbloquearcli As ToolStripButton
-    Friend WithEvents ToolStripButton1 As ToolStripButton
+    Friend WithEvents ingresos As StatusStrip
+    Friend WithEvents ingresonombre As ToolStripStatusLabel
 End Class

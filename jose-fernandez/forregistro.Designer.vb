@@ -60,9 +60,12 @@ Partial Class forregistro
         bntlimpiar = New ToolStripButton()
         bntcancelar = New ToolStripButton()
         btndesbloquearusu = New ToolStripButton()
+        ingresos = New StatusStrip()
+        ingresonombre = New ToolStripStatusLabel()
         CType(LogoPictureBox, ComponentModel.ISupportInitialize).BeginInit()
         CType(bntnewcontra, ComponentModel.ISupportInitialize).BeginInit()
         ToolStrip1.SuspendLayout()
+        ingresos.SuspendLayout()
         SuspendLayout()
         ' 
         ' LogoPictureBox
@@ -350,13 +353,30 @@ Partial Class forregistro
         btndesbloquearusu.Text = "ToolStripButton1"
         btndesbloquearusu.Visible = False
         ' 
+        ' ingresos
+        ' 
+        ingresos.ImageScalingSize = New Size(24, 24)
+        ingresos.Items.AddRange(New ToolStripItem() {ingresonombre})
+        ingresos.Location = New Point(0, 673)
+        ingresos.Name = "ingresos"
+        ingresos.Size = New Size(434, 32)
+        ingresos.TabIndex = 56
+        ingresos.Text = "StatusStrip1"
+        ' 
+        ' ingresonombre
+        ' 
+        ingresonombre.Name = "ingresonombre"
+        ingresonombre.Size = New Size(180, 25)
+        ingresonombre.Text = "ToolStripStatusLabel1"
+        ' 
         ' forregistro
         ' 
         AutoScaleDimensions = New SizeF(11F, 25F)
         AutoScaleMode = AutoScaleMode.Font
-        BackColor = SystemColors.ScrollBar
+        BackColor = Color.Silver
         BackgroundImageLayout = ImageLayout.Stretch
         ClientSize = New Size(434, 705)
+        Controls.Add(ingresos)
         Controls.Add(ToolStrip1)
         Controls.Add(bntnewcontra)
         Controls.Add(Label8)
@@ -390,6 +410,8 @@ Partial Class forregistro
         CType(bntnewcontra, ComponentModel.ISupportInitialize).EndInit()
         ToolStrip1.ResumeLayout(False)
         ToolStrip1.PerformLayout()
+        ingresos.ResumeLayout(False)
+        ingresos.PerformLayout()
         ResumeLayout(False)
         PerformLayout()
 
@@ -422,5 +444,7 @@ Partial Class forregistro
     Friend WithEvents bntcancelar As ToolStripButton
     Friend WithEvents btnConsulta As ToolStripButton
     Friend WithEvents btndesbloquearusu As ToolStripButton
+    Friend WithEvents ingresos As StatusStrip
+    Friend WithEvents ingresonombre As ToolStripStatusLabel
 
 End Class

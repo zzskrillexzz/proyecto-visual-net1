@@ -42,7 +42,7 @@ Public Class factura
         End If
 
         grilla_inv.CurrentCell = grilla_inv.Rows(0).Cells(0)
-        tssusuario.Text = "Usuario: " & codusuario
+        ingresonombre.Text = "Usuario: " & codusuario
     End Sub
 
 
@@ -256,5 +256,8 @@ Public Class factura
 
     Private Sub lblnumerofactura_Click(sender As Object, e As EventArgs) Handles lblnumerofactura.Click
 
+    End Sub
+    Private Sub FrmPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ingresonombre.Text = ObtenerNombreUsuario()
     End Sub
 End Class

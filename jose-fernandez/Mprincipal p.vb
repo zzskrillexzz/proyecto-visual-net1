@@ -15,6 +15,11 @@ Module Mprincipal_p
     ' Conexión global
     Public conexion As OdbcConnection
 
+    Public Function ObtenerConexion() As OdbcConnection
+        Return basexd.conexion
+    End Function
+
+
     ' VALIDACIONES
 
     'SOLO NÚMEROS
@@ -172,6 +177,36 @@ Module Mprincipal_p
             Return False
         End Try
     End Function
+    ' quien ingresa al sistema 
+    Public Function ObtenerNombreUsuario() As String
+        Try
+            Dim cnn As OdbcConnection = basexd.conexion
+
+            If cnn Is Nothing OrElse cnn.State = ConnectionState.Closed Then
+                MessageBox.Show("La conexión no está inicializada.")
+                Return ""
+            End If
+
+            Dim sql As String = "SELECT nombre, apellido FROM tb_usuarios WHERE id_usuario = ?"
+
+            Using cmd As New OdbcCommand(sql, cnn)
+                cmd.Parameters.AddWithValue("p1", codusuario)
+
+                Using reader As OdbcDataReader = cmd.ExecuteReader()
+                    If reader.Read() Then
+                        Return reader("nombre").ToString() & " " & reader("apellido").ToString()
+                    End If
+                End Using
+            End Using
+
+        Catch ex As Exception
+            MessageBox.Show("Error al obtener nombre del usuario: " & ex.Message)
+        End Try
+
+        Return ""
+    End Function
+
+
 
 
 

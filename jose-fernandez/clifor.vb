@@ -468,4 +468,8 @@ Public Class clifor
         End Try
     End Sub
 
+    Private Sub FrmPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ingresonombre.Text = ObtenerNombreUsuario()
+    End Sub
+
 End Class

@@ -42,8 +42,8 @@ Partial Class factura
         lblnumerofactura = New Label()
         RichTextBox1 = New RichTextBox()
         Label11 = New Label()
-        StatusStrip1 = New StatusStrip()
-        tssusuario = New ToolStripStatusLabel()
+        ingresos = New StatusStrip()
+        ingresonombre = New ToolStripStatusLabel()
         ToolStrip1 = New ToolStrip()
         bntreverse = New ToolStripButton()
         bntagregar = New ToolStripButton()
@@ -52,7 +52,7 @@ Partial Class factura
         bnt = New ToolStripButton()
         ToolStripButton5 = New ToolStripButton()
         CType(grilla_inv, ComponentModel.ISupportInitialize).BeginInit()
-        StatusStrip1.SuspendLayout()
+        ingresos.SuspendLayout()
         ToolStrip1.SuspendLayout()
         SuspendLayout()
         ' 
@@ -227,21 +227,21 @@ Partial Class factura
         Label11.TabIndex = 26
         Label11.Text = "Observaciones"
         ' 
-        ' StatusStrip1
+        ' ingresos
         ' 
-        StatusStrip1.ImageScalingSize = New Size(24, 24)
-        StatusStrip1.Items.AddRange(New ToolStripItem() {tssusuario})
-        StatusStrip1.Location = New Point(0, 662)
-        StatusStrip1.Name = "StatusStrip1"
-        StatusStrip1.Size = New Size(871, 32)
-        StatusStrip1.TabIndex = 27
-        StatusStrip1.Text = "StatusStrip1"
+        ingresos.ImageScalingSize = New Size(24, 24)
+        ingresos.Items.AddRange(New ToolStripItem() {ingresonombre})
+        ingresos.Location = New Point(0, 662)
+        ingresos.Name = "ingresos"
+        ingresos.Size = New Size(871, 32)
+        ingresos.TabIndex = 27
+        ingresos.Text = "StatusStrip1"
         ' 
-        ' tssusuario
+        ' ingresonombre
         ' 
-        tssusuario.Name = "tssusuario"
-        tssusuario.Size = New Size(180, 25)
-        tssusuario.Text = "ToolStripStatusLabel1"
+        ingresonombre.Name = "ingresonombre"
+        ingresonombre.Size = New Size(180, 25)
+        ingresonombre.Text = "ToolStripStatusLabel1"
         ' 
         ' ToolStrip1
         ' 
@@ -317,7 +317,7 @@ Partial Class factura
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(871, 694)
         Controls.Add(ToolStrip1)
-        Controls.Add(StatusStrip1)
+        Controls.Add(ingresos)
         Controls.Add(Label11)
         Controls.Add(RichTextBox1)
         Controls.Add(lblnumerofactura)
@@ -341,8 +341,8 @@ Partial Class factura
         StartPosition = FormStartPosition.CenterScreen
         Text = "factura"
         CType(grilla_inv, ComponentModel.ISupportInitialize).EndInit()
-        StatusStrip1.ResumeLayout(False)
-        StatusStrip1.PerformLayout()
+        ingresos.ResumeLayout(False)
+        ingresos.PerformLayout()
         ToolStrip1.ResumeLayout(False)
         ToolStrip1.PerformLayout()
         ResumeLayout(False)
@@ -368,8 +368,8 @@ Partial Class factura
     Friend WithEvents lblnumerofactura As Label
     Friend WithEvents RichTextBox1 As RichTextBox
     Friend WithEvents Label11 As Label
-    Friend WithEvents StatusStrip1 As StatusStrip
-    Friend WithEvents tssusuario As ToolStripStatusLabel
+    Friend WithEvents ingresos As StatusStrip
+    Friend WithEvents ingresonombre As ToolStripStatusLabel
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents bntreverse As ToolStripButton
     Friend WithEvents bnteliminar As ToolStripButton

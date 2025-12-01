@@ -42,7 +42,7 @@ Partial Class LoginForm1
         PasswordLabel.BackColor = Color.Transparent
         PasswordLabel.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         PasswordLabel.ForeColor = Color.FromArgb(CByte(0), CByte(0), CByte(64))
-        PasswordLabel.Location = New Point(144, 151)
+        PasswordLabel.Location = New Point(124, 137)
         PasswordLabel.Name = "PasswordLabel"
         PasswordLabel.Size = New Size(118, 38)
         PasswordLabel.TabIndex = 2
@@ -51,14 +51,14 @@ Partial Class LoginForm1
         ' 
         ' UsernameTextBox
         ' 
-        UsernameTextBox.Location = New Point(144, 104)
+        UsernameTextBox.Location = New Point(73, 90)
         UsernameTextBox.Name = "UsernameTextBox"
         UsernameTextBox.Size = New Size(220, 31)
         UsernameTextBox.TabIndex = 1
         ' 
         ' PasswordTextBox
         ' 
-        PasswordTextBox.Location = New Point(144, 198)
+        PasswordTextBox.Location = New Point(73, 184)
         PasswordTextBox.Name = "PasswordTextBox"
         PasswordTextBox.PasswordChar = "*"c
         PasswordTextBox.Size = New Size(220, 31)
@@ -66,7 +66,7 @@ Partial Class LoginForm1
         ' 
         ' OK
         ' 
-        OK.Location = New Point(144, 243)
+        OK.Location = New Point(73, 229)
         OK.Name = "OK"
         OK.Size = New Size(94, 49)
         OK.TabIndex = 4
@@ -75,7 +75,7 @@ Partial Class LoginForm1
         ' Cancel
         ' 
         Cancel.DialogResult = DialogResult.Cancel
-        Cancel.Location = New Point(270, 243)
+        Cancel.Location = New Point(199, 229)
         Cancel.Name = "Cancel"
         Cancel.Size = New Size(94, 49)
         Cancel.TabIndex = 5
@@ -86,7 +86,7 @@ Partial Class LoginForm1
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         Label1.ForeColor = Color.FromArgb(CByte(0), CByte(0), CByte(64))
-        Label1.Location = New Point(144, 53)
+        Label1.Location = New Point(124, 39)
         Label1.Name = "Label1"
         Label1.Size = New Size(118, 38)
         Label1.TabIndex = 6
@@ -101,7 +101,7 @@ Partial Class LoginForm1
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
         CancelButton = Cancel
-        ClientSize = New Size(498, 335)
+        ClientSize = New Size(378, 344)
         Controls.Add(Label1)
         Controls.Add(Cancel)
         Controls.Add(OK)

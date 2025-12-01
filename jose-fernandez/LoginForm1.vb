@@ -6,8 +6,19 @@ Public Class LoginForm1
 
     Private Sub OK_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles OK.Click
         ' Validación básica (igual que tenías)
+        If String.IsNullOrWhiteSpace(UsernameTextBox.Text) OrElse String.IsNullOrWhiteSpace(PasswordTextBox.Text) Then
+            MessageBox.Show("Rellene todos los campos.", "Campos incompletos", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+            ' Enfocar el primer campo vacío
+            If String.IsNullOrWhiteSpace(UsernameTextBox.Text) Then
+                UsernameTextBox.Focus()
+            Else
+                PasswordTextBox.Focus()
+            End If
+            Return ' ❌ Detener ejecución
+        End If
         SQL = "SELECT * FROM tb_usuarios WHERE id_usuario=" & UsernameTextBox.Text & " AND contraseña='" & PasswordTextBox.Text & "'"
         rst = basexd.leer_Registro(SQL)
+
 
         If rst IsNot Nothing AndAlso rst.Read() Then
             ' Guardar el ID del usuario que se acaba de loguear (si lo necesitas en otras partes)
@@ -44,4 +55,12 @@ Public Class LoginForm1
     Private Sub LoginForm1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         basexd.conectar("root", "")
     End Sub
+    Private Sub UsernameTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles UsernameTextBox.KeyPress
+        Mprincipal_p.SoloNumeros(e)
+    End Sub
+
+    Private Sub Cancel_Click(sender As Object, e As EventArgs) Handles Cancel.Click
+        Me.Close()
+    End Sub
+
 End Class

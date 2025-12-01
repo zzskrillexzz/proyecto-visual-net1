@@ -31,10 +31,16 @@ Public Class FrmConsulta
 
         Select Case TipoCarga.ToUpper()
             Case "CLIENTE"
-                sql = "SELECT id_cliente AS ID, nombre, apellido, correo FROM tb_clientes"
+                sql = "SELECT id_cliente AS ID, nombre, apellido, correo " &
+          "FROM tb_clientes " &
+          "WHERE id_estado = 1 " &
+          "ORDER BY nombre, apellido"
 
             Case "USUARIO"
-                sql = "SELECT id_usuario AS ID, nombre, apellido, correo, rol FROM tb_usuarios"
+                sql = "SELECT id_usuario AS ID, nombre, apellido, correo, rol " &
+          "FROM tb_usuarios " &
+          "WHERE id_estado = 1 " &
+          "ORDER BY nombre, apellido"
 
             Case "ARTICULO"
                 sql = "SELECT id_articulo AS ID, nombre_articulo AS Artículo, descripcion, precio, stock FROM articulos"
