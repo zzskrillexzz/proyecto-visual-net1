@@ -1,6 +1,11 @@
 ﻿Public Class frmconsulta2
     Dim n_Col As String
     Dim c_varias As New Varias
+    Public TipoCarga As String = ""   ' ←←←←←←←←←←←←←←← ESTA LÍNEA ES OBLIGATORIA
+
+    ' ... (resto de tu código actual) ...
+
+
 
     'estos hace que el doble clic guarde la fila seleecionada y luego se cierra
     Private Sub grd_DoubleClick(ByVal sender As Object, ByVal e As System.EventArgs) Handles grd.DoubleClick
@@ -30,6 +35,22 @@
     Private Sub temp_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         c_varias.carga_combo_filtro(Me, cbbFiltro, grd)
         sw_Regreso = 0
+
+        Dim sql As String = ""
+        Select Case TipoCarga.ToUpper()
+            Case "CLIENTE"
+                sql = "SELECT id_cliente AS ID, nombre, apellido, correo " &
+                  "FROM tb_clientes WHERE id_estado = 1 ORDER BY nombre, apellido"
+            Case "ARTICULO"
+                sql = "SELECT id_articulo AS ID, nombre_articulo AS Artículo, descripcion, precio, stock FROM articulos"
+            Case Else
+                MessageBox.Show("Tipo de carga no válido: " & TipoCarga, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Me.Close()
+                Return
+        End Select
+
+        bind.DataSource = basexd.Listar_datos(sql)
+        grd.DataSource = bind.DataSource
     End Sub
 
     Private Sub cbbFiltro_SelectedIndexChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles cbbFiltro.SelectedIndexChanged

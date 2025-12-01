@@ -279,13 +279,20 @@ Public Class clifor
 
     'LOAD
     Private Sub clifor_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ' Asegurar conexión (usa tu módulo basexd)
+        ' Asegurar conexión
         basexd.conectar("root", "")
         conexion = basexd.conexion
 
-        ' ID editable al inicio
-        Textbuscador.ReadOnly = False
-        Textbuscador.BackColor = Color.White
+        ' Si viene desde factura, bloquear el Textbuscador
+        If FocusFactura = 1 Then
+            Textbuscador.ReadOnly = True
+            Textbuscador.BackColor = SystemColors.ControlLight
+            bntlimpiar.Enabled = False
+            btnConsulta.Enabled = False
+        Else
+            Textbuscador.ReadOnly = False
+            Textbuscador.BackColor = Color.White
+        End If
         Textbuscador.Focus()
 
         ' Bloquear los demás campos inicialmente
@@ -299,7 +306,6 @@ Public Class clifor
         bntenviar.Enabled = False
         txtactuali.Enabled = False
         txteliminar.Enabled = False
-
         btndesbloquearcli.Visible = False
 
         ' Cargar combos
@@ -307,7 +313,7 @@ Public Class clifor
         cmbDepartamentos.SelectedIndex = -1
         cmbMunicipios.SelectedIndex = -1
 
-        ' Asignar comportamiento EnterAvanzaOBusca si lo usas en tu proyecto (no sobrescribe handlers existentes)
+        ' Handlers Enter
         AddHandler UsernameTextBox.KeyPress, Sub(s, ev) EnterAvanzaOBusca(UsernameTextBox, ev, apelli)
         AddHandler apelli.KeyPress, Sub(s, ev) EnterAvanzaOBusca(apelli, ev, correo)
         AddHandler correo.KeyPress, Sub(s, ev)
@@ -329,6 +335,7 @@ Public Class clifor
                                                   End If
                                               End Sub
     End Sub
+
 
     'CARGAR MUNICIPIOS SEGÚN DEPARTAMENTO
     Private Sub cmbDepartamentos_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cmbDepartamentos.SelectionChangeCommitted
@@ -389,11 +396,15 @@ Public Class clifor
     End Sub
 
     Private Sub UsernameTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles UsernameTextBox.KeyPress
+        SoloLetras(e) ' valida solo letras
         EnterAvanzaOBusca(UsernameTextBox, e, apelli)
     End Sub
+
     Private Sub apelli_KeyPress(sender As Object, e As KeyPressEventArgs) Handles apelli.KeyPress
+        SoloLetras(e) ' valida solo letras
         EnterAvanzaOBusca(apelli, e, correo)
     End Sub
+
 
     Private Sub cmbDepartamentos_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cmbDepartamentos.KeyPress
         EnterAvanzaOBusca(cmbDepartamentos, e, cmbMunicipios)
@@ -471,5 +482,12 @@ Public Class clifor
     Private Sub FrmPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ingresonombre.Text = ObtenerNombreUsuario()
     End Sub
+
+    Private Sub correo_Leave(sender As Object, e As EventArgs) Handles correo.Leave
+        correo.Text = Mprincipal_p.NormalizarCorreo(correo.Text)
+    End Sub
+
+
+
 
 End Class

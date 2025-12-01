@@ -26,20 +26,17 @@ Partial Class factura
         txtIdCliented = New TextBox()
         txtTotal = New TextBox()
         txtNombreCliente = New TextBox()
-        TextBox5 = New TextBox()
         txtcorreo = New TextBox()
         txtDesc = New TextBox()
         txtIva = New TextBox()
         Label1 = New Label()
         Label2 = New Label()
-        Label3 = New Label()
         Label4 = New Label()
         Label6 = New Label()
         Label7 = New Label()
         Label8 = New Label()
         grilla_inv = New DataGridView()
         DateTimePicker1 = New DateTimePicker()
-        lblnumerofactura = New Label()
         RichTextBox1 = New RichTextBox()
         Label11 = New Label()
         ingresos = New StatusStrip()
@@ -49,8 +46,11 @@ Partial Class factura
         bntagregar = New ToolStripButton()
         bntmodificar = New ToolStripButton()
         bnteliminar = New ToolStripButton()
-        bnt = New ToolStripButton()
-        ToolStripButton5 = New ToolStripButton()
+        limpiar = New ToolStripButton()
+        buscar = New ToolStripSplitButton()
+        ArticulosToolStripMenuItem = New ToolStripMenuItem()
+        ClientesToolStripMenuItem = New ToolStripMenuItem()
+        lblnumerofactura = New Label()
         CType(grilla_inv, ComponentModel.ISupportInitialize).BeginInit()
         ingresos.SuspendLayout()
         ToolStrip1.SuspendLayout()
@@ -77,17 +77,10 @@ Partial Class factura
         txtNombreCliente.Size = New Size(364, 31)
         txtNombreCliente.TabIndex = 3
         ' 
-        ' TextBox5
-        ' 
-        TextBox5.Location = New Point(178, 168)
-        TextBox5.Name = "TextBox5"
-        TextBox5.Size = New Size(278, 31)
-        TextBox5.TabIndex = 4
-        ' 
         ' txtcorreo
         ' 
         txtcorreo.AcceptsReturn = True
-        txtcorreo.Location = New Point(576, 165)
+        txtcorreo.Location = New Point(178, 165)
         txtcorreo.Name = "txtcorreo"
         txtcorreo.Size = New Size(261, 31)
         txtcorreo.TabIndex = 5
@@ -128,23 +121,12 @@ Partial Class factura
         Label2.TabIndex = 9
         Label2.Text = "Nombres"
         ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.BackColor = Color.Transparent
-        Label3.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label3.Location = New Point(29, 168)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(125, 25)
-        Label3.TabIndex = 10
-        Label3.Text = "Razon  Social"
-        ' 
         ' Label4
         ' 
         Label4.AutoSize = True
         Label4.BackColor = Color.Transparent
         Label4.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label4.Location = New Point(487, 168)
+        Label4.Location = New Point(29, 171)
         Label4.Name = "Label4"
         Label4.Size = New Size(69, 25)
         Label4.TabIndex = 11
@@ -199,16 +181,6 @@ Partial Class factura
         DateTimePicker1.Size = New Size(328, 31)
         DateTimePicker1.TabIndex = 1
         ' 
-        ' lblnumerofactura
-        ' 
-        lblnumerofactura.AutoSize = True
-        lblnumerofactura.Font = New Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblnumerofactura.Location = New Point(567, 40)
-        lblnumerofactura.Name = "lblnumerofactura"
-        lblnumerofactura.Size = New Size(46, 54)
-        lblnumerofactura.TabIndex = 24
-        lblnumerofactura.Text = "1"
-        ' 
         ' RichTextBox1
         ' 
         RichTextBox1.Location = New Point(28, 486)
@@ -246,7 +218,7 @@ Partial Class factura
         ' ToolStrip1
         ' 
         ToolStrip1.ImageScalingSize = New Size(24, 24)
-        ToolStrip1.Items.AddRange(New ToolStripItem() {bntreverse, bntagregar, bntmodificar, bnteliminar, bnt, ToolStripButton5})
+        ToolStrip1.Items.AddRange(New ToolStripItem() {bntreverse, bntagregar, bntmodificar, bnteliminar, limpiar, buscar})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
         ToolStrip1.Size = New Size(871, 33)
@@ -292,24 +264,46 @@ Partial Class factura
         bnteliminar.Size = New Size(34, 28)
         bnteliminar.Text = "Eliminar"
         ' 
-        ' bnt
+        ' limpiar
         ' 
-        bnt.DisplayStyle = ToolStripItemDisplayStyle.Image
-        bnt.Image = CType(resources.GetObject("bnt.Image"), Image)
-        bnt.ImageTransparentColor = Color.Magenta
-        bnt.Name = "bnt"
-        bnt.Size = New Size(34, 28)
-        bnt.Text = "Consultar"
-        bnt.TextAlign = ContentAlignment.MiddleLeft
+        limpiar.DisplayStyle = ToolStripItemDisplayStyle.Image
+        limpiar.Image = CType(resources.GetObject("limpiar.Image"), Image)
+        limpiar.ImageTransparentColor = Color.Magenta
+        limpiar.Name = "limpiar"
+        limpiar.Size = New Size(34, 28)
+        limpiar.Text = "Limpiar"
         ' 
-        ' ToolStripButton5
+        ' buscar
         ' 
-        ToolStripButton5.DisplayStyle = ToolStripItemDisplayStyle.Image
-        ToolStripButton5.Image = CType(resources.GetObject("ToolStripButton5.Image"), Image)
-        ToolStripButton5.ImageTransparentColor = Color.Magenta
-        ToolStripButton5.Name = "ToolStripButton5"
-        ToolStripButton5.Size = New Size(34, 28)
-        ToolStripButton5.Text = "Limpiar"
+        buscar.DisplayStyle = ToolStripItemDisplayStyle.Image
+        buscar.DropDownItems.AddRange(New ToolStripItem() {ArticulosToolStripMenuItem, ClientesToolStripMenuItem})
+        buscar.Image = CType(resources.GetObject("buscar.Image"), Image)
+        buscar.ImageTransparentColor = Color.Magenta
+        buscar.Name = "buscar"
+        buscar.Size = New Size(45, 28)
+        buscar.Text = "ToolStripSplitButton1"
+        ' 
+        ' ArticulosToolStripMenuItem
+        ' 
+        ArticulosToolStripMenuItem.Name = "ArticulosToolStripMenuItem"
+        ArticulosToolStripMenuItem.Size = New Size(270, 34)
+        ArticulosToolStripMenuItem.Text = "Artículos"
+        ' 
+        ' ClientesToolStripMenuItem
+        ' 
+        ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
+        ClientesToolStripMenuItem.Size = New Size(270, 34)
+        ClientesToolStripMenuItem.Text = "Clientes"
+        ' 
+        ' lblnumerofactura
+        ' 
+        lblnumerofactura.AutoSize = True
+        lblnumerofactura.Font = New Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        lblnumerofactura.Location = New Point(567, 40)
+        lblnumerofactura.Name = "lblnumerofactura"
+        lblnumerofactura.Size = New Size(46, 54)
+        lblnumerofactura.TabIndex = 24
+        lblnumerofactura.Text = "1"
         ' 
         ' factura
         ' 
@@ -327,12 +321,10 @@ Partial Class factura
         Controls.Add(Label7)
         Controls.Add(Label6)
         Controls.Add(Label4)
-        Controls.Add(Label3)
         Controls.Add(Label2)
         Controls.Add(Label1)
         Controls.Add(txtDesc)
         Controls.Add(txtIva)
-        Controls.Add(TextBox5)
         Controls.Add(txtcorreo)
         Controls.Add(txtTotal)
         Controls.Add(txtNombreCliente)
@@ -352,20 +344,17 @@ Partial Class factura
     Friend WithEvents txtIdCliented As TextBox
     Friend WithEvents txtTotal As TextBox
     Friend WithEvents txtNombreCliente As TextBox
-    Friend WithEvents TextBox5 As TextBox
     Friend WithEvents txtcorreo As TextBox
     Friend WithEvents txtDesc As TextBox
     Friend WithEvents txtIva As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents grilla_inv As DataGridView
     Friend WithEvents DateTimePicker1 As DateTimePicker
-    Friend WithEvents lblnumerofactura As Label
     Friend WithEvents RichTextBox1 As RichTextBox
     Friend WithEvents Label11 As Label
     Friend WithEvents ingresos As StatusStrip
@@ -373,8 +362,11 @@ Partial Class factura
     Friend WithEvents ToolStrip1 As ToolStrip
     Friend WithEvents bntreverse As ToolStripButton
     Friend WithEvents bnteliminar As ToolStripButton
-    Friend WithEvents bnt As ToolStripButton
-    Friend WithEvents ToolStripButton5 As ToolStripButton
+    Friend WithEvents limpiar As ToolStripButton
     Friend WithEvents bntagregar As ToolStripButton
     Friend WithEvents bntmodificar As ToolStripButton
+    Friend WithEvents lblnumerofactura As Label
+    Friend WithEvents buscar As ToolStripSplitButton
+    Friend WithEvents ArticulosToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ClientesToolStripMenuItem As ToolStripMenuItem
 End Class

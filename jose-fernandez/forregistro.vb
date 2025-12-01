@@ -8,6 +8,12 @@ Public Class forregistro
 
     ' --- INSERTAR USUARIO ---
     Private Sub bntenviar_Click(sender As Object, e As EventArgs) Handles bntenviar.Click
+        ' ✅ Normalizar correo antes de validar
+        correo.Text = Mprincipal_p.NormalizarCorreo(correo.Text)
+
+        If Not CorreoValido(correo) Then Exit Sub
+        ' ...
+
         If Not CorreoValido(correo) Then Exit Sub
         Try
             Dim camposObligatorios = New TextBox() {Textbuscador, UsernameTextBox, apelli, contra, correo}
@@ -47,7 +53,11 @@ Public Class forregistro
 
     ' --- ACTUALIZAR USUARIO ---
     Private Sub txtactuali_Click_1(sender As Object, e As EventArgs) Handles txtactuali.Click
+        ' ✅ Normalizar antes de validar/actualizar
+        correo.Text = Mprincipal_p.NormalizarCorreo(correo.Text)
+
         If String.IsNullOrEmpty(Textbuscador.Text.Trim()) Then
+            ' ...
             MessageBox.Show("Por favor, busca un usuario primero o ingresa su ID para actualizarlo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             Exit Sub
         End If
@@ -198,11 +208,27 @@ Public Class forregistro
 
             Else
                 ' ID no existe → nuevo registro
-                LimpiarCampos(False)
-                MessageBox.Show("ID libre. Ingrese los datos para registrar un nuevo usuario con ID: " & idUsuario, "Nuevo Registro", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                LimpiarCampos(False) ' Solo limpia otros campos (sin tocar el ID)
 
-                UsernameTextBox.Focus()
+
+                UsernameTextBox.ReadOnly = False
+                apelli.ReadOnly = False
+                correo.ReadOnly = False
+                contra.ReadOnly = False  ' Permitir escribir contraseña nueva
+                Comborol.Enabled = True
+                cmbDepartamentos.Enabled = True
+                cmbMunicipios.Enabled = True
+                txtobservaciones.ReadOnly = False
+
+                ' Habilitar solo el botón de enviar (registro), no actualizar/eliminar
                 bntenviar.Enabled = True
+                txtactuali.Enabled = False
+                txteliminar.Enabled = False
+                bntnewcontra.Enabled = False
+                btndesbloquearusu.Visible = False
+
+                MessageBox.Show("ID libre. Ingrese los datos para registrar un nuevo usuario con ID: " & idUsuario, "Nuevo Registro", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                UsernameTextBox.Focus()
             End If
 
             reader.Close()
@@ -412,5 +438,19 @@ Public Class forregistro
     Private Sub FrmPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         ingresonombre.Text = ObtenerNombreUsuario()
     End Sub
+
+    Private Sub correo_Leave(sender As Object, e As EventArgs) Handles correo.Leave
+        correo.Text = Mprincipal_p.NormalizarCorreo(correo.Text)
+    End Sub
+    Private Sub UsernameTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles UsernameTextBox.KeyPress
+        SoloLetras(e) ' Validación de solo letras
+        EnterAvanzaOBusca(UsernameTextBox, e, apelli)
+    End Sub
+
+    Private Sub apelli_KeyPress(sender As Object, e As KeyPressEventArgs) Handles apelli.KeyPress
+        SoloLetras(e) ' Validación de solo letras
+        EnterAvanzaOBusca(apelli, e, contra)
+    End Sub
+
 
 End Class

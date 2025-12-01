@@ -1,4 +1,5 @@
 ﻿Imports System.Data.Odbc
+Imports System.Data
 
 Public Class articulos
     Dim conexion As New OdbcConnection("DSN=hola")
@@ -7,39 +8,71 @@ Public Class articulos
     Private Sub articulos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bnteliminar.Enabled = False
         CargarCategorias()
-
     End Sub
 
 
     ' Cargar categorías ComboBox
     Private Sub CargarCategorias()
-        conexion.Open()
-        Dim cmd As New OdbcCommand("SELECT id_categoria, nombre_categoria FROM categorias", conexion)
-        Dim da As New OdbcDataAdapter(cmd)
-        Dim dt As New DataTable()
-        da.Fill(dt)
-        conexion.Close()
+        Try
+            conexion.Open()
+            Dim cmd As New OdbcCommand("SELECT id_categoria, nombre_categoria FROM categorias", conexion)
+            Dim da As New OdbcDataAdapter(cmd)
+            Dim dt As New DataTable()
+            da.Fill(dt)
+            conexion.Close()
 
-        Cmbcategoria.DataSource = dt
-        Cmbcategoria.DisplayMember = "nombre_categoria"
-        Cmbcategoria.ValueMember = "id_categoria"
+            Cmbcategoria.DataSource = dt
+            Cmbcategoria.DisplayMember = "nombre_categoria"
+            Cmbcategoria.ValueMember = "id_categoria"
+            Cmbcategoria.SelectedIndex = -1
+        Catch ex As Exception
+            MsgBox("Error al cargar categorías: " & ex.Message)
+            If conexion.State = ConnectionState.Open Then conexion.Close()
+        End Try
+    End Sub
+
+    ' Método para preparar formulario para nuevo registro
+    Private Sub LimpiarCamposParaNuevo(Optional idPredefinido As Integer = 0)
+        If idPredefinido > 0 Then
+            txtid.Text = idPredefinido.ToString()
+        Else
+            txtid.Clear()
+        End If
+
+        txtid.ReadOnly = False
+        txtid.BackColor = Color.White
+
+        Textnombrearti.Clear()
+        rtbdescripcion.Clear()
+        txtprecio.Clear()
+        Texstock.Clear()
+        txtiva.Clear()
+        txtdescuento.Clear()
+
+        If Cmbcategoria.Items.Count > 0 Then
+            Cmbcategoria.SelectedIndex = -1
+        End If
+
+        bnteliminar.Enabled = False
+        bntactualizar.Enabled = False
+        bntagregar.Enabled = True
+
+        Textnombrearti.Focus()
     End Sub
 
     ' BOTÓN AGREGAR
     Private Sub bntagregar_Click_1(sender As Object, e As EventArgs) Handles bntagregar.Click
-        ' ---- VALIDAR CAMPOS VACÍOS ----
-        If Textnombrearti.Text.Trim() = "" Or
-       rtbdescripcion.Text.Trim() = "" Or
-       txtprecio.Text.Trim() = "" Or
-       Texstock.Text.Trim() = "" Or
-       txtiva.Text.Trim() = "" Or
-       txtdescuento.Text.Trim() = "" Or
-       Cmbcategoria.SelectedIndex = -1 Then
+        If String.IsNullOrWhiteSpace(Textnombrearti.Text) OrElse
+           String.IsNullOrWhiteSpace(rtbdescripcion.Text) OrElse
+           String.IsNullOrWhiteSpace(txtprecio.Text) OrElse
+           String.IsNullOrWhiteSpace(Texstock.Text) OrElse
+           String.IsNullOrWhiteSpace(txtiva.Text) OrElse
+           String.IsNullOrWhiteSpace(txtdescuento.Text) OrElse
+           Cmbcategoria.SelectedIndex = -1 Then
 
             MsgBox("Todos los campos son obligatorios. Por favor, completa la información.")
             Exit Sub
         End If
-
 
         Try
             conexion.Open()
@@ -53,37 +86,40 @@ Public Class articulos
                                 CInt(Cmbcategoria.SelectedValue) & ")"
 
             Dim cmd As New OdbcCommand(sql, conexion)
-
-            conexion.Close()
+            cmd.ExecuteNonQuery()  ' ✅ Ejecutar el INSERT
 
             MsgBox("Artículo agregado correctamente.")
+            LimpiarCamposParaNuevo()
+
         Catch ex As Exception
             MsgBox("Error al agregar artículo: " & ex.Message)
-            Try : conexion.Close() : Catch : End Try
+        Finally
+            If conexion.State = ConnectionState.Open Then conexion.Close()
         End Try
     End Sub
 
     ' BOTÓN BUSCAR
-
     Private Sub bntbuscar_Click_1(sender As Object, e As EventArgs) Handles bntbuscar.Click
         Try
             Dim f As New FrmConsulta()
             f.TipoCarga = "ARTICULO"
             f.ShowDialog()
 
-            If f.DialogResult = DialogResult.OK Then
+            If f.DialogResult = DialogResult.OK AndAlso Not String.IsNullOrEmpty(f.SelectedID) Then
                 txtid.Text = f.SelectedID
-                CargarArticuloPorID(CInt(f.SelectedID))
+                Dim id As Integer
+                If Integer.TryParse(f.SelectedID, id) Then
+                    CargarArticuloPorID(id)
+                Else
+                    MsgBox("ID no válido.")
+                End If
             End If
-
         Catch ex As Exception
             MsgBox("Error al abrir la consulta: " & ex.Message)
         End Try
     End Sub
 
-
     ' Carga los datos de un artículo por su ID
-
     Private Sub CargarArticuloPorID(id As Integer)
         Try
             conexion.Open()
@@ -93,6 +129,9 @@ Public Class articulos
 
             If dr.Read() Then
                 txtid.Text = id.ToString()
+                txtid.ReadOnly = True
+                txtid.BackColor = SystemColors.Control
+
                 Textnombrearti.Text = dr("nombre_articulo").ToString()
                 rtbdescripcion.Text = dr("descripcion").ToString()
                 txtprecio.Text = dr("precio").ToString()
@@ -101,23 +140,28 @@ Public Class articulos
                 txtdescuento.Text = dr("descuento").ToString()
                 Cmbcategoria.SelectedValue = dr("id_categoria")
 
-                txtid.Enabled = False
                 bnteliminar.Enabled = True
+                bntactualizar.Enabled = True
+                bntagregar.Enabled = False
 
+            Else
+                ' ID no existe → nuevo registro
+                MsgBox("ID no encontrado. Puedes registrar un nuevo artículo con este ID.", MsgBoxStyle.Information)
+                LimpiarCamposParaNuevo(id)
             End If
 
-            conexion.Close()
+            dr.Close()
+
         Catch ex As Exception
             MsgBox("Error al cargar artículo: " & ex.Message)
-            Try : conexion.Close() : Catch : End Try
+        Finally
+            If conexion.State = ConnectionState.Open Then conexion.Close()
         End Try
     End Sub
 
-
     ' BOTÓN ACTUALIZAR
-
     Private Sub bntactualizar_Click_1(sender As Object, e As EventArgs) Handles bntactualizar.Click
-        If txtid.Text.Trim() = "" Then
+        If String.IsNullOrWhiteSpace(txtid.Text) Then
             MsgBox("Ingresa el ID del artículo a actualizar.")
             Exit Sub
         End If
@@ -135,22 +179,25 @@ Public Class articulos
                                 " WHERE id_articulo=" & CInt(txtid.Text)
 
             Dim cmd As New OdbcCommand(sql, conexion)
-            cmd.ExecuteNonQuery()
+            Dim rows As Integer = cmd.ExecuteNonQuery()
             conexion.Close()
 
-            MsgBox("Artículo actualizado correctamente.")
+            If rows > 0 Then
+                MsgBox("Artículo actualizado correctamente.")
+            Else
+                MsgBox("No se encontró el artículo con ese ID.")
+            End If
+
         Catch ex As Exception
             MsgBox("Error al actualizar: " & ex.Message)
-            Try : conexion.Close() : Catch : End Try
+        Finally
+            If conexion.State = ConnectionState.Open Then conexion.Close()
         End Try
     End Sub
 
     ' BOTÓN ELIMINAR
     Private Sub bnteliminar_Click_1(sender As Object, e As EventArgs) Handles bnteliminar.Click
-
-
-
-        If txtid.Text.Trim() = "" Then
+        If String.IsNullOrWhiteSpace(txtid.Text) Then
             MsgBox("Ingresa el ID del artículo a eliminar.")
             Exit Sub
         End If
@@ -163,19 +210,23 @@ Public Class articulos
             conexion.Open()
             Dim sql As String = "DELETE FROM articulos WHERE id_articulo = " & CInt(txtid.Text)
             Dim cmd As New OdbcCommand(sql, conexion)
-            cmd.ExecuteNonQuery()
-            conexion.Close()
+            Dim rows As Integer = cmd.ExecuteNonQuery()
 
-            MsgBox("Artículo eliminado correctamente.")
+            If rows > 0 Then
+                MsgBox("Artículo eliminado correctamente.")
+                LimpiarCamposParaNuevo()
+            Else
+                MsgBox("No se encontró el artículo con ese ID.")
+            End If
+
         Catch ex As Exception
             MsgBox("Error al eliminar: " & ex.Message)
-            Try : conexion.Close() : Catch : End Try
+        Finally
+            If conexion.State = ConnectionState.Open Then conexion.Close()
         End Try
     End Sub
 
-
     ' BOTÓN ADD
-
     Private Sub bntadd_Click(sender As Object, e As EventArgs) Handles bntadd.Click
         Dim f As New addcategoria()
         f.ShowDialog()
@@ -184,24 +235,7 @@ Public Class articulos
 
     ' BOTÓN LIMPIAR CAMPOS
     Private Sub bntlimpiar_Click_1(sender As Object, e As EventArgs) Handles bntlimpiar.Click
-        Try
-            txtid.Clear()
-            txtid.Enabled = True
-            Textnombrearti.Clear()
-            rtbdescripcion.Clear()
-            txtprecio.Clear()
-            Texstock.Clear()
-            txtiva.Clear()
-            txtdescuento.Clear()
-
-            If Cmbcategoria.Items.Count > 0 Then
-                Cmbcategoria.SelectedIndex = 0
-            End If
-            bnteliminar.Enabled = False
-            Textnombrearti.Focus()
-        Catch ex As Exception
-            MsgBox("Error al limpiar los campos: " & ex.Message)
-        End Try
+        LimpiarCamposParaNuevo()
     End Sub
 
     ' BOTÓN RETROCEDER
@@ -209,20 +243,40 @@ Public Class articulos
         Me.Close()
     End Sub
 
-    Private Sub ToolStripButton1_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub Ptbretrocederd_Click(sender As Object, e As EventArgs)
-
-    End Sub
-
-    Private Sub txtid_Validating(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles txtid.Validating
-        If txtid.Text.Trim() <> "" AndAlso Not IsNumeric(txtid.Text) Then
-            MsgBox("ID no válido. Solo se permiten números.")
-            txtid.Clear()
-            e.Cancel = True
+    ' Buscar con Enter en txtid
+    Private Sub txtid_KeyDown(sender As Object, e As KeyEventArgs) Handles txtid.KeyDown
+        If e.KeyCode = Keys.Enter AndAlso Not String.IsNullOrWhiteSpace(txtid.Text) Then
+            e.SuppressKeyPress = True
+            Dim id As Integer
+            If Integer.TryParse(txtid.Text.Trim(), id) Then
+                CargarArticuloPorID(id)
+            Else
+                MsgBox("ID no válido. Debe ser un número entero.", MsgBoxStyle.Exclamation)
+                txtid.SelectAll()
+                txtid.Focus()
+            End If
         End If
+    End Sub
+
+    ' Solo enteros: asignamos la función del módulo a cada TextBox
+    Private Sub txtid_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtid.KeyPress
+        Mprincipal_p.SoloNumeros(e)
+    End Sub
+
+    Private Sub txtprecio_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtprecio.KeyPress
+        Mprincipal_p.SoloNumeros(e)
+    End Sub
+
+    Private Sub Texstock_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Texstock.KeyPress
+        Mprincipal_p.SoloNumeros(e)
+    End Sub
+
+    Private Sub txtiva_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtiva.KeyPress
+        Mprincipal_p.SoloNumeros(e)
+    End Sub
+
+    Private Sub txtdescuento_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtdescuento.KeyPress
+        Mprincipal_p.SoloNumeros(e)
     End Sub
 
 End Class

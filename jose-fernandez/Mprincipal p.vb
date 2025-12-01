@@ -12,6 +12,7 @@ Module Mprincipal_p
 
 
 
+
     ' Conexión global
     Public conexion As OdbcConnection
 
@@ -205,6 +206,49 @@ Module Mprincipal_p
 
         Return ""
     End Function
+
+    ' Normaliza correos: si falta dominio, agrega @gmail.com
+    Public Function NormalizarCorreo(email As String) As String
+        Dim texto As String = email.Trim()
+
+        ' Si está vacío o ya es válido, devolver tal cual
+        If String.IsNullOrEmpty(texto) Then Return texto
+
+
+        Dim arrobaIndex As Integer = texto.IndexOf("@")
+        If arrobaIndex > 0 AndAlso texto.IndexOf(".", arrobaIndex) > arrobaIndex Then
+            Return texto
+        End If
+
+
+        If arrobaIndex = -1 Then
+
+            Return texto & "@gmail.com"
+        Else
+
+            Dim dominio As String = texto.Substring(arrobaIndex + 1).ToLowerInvariant()
+            If Not dominio.Contains(".") Then
+                Return texto.Substring(0, arrobaIndex + 1) & dominio & ".com"
+
+            Else
+                Return texto
+            End If
+        End If
+    End Function
+
+    '--------------------------
+    ' SOLO LETRAS
+    '--------------------------
+    Public Sub SoloLetras(e As KeyPressEventArgs)
+        If Not Char.IsControl(e.KeyChar) AndAlso Not Char.IsLetter(e.KeyChar) AndAlso e.KeyChar <> " "c Then
+            e.Handled = True
+            MessageBox.Show("Solo se aceptan caracteres alfabéticos.",
+                        "Entrada no válida",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning)
+        End If
+    End Sub
+
 
 
 

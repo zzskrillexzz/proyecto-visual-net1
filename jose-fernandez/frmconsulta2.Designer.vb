@@ -49,9 +49,12 @@ Partial Class frmconsulta2
         ' 
         ' grd
         ' 
+        grd.AllowUserToAddRows = False
+        grd.AllowUserToDeleteRows = False
         grd.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         grd.Location = New Point(3, 85)
         grd.Name = "grd"
+        grd.ReadOnly = True
         grd.RowHeadersWidth = 62
         grd.Size = New Size(659, 280)
         grd.TabIndex = 3

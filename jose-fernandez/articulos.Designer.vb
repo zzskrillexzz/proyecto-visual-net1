@@ -300,7 +300,7 @@ Partial Class articulos
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(563, 377)
+        ClientSize = New Size(563, 419)
         Controls.Add(ToolStrip1)
         Controls.Add(Textnombrearti)
         Controls.Add(Label9)
