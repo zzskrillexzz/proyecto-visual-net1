@@ -32,6 +32,11 @@ Public Class factura
             grilla_inv.Columns.Add("Descuento", "Desc (%)")
             grilla_inv.Columns.Add("IVA", "IVA (%)")
             grilla_inv.Columns.Add("Subtotal", "Subtotal")
+            'For Each col As DataGridViewColumn In grilla_inv.Columns
+            '    If col.HeaderText.ToLower <> "código" Or col.HeaderText.ToLower <> "cantidad" Then
+            '        col.ReadOnly = True
+            '    End If
+            'Next
         End If
 
         grilla_inv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -148,75 +153,43 @@ Public Class factura
         txtTotal.Text = "$ " & total.ToString("N2")
     End Sub
 
-    ' === MANEJO DE TECLAS EN GRILLA ===
-    Private Sub grilla_inv_KeyDown(sender As Object, e As KeyEventArgs) Handles grilla_inv.KeyDown
-        If e.KeyCode = Keys.Enter Then
-            e.SuppressKeyPress = True
-
-            Dim col = grilla_inv.CurrentCell.ColumnIndex
-            Dim row = grilla_inv.CurrentCell.RowIndex
-
-            ' === AUTOCOMPLETAR POR CÓDIGO ===
-            If col = 0 Then
-                Dim cod As String = If(grilla_inv.Rows(row).Cells(0).Value, "").ToString().Trim()
-
-                If Not String.IsNullOrEmpty(cod) Then
-                    SQL = "SELECT id_articulo, nombre_articulo, precio, iva, descuento FROM articulos WHERE id_articulo = " & cod
-                    rst = basexd.leer_Registro(SQL)
-
-                    If rst IsNot Nothing AndAlso rst.Read() Then
-                        grilla_inv.Item(1, row).Value = rst("nombre_articulo")
-                        grilla_inv.Item(3, row).Value = rst("precio")
-                        grilla_inv.Item(4, row).Value = CInt(rst("descuento"))
-                        grilla_inv.Item(5, row).Value = CInt(rst("iva"))
-                        rst.Close()
-
-                        grilla_inv.CurrentCell = grilla_inv.Rows(row).Cells(2)
-                        Exit Sub
-                    End If
-                    rst?.Close()
-                End If
-
-                ' Si no se encontró → abrir búsqueda (como fallback)
-                Menu_Articulos_Click(Nothing, Nothing)
-                Exit Sub
-            End If
-
-            ' === RECALCULAR SI CAMBIA cantidad, precio, desc, iva ===
-            If col = 2 OrElse col = 3 OrElse col = 4 OrElse col = 5 Then
-                Try
-                    grilla_inv.CommitEdit(DataGridViewDataErrorContexts.Commit)
-                    recorrerDataGrid()
-                    SendKeys.Send("{TAB}")
-                Catch
-                End Try
-            End If
-        End If
-
-        ' === INSERTAR NUEVA FILA ===
-        If e.KeyCode = Keys.Insert Then
-            grilla_inv.Rows.Add()
-            grilla_inv.CurrentCell = grilla_inv.Rows(grilla_inv.Rows.Count - 1).Cells(0)
-        End If
-    End Sub
-
     ' === EVITAR DUPLICADOS ===
     Private Sub grilla_inv_CellValidating(sender As Object, e As DataGridViewCellValidatingEventArgs) Handles grilla_inv.CellValidating
-        If e.ColumnIndex = 0 Then
-            Dim nuevoCodigo As String = e.FormattedValue.ToString().Trim()
-            If String.IsNullOrEmpty(nuevoCodigo) Then Return
 
-            For i As Integer = 0 To grilla_inv.RowCount - 1
-                If i = e.RowIndex Then Continue For
-                If grilla_inv.Rows(i).Cells(0).Value IsNot Nothing AndAlso
-                   grilla_inv.Rows(i).Cells(0).Value.ToString() = nuevoCodigo Then
-                    MessageBox.Show("¡Este producto ya está agregado en la grilla!", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
+        ' Solo validar la columna del código (columna 0)
+        If e.ColumnIndex <> 0 Then Exit Sub
+
+        Dim nuevoCodigo As String = e.FormattedValue.ToString().Trim()
+
+        ' Si está vacío no validar
+        If nuevoCodigo = "" Then Exit Sub
+
+        ' Si no es numérico, cancelar
+        If Not IsNumeric(nuevoCodigo) Then
+            MessageBox.Show("El código debe ser numérico.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            e.Cancel = True
+            Exit Sub
+        End If
+
+        ' Validar duplicado en todas las filas menos la actual
+        For i As Integer = 0 To grilla_inv.RowCount - 1
+
+            ' Ignorar fila actual
+            If i = e.RowIndex Then Continue For
+
+            Dim valorCelda = grilla_inv.Rows(i).Cells(0).Value
+
+            If valorCelda IsNot Nothing Then
+                If valorCelda.ToString().Trim() = nuevoCodigo Then
+                    MessageBox.Show("¡Este artículo ya está en la factura!", "Duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                     e.Cancel = True
                     Exit Sub
                 End If
-            Next
-        End If
+            End If
+
+        Next
     End Sub
+
 
     ' === BÚSQUEDA DE CLIENTE POR ENTER EN CAMPO ID ===
     Private Sub txtIdCliented_KeyDown(sender As Object, e As KeyEventArgs) Handles txtIdCliented.KeyDown
@@ -308,5 +281,137 @@ Public Class factura
 
         LimpiarFactura()
     End Sub
+
+    Protected Overrides Function ProcessCmdKey(ByRef msg As Message, keyData As Keys) As Boolean
+        ' Solo capturar ENTER si estamos editando una celda
+        If grilla_inv.IsCurrentCellInEditMode = False Then
+            Return MyBase.ProcessCmdKey(msg, keyData)
+        End If
+
+        ' Solo ENTER
+        If keyData <> Keys.Return Then
+            Return MyBase.ProcessCmdKey(msg, keyData)
+        End If
+
+        Dim cell As DataGridViewCell = grilla_inv.CurrentCell
+        Dim col As Integer = cell.ColumnIndex
+        Dim row As Integer = cell.RowIndex
+
+        grilla_inv.CommitEdit(DataGridViewDataErrorContexts.Commit)
+        grilla_inv.EndEdit()
+
+        ' ==========================================================
+        '  COLUMNA 0 → CÓDIGO DEL ARTÍCULO
+        ' ==========================================================
+        If col = 0 Then
+
+            Dim codStr As String = If(grilla_inv.Rows(row).Cells(0).Value, "").ToString.Trim()
+
+            For i As Integer = 0 To grilla_inv.RowCount - 1
+                If i = row Then Continue For
+                If grilla_inv.Rows(i).Cells(0).Value IsNot Nothing AndAlso
+       grilla_inv.Rows(i).Cells(0).Value.ToString() = codStr Then
+
+                    MsgBox("Este artículo ya fue agregado en la factura.", MsgBoxStyle.Exclamation)
+                    grilla_inv.Rows(row).Cells(0).Value = ""
+                    Return True
+                End If
+            Next
+            If codStr = "" Then
+                MsgBox("Debe ingresar un código de artículo", MsgBoxStyle.Exclamation)
+                Return True
+            End If
+
+            Dim cod As Integer
+            If Not Integer.TryParse(codStr, cod) Then
+                MsgBox("El código debe ser numérico", MsgBoxStyle.Exclamation)
+                grilla_inv.Rows(row).Cells(0).Value = ""
+                Return True
+            End If
+
+            ' Consultar artículo
+            SQL = $"SELECT id_articulo, nombre_articulo, precio, iva, descuento 
+               FROM articulos 
+               WHERE id_articulo = {cod}"
+
+            rst = basexd.leer_Registro(SQL)
+
+            If rst IsNot Nothing AndAlso rst.Read() Then
+                grilla_inv.Rows(row).Cells(1).Value = rst("nombre_articulo")
+                grilla_inv.Rows(row).Cells(3).Value = rst("precio")
+                grilla_inv.Rows(row).Cells(4).Value = rst("descuento")
+                grilla_inv.Rows(row).Cells(5).Value = rst("iva")
+                rst.Close()
+
+                ' Pasar a cantidad
+                grilla_inv.CurrentCell = grilla_inv.Rows(row).Cells(2)
+                Return True
+
+            Else
+                rst?.Close()
+                MsgBox("Codigo del articulo no se encontro", vbQuestion)
+                grilla_inv.Rows(row).Cells(0).Value = ""
+                Return True
+            End If
+        End If
+
+        ' ==========================================================
+        '  COLUMNA 2 → CANTIDAD
+        ' ==========================================================
+        If col = 2 Then
+
+            ' Validar que haya código de artículo
+            Dim cod As Integer
+            If Not Integer.TryParse(If(grilla_inv.Rows(row).Cells(0).Value, "").ToString(), cod) Then
+                MsgBox("Primero debe ingresar un código de artículo válido.", MsgBoxStyle.Exclamation)
+                Return True
+            End If
+
+            ' Actualizar totales
+            recorrerDataGrid()
+
+            ' Crear nueva fila si estamos en la última
+            Dim filaSiguiente As Integer = row + 1
+
+            If filaSiguiente >= grilla_inv.Rows.Count Then
+                grilla_inv.Rows.Add()
+            End If
+
+            ' Pasar a la siguiente fila, columna 0
+            grilla_inv.CurrentCell = grilla_inv.Rows(filaSiguiente).Cells(0)
+
+            Return True
+        End If
+
+        Return True
+    End Function
+
+    Private Sub dgvArt_EditingControlShowing(sender As Object, e As DataGridViewEditingControlShowingEventArgs) Handles grilla_inv.EditingControlShowing
+
+        Dim txt As TextBox = TryCast(e.Control, TextBox)
+        If txt Is Nothing Then Exit Sub
+
+        RemoveHandler txt.KeyPress, AddressOf SoloNumeros
+
+        Dim col As Integer = grilla_inv.CurrentCell.ColumnIndex
+
+        Select Case col
+
+            Case 0, 2
+                ' Columnas que solo permiten números
+                AddHandler txt.KeyPress, AddressOf SoloNumeros
+
+
+        End Select
+
+    End Sub
+
+    Private Sub SoloNumeros(sender As Object, e As KeyPressEventArgs)
+        If Char.IsControl(e.KeyChar) Then Exit Sub
+        If Not Char.IsDigit(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
 
 End Class
