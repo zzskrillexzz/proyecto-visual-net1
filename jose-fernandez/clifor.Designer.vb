@@ -198,7 +198,6 @@ Partial Class clifor
         ' ToolStrip1
         ' 
         ToolStrip1.BackColor = Color.WhiteSmoke
-        ToolStrip1.ImageScalingSize = New Size(24, 24)
         ToolStrip1.Items.AddRange(New ToolStripItem() {bntvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, btndesbloquearcli})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
@@ -276,17 +275,19 @@ Partial Class clifor
         ' 
         ingresos.ImageScalingSize = New Size(24, 24)
         ingresos.Items.AddRange(New ToolStripItem() {ingresonombre})
-        ingresos.Location = New Point(0, 581)
+        ingresos.Location = New Point(0, 583)
         ingresos.Name = "ingresos"
-        ingresos.Size = New Size(404, 32)
+        ingresos.Size = New Size(404, 30)
         ingresos.TabIndex = 77
         ingresos.Text = "StatusStrip1"
         ' 
         ' ingresonombre
         ' 
+        ingresonombre.BackColor = Color.FromArgb(CByte(128), CByte(255), CByte(128))
+        ingresonombre.Font = New Font("Cooper Black", 10F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         ingresonombre.Name = "ingresonombre"
-        ingresonombre.Size = New Size(180, 25)
-        ingresonombre.Text = "ToolStripStatusLabel1"
+        ingresonombre.Size = New Size(58, 23)
+        ingresonombre.Text = "User"
         ' 
         ' clifor
         ' 

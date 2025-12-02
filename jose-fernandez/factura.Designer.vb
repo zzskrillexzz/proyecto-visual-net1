@@ -46,10 +46,10 @@ Partial Class factura
         bntagregar = New ToolStripButton()
         bntmodificar = New ToolStripButton()
         bnteliminar = New ToolStripButton()
-        limpiar = New ToolStripButton()
         buscar = New ToolStripSplitButton()
         ArticulosToolStripMenuItem = New ToolStripMenuItem()
         ClientesToolStripMenuItem = New ToolStripMenuItem()
+        limpiar = New ToolStripButton()
         lblnumerofactura = New Label()
         CType(grilla_inv, ComponentModel.ISupportInitialize).BeginInit()
         ingresos.SuspendLayout()
@@ -58,54 +58,48 @@ Partial Class factura
         ' 
         ' txtIdCliented
         ' 
-        txtIdCliented.Location = New Point(125, 66)
-        txtIdCliented.Margin = New Padding(2)
+        txtIdCliented.Location = New Point(179, 110)
         txtIdCliented.Name = "txtIdCliented"
-        txtIdCliented.Size = New Size(126, 23)
+        txtIdCliented.Size = New Size(178, 31)
         txtIdCliented.TabIndex = 2
         ' 
         ' txtTotal
         ' 
-        txtTotal.Location = New Point(646, 346)
-        txtTotal.Margin = New Padding(2)
+        txtTotal.Location = New Point(923, 577)
         txtTotal.Name = "txtTotal"
         txtTotal.ReadOnly = True
-        txtTotal.Size = New Size(106, 23)
+        txtTotal.Size = New Size(150, 31)
         txtTotal.TabIndex = 9
         ' 
         ' txtNombreCliente
         ' 
-        txtNombreCliente.Location = New Point(331, 66)
-        txtNombreCliente.Margin = New Padding(2)
+        txtNombreCliente.Location = New Point(473, 110)
         txtNombreCliente.Name = "txtNombreCliente"
-        txtNombreCliente.Size = New Size(421, 23)
+        txtNombreCliente.Size = New Size(600, 31)
         txtNombreCliente.TabIndex = 3
         ' 
         ' txtcorreo
         ' 
         txtcorreo.AcceptsReturn = True
-        txtcorreo.Location = New Point(125, 99)
-        txtcorreo.Margin = New Padding(2)
+        txtcorreo.Location = New Point(179, 165)
         txtcorreo.Name = "txtcorreo"
-        txtcorreo.Size = New Size(366, 23)
+        txtcorreo.Size = New Size(521, 31)
         txtcorreo.TabIndex = 5
         ' 
         ' txtDesc
         ' 
-        txtDesc.Location = New Point(646, 316)
-        txtDesc.Margin = New Padding(2)
+        txtDesc.Location = New Point(923, 527)
         txtDesc.Name = "txtDesc"
         txtDesc.ReadOnly = True
-        txtDesc.Size = New Size(106, 23)
+        txtDesc.Size = New Size(150, 31)
         txtDesc.TabIndex = 8
         ' 
         ' txtIva
         ' 
-        txtIva.Location = New Point(646, 288)
-        txtIva.Margin = New Padding(2)
+        txtIva.Location = New Point(923, 480)
         txtIva.Name = "txtIva"
         txtIva.ReadOnly = True
-        txtIva.Size = New Size(106, 23)
+        txtIva.Size = New Size(150, 31)
         txtIva.TabIndex = 7
         ' 
         ' Label1
@@ -113,10 +107,9 @@ Partial Class factura
         Label1.AutoSize = True
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label1.Location = New Point(20, 70)
-        Label1.Margin = New Padding(2, 0, 2, 0)
+        Label1.Location = New Point(29, 117)
         Label1.Name = "Label1"
-        Label1.Size = New Size(83, 15)
+        Label1.Size = New Size(129, 25)
         Label1.TabIndex = 8
         Label1.Text = "Identificacion"
         ' 
@@ -125,10 +118,9 @@ Partial Class factura
         Label2.AutoSize = True
         Label2.BackColor = Color.Transparent
         Label2.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label2.Location = New Point(257, 66)
-        Label2.Margin = New Padding(2, 0, 2, 0)
+        Label2.Location = New Point(367, 110)
         Label2.Name = "Label2"
-        Label2.Size = New Size(58, 15)
+        Label2.Size = New Size(89, 25)
         Label2.TabIndex = 9
         Label2.Text = "Nombres"
         ' 
@@ -137,10 +129,9 @@ Partial Class factura
         Label4.AutoSize = True
         Label4.BackColor = Color.Transparent
         Label4.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label4.Location = New Point(20, 103)
-        Label4.Margin = New Padding(2, 0, 2, 0)
+        Label4.Location = New Point(29, 172)
         Label4.Name = "Label4"
-        Label4.Size = New Size(45, 15)
+        Label4.Size = New Size(69, 25)
         Label4.TabIndex = 11
         Label4.Text = "Correo"
         ' 
@@ -149,10 +140,9 @@ Partial Class factura
         Label6.AutoSize = True
         Label6.BackColor = Color.Transparent
         Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label6.Location = New Point(574, 291)
-        Label6.Margin = New Padding(2, 0, 2, 0)
+        Label6.Location = New Point(820, 485)
         Label6.Name = "Label6"
-        Label6.Size = New Size(53, 15)
+        Label6.Size = New Size(84, 25)
         Label6.TabIndex = 13
         Label6.Text = "Total iva"
         ' 
@@ -161,10 +151,9 @@ Partial Class factura
         Label7.AutoSize = True
         Label7.BackColor = Color.Transparent
         Label7.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label7.Location = New Point(530, 319)
-        Label7.Margin = New Padding(2, 0, 2, 0)
+        Label7.Location = New Point(757, 532)
         Label7.Name = "Label7"
-        Label7.Size = New Size(95, 15)
+        Label7.Size = New Size(147, 25)
         Label7.TabIndex = 14
         Label7.Text = "Total descuento"
         ' 
@@ -173,37 +162,33 @@ Partial Class factura
         Label8.AutoSize = True
         Label8.BackColor = Color.Transparent
         Label8.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label8.Location = New Point(549, 349)
-        Label8.Margin = New Padding(2, 0, 2, 0)
+        Label8.Location = New Point(784, 582)
         Label8.Name = "Label8"
-        Label8.Size = New Size(77, 15)
+        Label8.Size = New Size(120, 25)
         Label8.TabIndex = 15
         Label8.Text = "Total factura"
         ' 
         ' grilla_inv
         ' 
         grilla_inv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        grilla_inv.Location = New Point(20, 128)
-        grilla_inv.Margin = New Padding(2)
+        grilla_inv.Location = New Point(29, 213)
         grilla_inv.Name = "grilla_inv"
         grilla_inv.RowHeadersWidth = 62
-        grilla_inv.Size = New Size(732, 135)
+        grilla_inv.Size = New Size(1046, 225)
         grilla_inv.TabIndex = 6
         ' 
         ' DateTimePicker1
         ' 
-        DateTimePicker1.Location = New Point(20, 38)
-        DateTimePicker1.Margin = New Padding(2)
+        DateTimePicker1.Location = New Point(29, 63)
         DateTimePicker1.Name = "DateTimePicker1"
-        DateTimePicker1.Size = New Size(231, 23)
+        DateTimePicker1.Size = New Size(328, 31)
         DateTimePicker1.TabIndex = 1
         ' 
         ' RichTextBox1
         ' 
-        RichTextBox1.Location = New Point(20, 292)
-        RichTextBox1.Margin = New Padding(2)
+        RichTextBox1.Location = New Point(29, 487)
         RichTextBox1.Name = "RichTextBox1"
-        RichTextBox1.Size = New Size(506, 88)
+        RichTextBox1.Size = New Size(721, 144)
         RichTextBox1.TabIndex = 10
         RichTextBox1.Text = ""
         ' 
@@ -211,10 +196,9 @@ Partial Class factura
         ' 
         Label11.AutoSize = True
         Label11.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label11.Location = New Point(20, 272)
-        Label11.Margin = New Padding(2, 0, 2, 0)
+        Label11.Location = New Point(29, 453)
         Label11.Name = "Label11"
-        Label11.Size = New Size(95, 15)
+        Label11.Size = New Size(142, 25)
         Label11.TabIndex = 26
         Label11.Text = "Observaciones"
         ' 
@@ -222,26 +206,28 @@ Partial Class factura
         ' 
         ingresos.ImageScalingSize = New Size(24, 24)
         ingresos.Items.AddRange(New ToolStripItem() {ingresonombre})
-        ingresos.Location = New Point(0, 394)
+        ingresos.Location = New Point(0, 663)
         ingresos.Name = "ingresos"
-        ingresos.Padding = New Padding(1, 0, 10, 0)
-        ingresos.Size = New Size(763, 22)
+        ingresos.Size = New Size(1090, 30)
         ingresos.TabIndex = 27
         ingresos.Text = "StatusStrip1"
         ' 
         ' ingresonombre
         ' 
+        ingresonombre.BackColor = Color.FromArgb(CByte(192), CByte(255), CByte(192))
+        ingresonombre.Font = New Font("Cooper Black", 10F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         ingresonombre.Name = "ingresonombre"
-        ingresonombre.Size = New Size(119, 17)
-        ingresonombre.Text = "ToolStripStatusLabel1"
+        ingresonombre.Size = New Size(58, 23)
+        ingresonombre.Text = "User"
         ' 
         ' ToolStrip1
         ' 
-        ToolStrip1.ImageScalingSize = New Size(24, 24)
-        ToolStrip1.Items.AddRange(New ToolStripItem() {bntreverse, bntagregar, bntmodificar, bnteliminar, limpiar, buscar})
+        ToolStrip1.ImageScalingSize = New Size(20, 20)
+        ToolStrip1.Items.AddRange(New ToolStripItem() {bntreverse, bntagregar, bntmodificar, bnteliminar, buscar, limpiar})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
-        ToolStrip1.Size = New Size(763, 31)
+        ToolStrip1.Padding = New Padding(0, 0, 3, 0)
+        ToolStrip1.Size = New Size(1090, 33)
         ToolStrip1.TabIndex = 0
         ToolStrip1.TabStop = True
         ToolStrip1.Text = "ToolStrip1"
@@ -252,7 +238,7 @@ Partial Class factura
         bntreverse.Image = CType(resources.GetObject("bntreverse.Image"), Image)
         bntreverse.ImageTransparentColor = Color.Magenta
         bntreverse.Name = "bntreverse"
-        bntreverse.Size = New Size(28, 28)
+        bntreverse.Size = New Size(34, 28)
         bntreverse.Text = "Volver"
         bntreverse.ToolTipText = "volver"
         ' 
@@ -262,7 +248,7 @@ Partial Class factura
         bntagregar.Image = CType(resources.GetObject("bntagregar.Image"), Image)
         bntagregar.ImageTransparentColor = Color.Magenta
         bntagregar.Name = "bntagregar"
-        bntagregar.Size = New Size(28, 28)
+        bntagregar.Size = New Size(34, 28)
         bntagregar.Text = "Agregar"
         bntagregar.ToolTipText = "agregar"
         ' 
@@ -272,7 +258,7 @@ Partial Class factura
         bntmodificar.Image = CType(resources.GetObject("bntmodificar.Image"), Image)
         bntmodificar.ImageTransparentColor = Color.Magenta
         bntmodificar.Name = "bntmodificar"
-        bntmodificar.Size = New Size(28, 28)
+        bntmodificar.Size = New Size(34, 28)
         bntmodificar.Text = "Editar"
         ' 
         ' bnteliminar
@@ -281,17 +267,8 @@ Partial Class factura
         bnteliminar.Image = CType(resources.GetObject("bnteliminar.Image"), Image)
         bnteliminar.ImageTransparentColor = Color.Magenta
         bnteliminar.Name = "bnteliminar"
-        bnteliminar.Size = New Size(28, 28)
+        bnteliminar.Size = New Size(34, 28)
         bnteliminar.Text = "Eliminar"
-        ' 
-        ' limpiar
-        ' 
-        limpiar.DisplayStyle = ToolStripItemDisplayStyle.Image
-        limpiar.Image = CType(resources.GetObject("limpiar.Image"), Image)
-        limpiar.ImageTransparentColor = Color.Magenta
-        limpiar.Name = "limpiar"
-        limpiar.Size = New Size(28, 28)
-        limpiar.Text = "Limpiar"
         ' 
         ' buscar
         ' 
@@ -300,38 +277,46 @@ Partial Class factura
         buscar.Image = CType(resources.GetObject("buscar.Image"), Image)
         buscar.ImageTransparentColor = Color.Magenta
         buscar.Name = "buscar"
-        buscar.Size = New Size(40, 28)
-        buscar.Text = "ToolStripSplitButton1"
+        buscar.Size = New Size(45, 28)
+        buscar.Text = "Consultar"
         ' 
         ' ArticulosToolStripMenuItem
         ' 
         ArticulosToolStripMenuItem.Name = "ArticulosToolStripMenuItem"
-        ArticulosToolStripMenuItem.Size = New Size(121, 22)
+        ArticulosToolStripMenuItem.Size = New Size(183, 34)
         ArticulosToolStripMenuItem.Text = "Artículos"
         ' 
         ' ClientesToolStripMenuItem
         ' 
         ClientesToolStripMenuItem.Name = "ClientesToolStripMenuItem"
-        ClientesToolStripMenuItem.Size = New Size(121, 22)
+        ClientesToolStripMenuItem.Size = New Size(183, 34)
         ClientesToolStripMenuItem.Text = "Clientes"
+        ' 
+        ' limpiar
+        ' 
+        limpiar.DisplayStyle = ToolStripItemDisplayStyle.Image
+        limpiar.Image = CType(resources.GetObject("limpiar.Image"), Image)
+        limpiar.ImageTransparentColor = Color.Magenta
+        limpiar.Name = "limpiar"
+        limpiar.Size = New Size(34, 28)
+        limpiar.Text = "Limpiar"
         ' 
         ' lblnumerofactura
         ' 
         lblnumerofactura.AutoSize = True
         lblnumerofactura.Font = New Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        lblnumerofactura.Location = New Point(397, 24)
-        lblnumerofactura.Margin = New Padding(2, 0, 2, 0)
+        lblnumerofactura.Location = New Point(567, 40)
         lblnumerofactura.Name = "lblnumerofactura"
-        lblnumerofactura.Size = New Size(33, 37)
+        lblnumerofactura.Size = New Size(46, 54)
         lblnumerofactura.TabIndex = 24
         lblnumerofactura.Text = "1"
         lblnumerofactura.Visible = False
         ' 
         ' factura
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(763, 416)
+        ClientSize = New Size(1090, 693)
         Controls.Add(ToolStrip1)
         Controls.Add(ingresos)
         Controls.Add(Label11)
@@ -351,7 +336,6 @@ Partial Class factura
         Controls.Add(txtTotal)
         Controls.Add(txtNombreCliente)
         Controls.Add(txtIdCliented)
-        Margin = New Padding(2)
         Name = "factura"
         StartPosition = FormStartPosition.CenterScreen
         Text = "factura"

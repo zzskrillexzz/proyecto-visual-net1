@@ -43,7 +43,7 @@ Partial Class usu_clien
         btnUsu.Location = New Point(54, 12)
         btnUsu.Name = "btnUsu"
         btnUsu.Size = New Size(122, 73)
-        btnUsu.TabIndex = 3
+        btnUsu.TabIndex = 1
         btnUsu.Text = "Usuarios"
         btnUsu.UseVisualStyleBackColor = True
         ' 
@@ -52,7 +52,7 @@ Partial Class usu_clien
         Bntarticulos.Location = New Point(54, 106)
         Bntarticulos.Name = "Bntarticulos"
         Bntarticulos.Size = New Size(125, 73)
-        Bntarticulos.TabIndex = 4
+        Bntarticulos.TabIndex = 3
         Bntarticulos.Text = "Articulos"
         Bntarticulos.UseVisualStyleBackColor = True
         ' 
@@ -61,7 +61,7 @@ Partial Class usu_clien
         bntfactura.Location = New Point(204, 107)
         bntfactura.Name = "bntfactura"
         bntfactura.Size = New Size(125, 70)
-        bntfactura.TabIndex = 5
+        bntfactura.TabIndex = 4
         bntfactura.Text = "Factura"
         bntfactura.UseVisualStyleBackColor = True
         ' 

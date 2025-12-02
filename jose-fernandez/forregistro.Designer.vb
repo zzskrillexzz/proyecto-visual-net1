@@ -263,7 +263,6 @@ Partial Class forregistro
         ' ToolStrip1
         ' 
         ToolStrip1.BackColor = SystemColors.Window
-        ToolStrip1.ImageScalingSize = New Size(24, 24)
         ToolStrip1.Items.AddRange(New ToolStripItem() {Ptbvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, bntcancelar, btndesbloquearusu})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
@@ -357,17 +356,19 @@ Partial Class forregistro
         ' 
         ingresos.ImageScalingSize = New Size(24, 24)
         ingresos.Items.AddRange(New ToolStripItem() {ingresonombre})
-        ingresos.Location = New Point(0, 673)
+        ingresos.Location = New Point(0, 675)
         ingresos.Name = "ingresos"
-        ingresos.Size = New Size(434, 32)
+        ingresos.Size = New Size(434, 30)
         ingresos.TabIndex = 56
         ingresos.Text = "StatusStrip1"
         ' 
         ' ingresonombre
         ' 
+        ingresonombre.BackColor = Color.FromArgb(CByte(128), CByte(255), CByte(128))
+        ingresonombre.Font = New Font("Cooper Black", 10F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         ingresonombre.Name = "ingresonombre"
-        ingresonombre.Size = New Size(180, 25)
-        ingresonombre.Text = "ToolStripStatusLabel1"
+        ingresonombre.Size = New Size(58, 23)
+        ingresonombre.Text = "User"
         ' 
         ' forregistro
         ' 

@@ -38,14 +38,14 @@ Partial Class addcategoria
         ' 
         ' txtid
         ' 
-        txtid.Location = New Point(21, 82)
+        txtid.Location = New Point(57, 82)
         txtid.Name = "txtid"
         txtid.Size = New Size(150, 31)
         txtid.TabIndex = 0
         ' 
         ' txtnombre
         ' 
-        txtnombre.Location = New Point(21, 154)
+        txtnombre.Location = New Point(57, 154)
         txtnombre.Name = "txtnombre"
         txtnombre.Size = New Size(150, 31)
         txtnombre.TabIndex = 1
@@ -54,7 +54,7 @@ Partial Class addcategoria
         ' 
         Label1.AutoSize = True
         Label1.Font = New Font("Segoe UI Black", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label1.Location = New Point(23, 51)
+        Label1.Location = New Point(57, 51)
         Label1.Name = "Label1"
         Label1.Size = New Size(148, 28)
         Label1.TabIndex = 2
@@ -64,7 +64,7 @@ Partial Class addcategoria
         ' 
         Label2.AutoSize = True
         Label2.Font = New Font("Segoe UI Black", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
-        Label2.Location = New Point(21, 123)
+        Label2.Location = New Point(57, 123)
         Label2.Name = "Label2"
         Label2.Size = New Size(90, 28)
         Label2.TabIndex = 3
@@ -76,7 +76,7 @@ Partial Class addcategoria
         ToolStrip1.Items.AddRange(New ToolStripItem() {bntadd, bntconsultar, bntactualizar, bnteliminar, bntlimpiar})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
-        ToolStrip1.Size = New Size(220, 33)
+        ToolStrip1.Size = New Size(264, 33)
         ToolStrip1.TabIndex = 2
         ToolStrip1.Text = "ToolStrip1"
         ' 
@@ -123,7 +123,7 @@ Partial Class addcategoria
         bntlimpiar.ImageTransparentColor = Color.Magenta
         bntlimpiar.Name = "bntlimpiar"
         bntlimpiar.Size = New Size(34, 28)
-        bntlimpiar.Text = "ToolStripButton1"
+        bntlimpiar.Text = "Limpiar"
         bntlimpiar.ToolTipText = "Limpiar"
         ' 
         ' addcategoria
@@ -131,7 +131,7 @@ Partial Class addcategoria
         AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = Color.Silver
-        ClientSize = New Size(220, 201)
+        ClientSize = New Size(264, 201)
         Controls.Add(ToolStrip1)
         Controls.Add(Label2)
         Controls.Add(Label1)

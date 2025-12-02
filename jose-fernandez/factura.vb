@@ -244,7 +244,7 @@ Public Class factura
         Me.Close()
     End Sub
 
-    ' ... (todo tu código anterior hasta FrmPrincipal_Load) ...
+
 
     Private Sub FrmPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         rst = basexd.leer_Registro("SELECT * from tb_usuarios WHERE id_usuario=" & codusuario)
