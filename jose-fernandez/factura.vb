@@ -32,11 +32,6 @@ Public Class factura
             grilla_inv.Columns.Add("Descuento", "Desc (%)")
             grilla_inv.Columns.Add("IVA", "IVA (%)")
             grilla_inv.Columns.Add("Subtotal", "Subtotal")
-            'grilla_inv.Columns(0).Width = 70
-            'grilla_inv.Columns(3).Width = 100
-            'grilla_inv.Columns(4).Width = 70
-            'grilla_inv.Columns(5).Width = 70
-            'grilla_inv.Columns(6).Width = 100
             For Each col As DataGridViewColumn In grilla_inv.Columns
                 col.ReadOnly = True
                 If col.HeaderText.ToLower = "código" Or col.HeaderText.ToLower = "cantidad" Then
@@ -54,7 +49,7 @@ Public Class factura
         End If
 
         grilla_inv.CurrentCell = grilla_inv.Rows(0).Cells(0)
-        ingresonombre.Text = "Usuario: " & codusuario
+
 
         ' === CONFIGURAR MENÚ DESPLEGABLE DEL TOOLSTRIP SPLIT BUTTON ===
         Dim itemArticulos As New ToolStripMenuItem("Artículos")
@@ -80,6 +75,9 @@ Public Class factura
         frm.Text = "Buscar Artículo"
         frm.TipoCarga = "ARTICULO"
 
+        frm.Size = New Size(600, 500)
+        frm.grd.Size = New Size(580, 400)
+        frm.grd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
         frm.ShowDialog()
 
         ' Nota: frmconsulta2 debe usar las variables GLOBALES sw_Regreso y vec
@@ -113,6 +111,9 @@ Public Class factura
         Dim frm As New frmconsulta2()
         frm.Text = "Buscar Cliente"
         frm.TipoCarga = "CLIENTE"
+        frm.Size = New Size(600, 300)
+        frm.grd.Size = New Size(580, 200)
+        frm.grd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
 
         frm.ShowDialog()
 
@@ -246,7 +247,8 @@ Public Class factura
     ' ... (todo tu código anterior hasta FrmPrincipal_Load) ...
 
     Private Sub FrmPrincipal_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ingresonombre.Text = "Usuario: " & codusuario
+        rst = basexd.leer_Registro("SELECT * from tb_usuarios WHERE id_usuario=" & codusuario)
+        If rst.Read() Then ingresonombre.Text = "Usuario: " & rst("nombre") & " " & rst("apellido")
     End Sub
 
     ' === FUNCIÓN PERSONALIZADA PARA LIMPIAR FACTURA ===

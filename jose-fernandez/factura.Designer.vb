@@ -59,15 +59,15 @@ Partial Class factura
         ' txtIdCliented
         ' 
         txtIdCliented.Location = New Point(125, 66)
-        txtIdCliented.Margin = New Padding(2, 2, 2, 2)
+        txtIdCliented.Margin = New Padding(2)
         txtIdCliented.Name = "txtIdCliented"
         txtIdCliented.Size = New Size(126, 23)
         txtIdCliented.TabIndex = 2
         ' 
         ' txtTotal
         ' 
-        txtTotal.Location = New Point(482, 350)
-        txtTotal.Margin = New Padding(2, 2, 2, 2)
+        txtTotal.Location = New Point(646, 346)
+        txtTotal.Margin = New Padding(2)
         txtTotal.Name = "txtTotal"
         txtTotal.ReadOnly = True
         txtTotal.Size = New Size(106, 23)
@@ -76,24 +76,24 @@ Partial Class factura
         ' txtNombreCliente
         ' 
         txtNombreCliente.Location = New Point(331, 66)
-        txtNombreCliente.Margin = New Padding(2, 2, 2, 2)
+        txtNombreCliente.Margin = New Padding(2)
         txtNombreCliente.Name = "txtNombreCliente"
-        txtNombreCliente.Size = New Size(256, 23)
+        txtNombreCliente.Size = New Size(421, 23)
         txtNombreCliente.TabIndex = 3
         ' 
         ' txtcorreo
         ' 
         txtcorreo.AcceptsReturn = True
         txtcorreo.Location = New Point(125, 99)
-        txtcorreo.Margin = New Padding(2, 2, 2, 2)
+        txtcorreo.Margin = New Padding(2)
         txtcorreo.Name = "txtcorreo"
-        txtcorreo.Size = New Size(184, 23)
+        txtcorreo.Size = New Size(366, 23)
         txtcorreo.TabIndex = 5
         ' 
         ' txtDesc
         ' 
-        txtDesc.Location = New Point(482, 320)
-        txtDesc.Margin = New Padding(2, 2, 2, 2)
+        txtDesc.Location = New Point(646, 316)
+        txtDesc.Margin = New Padding(2)
         txtDesc.Name = "txtDesc"
         txtDesc.ReadOnly = True
         txtDesc.Size = New Size(106, 23)
@@ -101,8 +101,8 @@ Partial Class factura
         ' 
         ' txtIva
         ' 
-        txtIva.Location = New Point(482, 292)
-        txtIva.Margin = New Padding(2, 2, 2, 2)
+        txtIva.Location = New Point(646, 288)
+        txtIva.Margin = New Padding(2)
         txtIva.Name = "txtIva"
         txtIva.ReadOnly = True
         txtIva.Size = New Size(106, 23)
@@ -149,7 +149,7 @@ Partial Class factura
         Label6.AutoSize = True
         Label6.BackColor = Color.Transparent
         Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label6.Location = New Point(410, 295)
+        Label6.Location = New Point(574, 291)
         Label6.Margin = New Padding(2, 0, 2, 0)
         Label6.Name = "Label6"
         Label6.Size = New Size(53, 15)
@@ -161,7 +161,7 @@ Partial Class factura
         Label7.AutoSize = True
         Label7.BackColor = Color.Transparent
         Label7.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label7.Location = New Point(366, 323)
+        Label7.Location = New Point(530, 319)
         Label7.Margin = New Padding(2, 0, 2, 0)
         Label7.Name = "Label7"
         Label7.Size = New Size(95, 15)
@@ -173,7 +173,7 @@ Partial Class factura
         Label8.AutoSize = True
         Label8.BackColor = Color.Transparent
         Label8.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label8.Location = New Point(385, 353)
+        Label8.Location = New Point(549, 349)
         Label8.Margin = New Padding(2, 0, 2, 0)
         Label8.Name = "Label8"
         Label8.Size = New Size(77, 15)
@@ -184,16 +184,16 @@ Partial Class factura
         ' 
         grilla_inv.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         grilla_inv.Location = New Point(20, 128)
-        grilla_inv.Margin = New Padding(2, 2, 2, 2)
+        grilla_inv.Margin = New Padding(2)
         grilla_inv.Name = "grilla_inv"
         grilla_inv.RowHeadersWidth = 62
-        grilla_inv.Size = New Size(566, 135)
+        grilla_inv.Size = New Size(732, 135)
         grilla_inv.TabIndex = 6
         ' 
         ' DateTimePicker1
         ' 
         DateTimePicker1.Location = New Point(20, 38)
-        DateTimePicker1.Margin = New Padding(2, 2, 2, 2)
+        DateTimePicker1.Margin = New Padding(2)
         DateTimePicker1.Name = "DateTimePicker1"
         DateTimePicker1.Size = New Size(231, 23)
         DateTimePicker1.TabIndex = 1
@@ -201,9 +201,9 @@ Partial Class factura
         ' RichTextBox1
         ' 
         RichTextBox1.Location = New Point(20, 292)
-        RichTextBox1.Margin = New Padding(2, 2, 2, 2)
+        RichTextBox1.Margin = New Padding(2)
         RichTextBox1.Name = "RichTextBox1"
-        RichTextBox1.Size = New Size(316, 88)
+        RichTextBox1.Size = New Size(506, 88)
         RichTextBox1.TabIndex = 10
         RichTextBox1.Text = ""
         ' 
@@ -225,7 +225,7 @@ Partial Class factura
         ingresos.Location = New Point(0, 394)
         ingresos.Name = "ingresos"
         ingresos.Padding = New Padding(1, 0, 10, 0)
-        ingresos.Size = New Size(610, 22)
+        ingresos.Size = New Size(763, 22)
         ingresos.TabIndex = 27
         ingresos.Text = "StatusStrip1"
         ' 
@@ -241,7 +241,7 @@ Partial Class factura
         ToolStrip1.Items.AddRange(New ToolStripItem() {bntreverse, bntagregar, bntmodificar, bnteliminar, limpiar, buscar})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
-        ToolStrip1.Size = New Size(610, 31)
+        ToolStrip1.Size = New Size(763, 31)
         ToolStrip1.TabIndex = 0
         ToolStrip1.TabStop = True
         ToolStrip1.Text = "ToolStrip1"
@@ -325,12 +325,13 @@ Partial Class factura
         lblnumerofactura.Size = New Size(33, 37)
         lblnumerofactura.TabIndex = 24
         lblnumerofactura.Text = "1"
+        lblnumerofactura.Visible = False
         ' 
         ' factura
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(610, 416)
+        ClientSize = New Size(763, 416)
         Controls.Add(ToolStrip1)
         Controls.Add(ingresos)
         Controls.Add(Label11)
@@ -350,7 +351,7 @@ Partial Class factura
         Controls.Add(txtTotal)
         Controls.Add(txtNombreCliente)
         Controls.Add(txtIdCliented)
-        Margin = New Padding(2, 2, 2, 2)
+        Margin = New Padding(2)
         Name = "factura"
         StartPosition = FormStartPosition.CenterScreen
         Text = "factura"
