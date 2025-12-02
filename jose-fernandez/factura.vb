@@ -111,8 +111,8 @@ Public Class factura
         Dim frm As New frmconsulta2()
         frm.Text = "Buscar Cliente"
         frm.TipoCarga = "CLIENTE"
-        frm.Size = New Size(600, 300)
-        frm.grd.Size = New Size(580, 200)
+        frm.Size = New Size(1200, 400)
+        frm.grd.Size = New Size(1180, 350)
         frm.grd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
 
         frm.ShowDialog()
@@ -121,7 +121,7 @@ Public Class factura
             txtIdCliented.Text = vec(0) ' ID
             txtNombreCliente.Text = vec(1) & " " & vec(2) ' Nombre + Apellido
             txtcorreo.Text = vec(3) ' Correo
-            rsocial.Text = vec(1) ' Razon social
+            rsocial.Text = If(IsDBNull(vec(4)), "", vec(4).ToString()) ' Razon social
         End If
     End Sub
 
@@ -214,6 +214,7 @@ Public Class factura
             If rst IsNot Nothing AndAlso rst.Read() Then
                 txtNombreCliente.Text = rst("nombre").ToString() & " " & rst("apellido").ToString()
                 txtcorreo.Text = rst("correo").ToString()
+                rsocial.Text = If(IsDBNull(rst("razon")), "", rst("razon").ToString())
                 rst.Close()
             Else
                 rst?.Close()
@@ -229,6 +230,7 @@ Public Class factura
                     txtIdCliented.Clear()
                     txtNombreCliente.Clear()
                     txtcorreo.Clear()
+                    rsocial.Clear()
                     txtIdCliented.Focus()
                 End If
             End If

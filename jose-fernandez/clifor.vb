@@ -140,7 +140,7 @@ Public Class clifor
 
                 If rowsAffected > 0 Then
                     MessageBox.Show("Cliente marcado como inactivo correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                    BuscarCliente() ' Refrescar datos del cliente
+                    LimpiarCampos(True)
                 Else
                     MessageBox.Show("No se pudo actualizar el cliente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 End If
@@ -249,6 +249,7 @@ Public Class clifor
         apelli2.ReadOnly = Not habilitar
         correo.ReadOnly = Not habilitar
         txtobservaciones.ReadOnly = Not habilitar
+        rsocial.ReadOnly = Not habilitar
 
         cmbDepartamentos.Enabled = habilitar
         cmbMunicipios.Enabled = habilitar
@@ -305,6 +306,7 @@ Public Class clifor
         apelli2.ReadOnly = True
         correo.ReadOnly = True
         txtobservaciones.ReadOnly = True
+        rsocial.ReadOnly = True
         cmbDepartamentos.Enabled = False
         cmbMunicipios.Enabled = False
 
@@ -345,18 +347,19 @@ Public Class clifor
 
         ' Si viene desde factura, bloquear el Textbuscador
         If FocusFactura = 1 Then
+            UsernameTextBox.ReadOnly = False
             Textbuscador.ReadOnly = True
             Textbuscador.BackColor = SystemColors.ControlLight
             bntlimpiar.Enabled = False
             btnConsulta.Enabled = False
-            UsernameTextBox.ReadOnly = False
             apelli.ReadOnly = False
             correo.ReadOnly = False
+            rsocial.ReadOnly = False
             txtobservaciones.ReadOnly = False
             cmbDepartamentos.Enabled = True
             cmbMunicipios.Enabled = True
             bntenviar.Enabled = True
-            UsernameTextBox.Focus()
+            SendKeys.Send("{TAB}")
         Else
             Textbuscador.ReadOnly = False
             Textbuscador.BackColor = Color.White
@@ -405,6 +408,7 @@ Public Class clifor
         apelli.ReadOnly = True
         UsernameTextBox2.ReadOnly = True
         apelli2.ReadOnly = True
+        rsocial.ReadOnly = True
 
         correo.ReadOnly = True
         txtobservaciones.ReadOnly = True
