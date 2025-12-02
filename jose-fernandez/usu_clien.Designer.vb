@@ -31,55 +31,60 @@ Partial Class usu_clien
         ' 
         ' btnClien
         ' 
-        btnClien.Location = New Point(204, 12)
+        btnClien.Location = New Point(143, 7)
+        btnClien.Margin = New Padding(2, 2, 2, 2)
         btnClien.Name = "btnClien"
-        btnClien.Size = New Size(125, 73)
+        btnClien.Size = New Size(88, 44)
         btnClien.TabIndex = 2
         btnClien.Text = "Clientes"
         btnClien.UseVisualStyleBackColor = True
         ' 
         ' btnUsu
         ' 
-        btnUsu.Location = New Point(54, 12)
+        btnUsu.Location = New Point(38, 7)
+        btnUsu.Margin = New Padding(2, 2, 2, 2)
         btnUsu.Name = "btnUsu"
-        btnUsu.Size = New Size(122, 73)
+        btnUsu.Size = New Size(85, 44)
         btnUsu.TabIndex = 1
         btnUsu.Text = "Usuarios"
         btnUsu.UseVisualStyleBackColor = True
         ' 
         ' Bntarticulos
         ' 
-        Bntarticulos.Location = New Point(54, 106)
+        Bntarticulos.Location = New Point(38, 64)
+        Bntarticulos.Margin = New Padding(2, 2, 2, 2)
         Bntarticulos.Name = "Bntarticulos"
-        Bntarticulos.Size = New Size(125, 73)
+        Bntarticulos.Size = New Size(88, 44)
         Bntarticulos.TabIndex = 3
         Bntarticulos.Text = "Articulos"
         Bntarticulos.UseVisualStyleBackColor = True
         ' 
         ' bntfactura
         ' 
-        bntfactura.Location = New Point(204, 107)
+        bntfactura.Location = New Point(143, 64)
+        bntfactura.Margin = New Padding(2, 2, 2, 2)
         bntfactura.Name = "bntfactura"
-        bntfactura.Size = New Size(125, 70)
+        bntfactura.Size = New Size(88, 42)
         bntfactura.TabIndex = 4
         bntfactura.Text = "Factura"
         bntfactura.UseVisualStyleBackColor = True
         ' 
         ' usu_clien
         ' 
-        AutoScaleDimensions = New SizeF(10F, 25F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ActiveBorder
         BackgroundImage = CType(resources.GetObject("$this.BackgroundImage"), Image)
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(380, 206)
+        ClientSize = New Size(266, 124)
         Controls.Add(bntfactura)
         Controls.Add(Bntarticulos)
         Controls.Add(btnUsu)
         Controls.Add(btnClien)
+        Margin = New Padding(2, 2, 2, 2)
         Name = "usu_clien"
         StartPosition = FormStartPosition.CenterScreen
-        Text = "usu_clien"
+        Text = "Panel de control"
         ResumeLayout(False)
     End Sub
     Friend WithEvents btnClien As Button

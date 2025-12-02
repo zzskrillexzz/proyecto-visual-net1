@@ -16,7 +16,7 @@ Public Class forregistro
 
         If Not CorreoValido(correo) Then Exit Sub
         Try
-            Dim camposObligatorios = New TextBox() {Textbuscador, UsernameTextBox, apelli, contra, correo}
+            Dim camposObligatorios = New TextBox() {Textbuscador, UsernameTextBox, apelli, contra, camCon, correo}
 
             If camposObligatorios.Any(Function(c) String.IsNullOrWhiteSpace(c.Text)) Then
                 MessageBox.Show("Todos los campos, incluyendo el ID, son obligatorios.", "Atención", MessageBoxButtons.OK, MessageBoxIcon.Warning)
@@ -34,12 +34,17 @@ Public Class forregistro
                 Exit Sub
             End If
 
+            If contra.Text <> camCon.Text Then
+                MessageBox.Show("Las contraseñas no coinciden.", "Error de Contraseña", MessageBoxButtons.OK, MessageBoxIcon.Error)
+                Exit Sub
+            End If
+
             Dim sql As String =
-                "INSERT INTO tb_usuarios (id_usuario, nombre, apellido, contraseña, correo, id_estado, rol, id_departamento, id_municipio, observacion) " &
-                "VALUES (" & idManual & ", '" & UsernameTextBox.Text.Trim() & "', '" & apelli.Text.Trim() & "', '" & contra.Text.Trim() &
+                "INSERT INTO tb_usuarios (id_usuario, nombre, nombre2, apellido, apellido2, contraseña, correo, id_estado, rol, id_departamento, id_municipio, observacion) " &
+                "VALUES (" & idManual & ", '" & UsernameTextBox.Text.Trim().ToLower() & "','" & UsernameTextBox2.Text.Trim().ToLower() & "', 
+                '" & apelli.Text.Trim().ToLower() & "', '" & apelli2.Text.Trim().ToLower() & "', '" & contra.Text.Trim() &
                 "', '" & correo.Text.Trim() & "', 1, '" & Comborol.Text & "', " &
                 cmbDepartamentos.SelectedValue & ", " & cmbMunicipios.SelectedValue & ", '" & txtobservaciones.Text.Trim() & "')"
-
             Dim cmd As New OdbcCommand(sql, conexion)
             cmd.ExecuteNonQuery()
 
@@ -71,8 +76,11 @@ Public Class forregistro
 
         Try
             Dim sql As String =
-                "UPDATE tb_usuarios SET nombre='" & UsernameTextBox.Text.Trim() &
-                "', apellido='" & apelli.Text.Trim() &
+                "UPDATE tb_usuarios SET 
+                nombre='" & UsernameTextBox.Text.Trim().ToLower() &
+                "',nombre2 ='" & UsernameTextBox2.Text.Trim().ToLower() &
+                "', apellido='" & apelli.Text.Trim().ToLower() &
+                "', apellido2='" & apelli2.Text.Trim().ToLower() &
                 "', correo='" & correo.Text.Trim() &
                 "', rol='" & Comborol.Text & "'" &
                 ", id_departamento=" & cmbDepartamentos.SelectedValue &
@@ -85,6 +93,7 @@ Public Class forregistro
 
             If rowsAffected > 0 Then
                 MessageBox.Show("Usuario actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                LimpiarCampos(True)
             Else
                 MessageBox.Show("No se pudo actualizar el usuario. no hubo ningun cambio o usuario bloqueado.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
@@ -111,7 +120,8 @@ Public Class forregistro
 
             If rows > 0 Then
                 MessageBox.Show("El usuario fue bloqueado.", "Listo", MessageBoxButtons.OK, MessageBoxIcon.Information)
-                BuscarUsuario()
+                'BuscarUsuario()
+                LimpiarCampos(True)
             Else
                 MessageBox.Show("El usuario no existe.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
@@ -132,14 +142,16 @@ Public Class forregistro
         End If
 
         Try
-            Dim sql As String = "SELECT nombre, apellido, correo, id_estado, rol, id_departamento, id_municipio, observacion FROM tb_usuarios WHERE id_usuario = " & idUsuario
+            Dim sql As String = "SELECT nombre, nombre2, apellido, apellido2, correo, id_estado, rol, id_departamento, id_municipio, observacion FROM tb_usuarios WHERE id_usuario = " & idUsuario
             Dim cmd As New OdbcCommand(sql, conexion)
             Dim reader As OdbcDataReader = cmd.ExecuteReader()
 
             If reader.Read() Then
                 ' Cargar datos
                 UsernameTextBox.Text = reader("nombre")
+                UsernameTextBox2.Text = If(IsDBNull(reader("nombre2")), "", reader("nombre2").ToString())
                 apelli.Text = reader("apellido")
+                apelli2.Text = If(IsDBNull(reader("apellido2")), "", reader("apellido2").ToString())
                 correo.Text = reader("correo")
                 contra.Text = "******"
                 txtobservaciones.Text = reader("observacion")
@@ -166,9 +178,12 @@ Public Class forregistro
 
                 ' Por defecto: habilitar edición (pero lo ajustamos según estado)
                 UsernameTextBox.ReadOnly = False
+                UsernameTextBox2.ReadOnly = False
                 apelli.ReadOnly = False
+                apelli2.ReadOnly = False
                 correo.ReadOnly = False
                 contra.ReadOnly = True ' La contraseña solo cambia con botón
+                camCon.ReadOnly = True
                 Comborol.Enabled = True
                 cmbDepartamentos.Enabled = True
                 cmbMunicipios.Enabled = True
@@ -213,8 +228,11 @@ Public Class forregistro
 
                 UsernameTextBox.ReadOnly = False
                 apelli.ReadOnly = False
+                UsernameTextBox2.ReadOnly = False
+                apelli2.ReadOnly = False
                 correo.ReadOnly = False
                 contra.ReadOnly = False  ' Permitir escribir contraseña nueva
+                camCon.ReadOnly = False  ' Permitir escribir contraseña nueva
                 Comborol.Enabled = True
                 cmbDepartamentos.Enabled = True
                 cmbMunicipios.Enabled = True
@@ -227,7 +245,7 @@ Public Class forregistro
                 bntnewcontra.Enabled = False
                 btndesbloquearusu.Visible = False
 
-                MessageBox.Show("ID libre. Ingrese los datos para registrar un nuevo usuario con ID: " & idUsuario, "Nuevo Registro", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                'MessageBox.Show("ID libre. Ingrese los datos para registrar un nuevo usuario con ID: " & idUsuario, "Nuevo Registro", MessageBoxButtons.OK, MessageBoxIcon.Information)
                 UsernameTextBox.Focus()
             End If
 
@@ -241,8 +259,11 @@ Public Class forregistro
     Private Sub HabilitarCampos(ByVal habilitar As Boolean)
         UsernameTextBox.ReadOnly = Not habilitar
         apelli.ReadOnly = Not habilitar
+        UsernameTextBox2.ReadOnly = Not habilitar
+        apelli2.ReadOnly = Not habilitar
         correo.ReadOnly = Not habilitar
         contra.ReadOnly = True ' Solo cambia con botón
+        camCon.ReadOnly = True ' Solo cambia con botón
         Comborol.Enabled = habilitar
         cmbDepartamentos.Enabled = habilitar
         cmbMunicipios.Enabled = habilitar
@@ -253,8 +274,11 @@ Public Class forregistro
     Private Sub LimpiarCampos(Optional ByVal limpiarBuscador As Boolean = True)
         UsernameTextBox.Clear()
         apelli.Clear()
+        UsernameTextBox2.Clear()
+        apelli2.Clear()
         correo.Clear()
         contra.Clear()
+        camCon.Clear()
         Comborol.SelectedIndex = -1
         cmbDepartamentos.SelectedIndex = -1
         cmbMunicipios.SelectedIndex = -1
@@ -270,8 +294,11 @@ Public Class forregistro
         ' Bloquear todos los campos menos ID
         UsernameTextBox.ReadOnly = True
         apelli.ReadOnly = True
+        UsernameTextBox2.ReadOnly = True
+        apelli2.ReadOnly = True
         correo.ReadOnly = True
         contra.ReadOnly = True
+        camCon.ReadOnly = True
         Comborol.Enabled = False
         cmbDepartamentos.Enabled = False
         cmbMunicipios.Enabled = False
@@ -301,6 +328,9 @@ Public Class forregistro
     ' --- CONSULTA ---
     Private Sub btnConsulta_Click_1(sender As Object, e As EventArgs) Handles btnConsulta.Click
         Dim frmCons As New FrmConsulta()
+        frmCons.Size = New Size(1200, 400)
+        frmCons.DgvConsulta.Size = New Size(1160, 350)
+        frmCons.DgvConsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         frmCons.TipoCarga = "USUARIO"
         If frmCons.ShowDialog() = DialogResult.OK Then
             Dim selectedID As String = frmCons.SelectedID
@@ -338,9 +368,12 @@ Public Class forregistro
 
         ' Asignar función EnterAvanzaOBusca a cada control
         AddHandler Textbuscador.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Textbuscador, ev, UsernameTextBox)
-        AddHandler UsernameTextBox.KeyPress, Sub(s, ev) EnterAvanzaOBusca(UsernameTextBox, ev, apelli)
-        AddHandler apelli.KeyPress, Sub(s, ev) EnterAvanzaOBusca(apelli, ev, contra)
-        AddHandler contra.KeyPress, Sub(s, ev) EnterAvanzaOBusca(contra, ev, correo)
+        AddHandler UsernameTextBox.KeyPress, Sub(s, ev) EnterAvanzaOBusca(UsernameTextBox, ev, UsernameTextBox2)
+        AddHandler UsernameTextBox2.KeyPress, Sub(s, ev) EnterAvanzaOBusca(UsernameTextBox2, ev, apelli)
+        AddHandler apelli.KeyPress, Sub(s, ev) EnterAvanzaOBusca(apelli, ev, apelli2)
+        AddHandler apelli2.KeyPress, Sub(s, ev) EnterAvanzaOBusca(apelli2, ev, contra)
+        AddHandler contra.KeyPress, Sub(s, ev) EnterAvanzaOBusca(contra, ev, camCon)
+        AddHandler camCon.KeyPress, Sub(s, ev) EnterAvanzaOBusca(camCon, ev, correo)
         AddHandler correo.KeyPress, Sub(s, ev) EnterAvanzaOBusca(correo, ev, Comborol)
         AddHandler Comborol.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Comborol, ev, cmbDepartamentos)
         AddHandler cmbDepartamentos.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbDepartamentos, ev, cmbMunicipios)
@@ -377,25 +410,25 @@ Public Class forregistro
         End If
 
         ' Pregunta sí/no antes de continuar
-        Dim r = MessageBox.Show("¿Desea cambiar la contraseña del usuario seleccionado?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If r = DialogResult.No Then Exit Sub
+        'Dim r = MessageBox.Show("¿Desea cambiar la contraseña del usuario seleccionado?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        'If r = DialogResult.No Then Exit Sub
 
-        Dim contraIngresada As String = InputBox("Ingrese su contraseña:", "Verificación de seguridad")
-        If contraIngresada.Trim() = "" Then
-            MsgBox("Debe ingresar la contraseña para continuar.", MsgBoxStyle.Exclamation)
-            Exit Sub
-        End If
+        'Dim contraIngresada As String = InputBox("Ingrese su contraseña:", "Verificación de seguridad")
+        'If contraIngresada.Trim() = "" Then
+        '    MsgBox("Debe ingresar la contraseña para continuar.", MsgBoxStyle.Exclamation)
+        '    Exit Sub
+        'End If
 
-        Dim contraReal As String = Mprincipal_p.ObtenerContraActual(codusuario)
-        If contraReal = "" Then
-            MsgBox("Error al obtener la contraseña del usuario logueado.", MsgBoxStyle.Critical)
-            Exit Sub
-        End If
+        'Dim contraReal As String = Mprincipal_p.ObtenerContraActual(codusuario)
+        'If contraReal = "" Then
+        '    MsgBox("Error al obtener la contraseña del usuario logueado.", MsgBoxStyle.Critical)
+        '    Exit Sub
+        'End If
 
-        If contraIngresada.Trim() <> contraReal.Trim() Then
-            MsgBox("Contraseña incorrecta.", MsgBoxStyle.Critical)
-            Exit Sub
-        End If
+        'If contraIngresada.Trim() <> contraReal.Trim() Then
+        '    MsgBox("Contraseña incorrecta.", MsgBoxStyle.Critical)
+        '    Exit Sub
+        'End If
 
         Dim frm As New formcontra(CInt(Textbuscador.Text))
         frm.ShowDialog()
@@ -442,12 +475,12 @@ Public Class forregistro
     Private Sub correo_Leave(sender As Object, e As EventArgs) Handles correo.Leave
         correo.Text = Mprincipal_p.NormalizarCorreo(correo.Text)
     End Sub
-    Private Sub UsernameTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles UsernameTextBox.KeyPress
+    Private Sub UsernameTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles UsernameTextBox.KeyPress, UsernameTextBox2.KeyPress
         SoloLetras(e) ' Validación de solo letras
         EnterAvanzaOBusca(UsernameTextBox, e, apelli)
     End Sub
 
-    Private Sub apelli_KeyPress(sender As Object, e As KeyPressEventArgs) Handles apelli.KeyPress
+    Private Sub apelli_KeyPress(sender As Object, e As KeyPressEventArgs) Handles apelli.KeyPress, apelli2.KeyPress
         SoloLetras(e) ' Validación de solo letras
         EnterAvanzaOBusca(apelli, e, contra)
     End Sub

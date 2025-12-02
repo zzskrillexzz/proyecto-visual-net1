@@ -1,6 +1,7 @@
-﻿Imports System.Data.Odbc
-Imports System.Data
+﻿Imports System.Data
+Imports System.Data.Odbc
 Imports System.Linq
+Imports System.Runtime.InteropServices.JavaScript.JSType
 
 Public Class clifor
     Private conexion As OdbcConnection
@@ -49,9 +50,10 @@ Public Class clifor
 
             ' Preparar SQL de inserción
             Dim sql As String =
-            "INSERT INTO tb_clientes (id_cliente, nombre, apellido, correo, id_estado, rol, id_departamento, id_municipio, observacion) " &
-            "VALUES (" & idManual & ", '" & UsernameTextBox.Text.Trim() & "', '" & apelli.Text.Trim() & "', '" & correo.Text.Trim() & "', 1, 'cliente', " &
-            cmbDepartamentos.SelectedValue & ", " & cmbMunicipios.SelectedValue & ", '" & txtobservaciones.Text.Trim() & "')"
+            "INSERT INTO tb_clientes (id_cliente, nombre, nombre2, apellido, apellido2, correo, id_estado, rol, id_departamento, id_municipio, observacion, razon) " &
+            "VALUES (" & idManual & ", '" & UsernameTextBox.Text.Trim().ToLower() & "','" & UsernameTextBox2.Text.Trim().ToLower() & "', 
+                '" & apelli.Text.Trim().ToLower() & "', '" & apelli2.Text.Trim().ToLower() & "', '" & correo.Text.Trim() & "', 1, 'cliente', " &
+            cmbDepartamentos.SelectedValue & ", " & cmbMunicipios.SelectedValue & ", '" & txtobservaciones.Text.Trim() & "', '" & rsocial.Text.Trim() & "')"
 
             ' Ejecutar inserción
             If basexd.ingresar_registros(sql) Then
@@ -94,20 +96,24 @@ Public Class clifor
 
         Try
             Dim sql As String =
-"UPDATE tb_clientes SET " &
-"nombre='" & UsernameTextBox.Text.Trim() & "', " &
-"apellido='" & apelli.Text.Trim() & "', " &
-"correo='" & correo.Text.Trim() & "', " &
-"id_departamento=" & cmbDepartamentos.SelectedValue & ", " &
-"id_municipio=" & cmbMunicipios.SelectedValue & ", " &
-"observacion='" & txtobservaciones.Text.Trim() & "' " &
-"WHERE id_cliente=" & Textbuscador.Text.Trim()
-
+            "UPDATE tb_clientes SET " &
+            "nombre ='" & UsernameTextBox.Text.Trim().ToLower() &
+            "',nombre2 ='" & UsernameTextBox2.Text.Trim().ToLower() &
+            "', apellido='" & apelli.Text.Trim().ToLower() &
+            "', apellido2='" & apelli2.Text.Trim().ToLower() &
+            "', correo='" & correo.Text.Trim() & "', " &
+            "id_departamento=" & cmbDepartamentos.SelectedValue & ", " &
+            "id_municipio=" & cmbMunicipios.SelectedValue & ", " &
+            "observacion='" & txtobservaciones.Text.Trim() & "', " &
+            "razon='" & rsocial.Text.Trim() & "' " &
+            "WHERE id_cliente=" & Textbuscador.Text.Trim()
+            MsgBox(sql)
             Dim cmd As New OdbcCommand(sql, conexion)
             Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
 
             If rowsAffected > 0 Then
                 MessageBox.Show("Cliente actualizado correctamente.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
+                LimpiarCampos(True)
             Else
                 MessageBox.Show("No se pudo actualizar.no hubo ningun cambio.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning)
             End If
@@ -157,7 +163,7 @@ Public Class clifor
         End If
 
         Try
-            Dim sql As String = "SELECT nombre, apellido, correo, id_departamento, id_municipio, observacion, id_estado FROM tb_clientes WHERE id_cliente = " & idCliente
+            Dim sql As String = "SELECT nombre, nombre2, apellido, apellido2, correo, id_departamento, id_municipio, observacion, id_estado, razon FROM tb_clientes WHERE id_cliente = " & idCliente
             Dim cmd As New OdbcCommand(sql, conexion)
             Dim reader As OdbcDataReader = cmd.ExecuteReader()
 
@@ -165,8 +171,11 @@ Public Class clifor
                 ' Cliente existe → cargar datos
                 UsernameTextBox.Text = If(IsDBNull(reader("nombre")), "", reader("nombre").ToString())
                 apelli.Text = If(IsDBNull(reader("apellido")), "", reader("apellido").ToString())
+                UsernameTextBox2.Text = If(IsDBNull(reader("nombre2")), "", reader("nombre2").ToString())
+                apelli2.Text = If(IsDBNull(reader("apellido2")), "", reader("apellido2").ToString())
                 correo.Text = If(IsDBNull(reader("correo")), "", reader("correo").ToString())
                 txtobservaciones.Text = If(IsDBNull(reader("observacion")), "", reader("observacion").ToString())
+                rsocial.Text = If(IsDBNull(reader("razon")), "", reader("razon").ToString())
 
                 ' ID bloqueado visual
                 Textbuscador.ReadOnly = True
@@ -215,10 +224,11 @@ Public Class clifor
             Else
                 ' Cliente no existe → nuevo registro
                 LimpiarCampos(False)
-                MessageBox.Show("Cliente no existe. Puede registrarlo.", "Nuevo Cliente")
+                'MessageBox.Show("Cliente no existe. Puede registrarlo.", "Nuevo Cliente")
 
                 ' Permitir agregar (nuevo)
                 HabilitarCampos(True)
+                UsernameTextBox.Focus()
                 bntenviar.Enabled = True
                 txtactuali.Enabled = False
                 txteliminar.Enabled = False
@@ -235,6 +245,8 @@ Public Class clifor
     Private Sub HabilitarCampos(habilitar As Boolean)
         UsernameTextBox.ReadOnly = Not habilitar
         apelli.ReadOnly = Not habilitar
+        UsernameTextBox2.ReadOnly = Not habilitar
+        apelli2.ReadOnly = Not habilitar
         correo.ReadOnly = Not habilitar
         txtobservaciones.ReadOnly = Not habilitar
 
@@ -266,6 +278,9 @@ Public Class clifor
     ' --- 1 ---
     Private Sub btnConsulta_Click_1(sender As Object, e As EventArgs) Handles btnConsulta.Click
         Dim frmCons As New FrmConsulta()
+        frmCons.Size = New Size(1200, 400)
+        frmCons.DgvConsulta.Size = New Size(1160, 350)
+        frmCons.DgvConsulta.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         frmCons.TipoCarga = "CLIENTE"
         If frmCons.ShowDialog() = DialogResult.OK Then
             Dim selectedID As String = frmCons.SelectedID
@@ -286,6 +301,8 @@ Public Class clifor
         ' Bloquear los demás campos inicialmente
         UsernameTextBox.ReadOnly = True
         apelli.ReadOnly = True
+        UsernameTextBox2.ReadOnly = True
+        apelli2.ReadOnly = True
         correo.ReadOnly = True
         txtobservaciones.ReadOnly = True
         cmbDepartamentos.Enabled = False
@@ -302,8 +319,10 @@ Public Class clifor
         cmbMunicipios.SelectedIndex = -1
 
         ' Handlers Enter
-        AddHandler UsernameTextBox.KeyPress, Sub(s, ev) EnterAvanzaOBusca(UsernameTextBox, ev, apelli)
-        AddHandler apelli.KeyPress, Sub(s, ev) EnterAvanzaOBusca(apelli, ev, correo)
+        AddHandler UsernameTextBox.KeyPress, Sub(s, ev) EnterAvanzaOBusca(UsernameTextBox, ev, UsernameTextBox2)
+        AddHandler UsernameTextBox2.KeyPress, Sub(s, ev) EnterAvanzaOBusca(UsernameTextBox2, ev, apelli)
+        AddHandler apelli.KeyPress, Sub(s, ev) EnterAvanzaOBusca(apelli, ev, apelli2)
+        AddHandler apelli2.KeyPress, Sub(s, ev) EnterAvanzaOBusca(apelli2, ev, correo)
         AddHandler correo.KeyPress, Sub(s, ev)
                                         If ev.KeyChar = ChrW(Keys.Enter) Then
                                             ev.Handled = True
@@ -311,14 +330,15 @@ Public Class clifor
                                         End If
                                     End Sub
         AddHandler cmbDepartamentos.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbDepartamentos, ev, cmbMunicipios)
-        AddHandler cmbMunicipios.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbMunicipios, ev, txtobservaciones)
+        AddHandler cmbMunicipios.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbMunicipios, ev, rsocial)
+        AddHandler rsocial.KeyPress, Sub(s, ev) EnterAvanzaOBusca(rsocial, ev, txtobservaciones)
         AddHandler txtobservaciones.KeyPress, Sub(s, ev)
                                                   If ev.KeyChar = ChrW(Keys.Enter) Then
                                                       ev.Handled = True
-                                                      If Not CorreoValido(correo) Then
-                                                          correo.Focus()
-                                                          Return
-                                                      End If
+                                                      'If Not CorreoValido(correo) Then
+                                                      '    correo.Focus()
+                                                      '    Return
+                                                      'End If
                                                       bntenviar.PerformClick()
                                                   End If
                                               End Sub
@@ -383,6 +403,9 @@ Public Class clifor
         ' Bloquear los demás campos
         UsernameTextBox.ReadOnly = True
         apelli.ReadOnly = True
+        UsernameTextBox2.ReadOnly = True
+        apelli2.ReadOnly = True
+
         correo.ReadOnly = True
         txtobservaciones.ReadOnly = True
         cmbDepartamentos.Enabled = False
@@ -403,15 +426,16 @@ Public Class clifor
         Me.Close()
     End Sub
 
-    Private Sub UsernameTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles UsernameTextBox.KeyPress
+    Private Sub UsernameTextBox_KeyPress(sender As Object, e As KeyPressEventArgs) Handles UsernameTextBox.KeyPress,
+        UsernameTextBox2.KeyPress, apelli.KeyPress, apelli2.KeyPress
         SoloLetras(e) ' valida solo letras
         EnterAvanzaOBusca(UsernameTextBox, e, apelli)
     End Sub
 
-    Private Sub apelli_KeyPress(sender As Object, e As KeyPressEventArgs) Handles apelli.KeyPress
-        SoloLetras(e) ' valida solo letras
-        EnterAvanzaOBusca(apelli, e, correo)
-    End Sub
+    'Private Sub apelli_KeyPress(sender As Object, e As KeyPressEventArgs) Handles apelli.KeyPress
+    '    SoloLetras(e) ' valida solo letras
+    '    EnterAvanzaOBusca(apelli, e, correo)
+    'End Sub
 
 
     Private Sub cmbDepartamentos_KeyPress(sender As Object, e As KeyPressEventArgs) Handles cmbDepartamentos.KeyPress
@@ -437,6 +461,8 @@ Public Class clifor
         ' Limpiar campos
         UsernameTextBox.Clear()
         apelli.Clear()
+        UsernameTextBox2.Clear()
+        apelli2.Clear()
         correo.Clear()
         txtobservaciones.Clear()
 
@@ -492,7 +518,7 @@ Public Class clifor
     End Sub
 
     Private Sub correo_Leave(sender As Object, e As EventArgs) Handles correo.Leave
-        correo.Text = Mprincipal_p.NormalizarCorreo(correo.Text)
+        correo.Text = NormalizarCorreo(correo.Text)
     End Sub
 
 

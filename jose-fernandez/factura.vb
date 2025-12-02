@@ -121,6 +121,7 @@ Public Class factura
             txtIdCliented.Text = vec(0) ' ID
             txtNombreCliente.Text = vec(1) & " " & vec(2) ' Nombre + Apellido
             txtcorreo.Text = vec(3) ' Correo
+            rsocial.Text = vec(1) ' Razon social
         End If
     End Sub
 
