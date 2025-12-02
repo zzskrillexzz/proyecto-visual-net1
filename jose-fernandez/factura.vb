@@ -32,11 +32,17 @@ Public Class factura
             grilla_inv.Columns.Add("Descuento", "Desc (%)")
             grilla_inv.Columns.Add("IVA", "IVA (%)")
             grilla_inv.Columns.Add("Subtotal", "Subtotal")
-            'For Each col As DataGridViewColumn In grilla_inv.Columns
-            '    If col.HeaderText.ToLower <> "código" Or col.HeaderText.ToLower <> "cantidad" Then
-            '        col.ReadOnly = True
-            '    End If
-            'Next
+            'grilla_inv.Columns(0).Width = 70
+            'grilla_inv.Columns(3).Width = 100
+            'grilla_inv.Columns(4).Width = 70
+            'grilla_inv.Columns(5).Width = 70
+            'grilla_inv.Columns(6).Width = 100
+            For Each col As DataGridViewColumn In grilla_inv.Columns
+                col.ReadOnly = True
+                If col.HeaderText.ToLower = "código" Or col.HeaderText.ToLower = "cantidad" Then
+                    col.ReadOnly = False
+                End If
+            Next
         End If
 
         grilla_inv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
@@ -195,7 +201,11 @@ Public Class factura
     Private Sub txtIdCliented_KeyDown(sender As Object, e As KeyEventArgs) Handles txtIdCliented.KeyDown
         If e.KeyCode = Keys.Enter Then
             e.SuppressKeyPress = True
-
+            If txtIdCliented.Text.Trim() = "" Then
+                MsgBox("Debe ingresar un ID de cliente.", vbExclamation)
+                txtIdCliented.Focus()
+                Return
+            End If
             SQL = "SELECT * FROM tb_clientes WHERE id_cliente = " & txtIdCliented.Text
             rst = basexd.leer_Registro(SQL)
 
@@ -209,6 +219,7 @@ Public Class factura
                 If result = vbYes Then
                     Dim frm As New clifor()
                     frm.Textbuscador.Text = txtIdCliented.Text
+
                     frm.FocusFactura = 1
                     frm.FormFactura = Me
                     frm.ShowDialog()

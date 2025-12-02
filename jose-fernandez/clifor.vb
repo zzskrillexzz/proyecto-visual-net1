@@ -283,18 +283,6 @@ Public Class clifor
         basexd.conectar("root", "")
         conexion = basexd.conexion
 
-        ' Si viene desde factura, bloquear el Textbuscador
-        If FocusFactura = 1 Then
-            Textbuscador.ReadOnly = True
-            Textbuscador.BackColor = SystemColors.ControlLight
-            bntlimpiar.Enabled = False
-            btnConsulta.Enabled = False
-        Else
-            Textbuscador.ReadOnly = False
-            Textbuscador.BackColor = Color.White
-        End If
-        Textbuscador.Focus()
-
         ' Bloquear los demás campos inicialmente
         UsernameTextBox.ReadOnly = True
         apelli.ReadOnly = True
@@ -334,6 +322,26 @@ Public Class clifor
                                                       bntenviar.PerformClick()
                                                   End If
                                               End Sub
+
+        ' Si viene desde factura, bloquear el Textbuscador
+        If FocusFactura = 1 Then
+            Textbuscador.ReadOnly = True
+            Textbuscador.BackColor = SystemColors.ControlLight
+            bntlimpiar.Enabled = False
+            btnConsulta.Enabled = False
+            UsernameTextBox.ReadOnly = False
+            apelli.ReadOnly = False
+            correo.ReadOnly = False
+            txtobservaciones.ReadOnly = False
+            cmbDepartamentos.Enabled = True
+            cmbMunicipios.Enabled = True
+            bntenviar.Enabled = True
+            UsernameTextBox.Focus()
+        Else
+            Textbuscador.ReadOnly = False
+            Textbuscador.BackColor = Color.White
+            Textbuscador.Focus()
+        End If
     End Sub
 
 
