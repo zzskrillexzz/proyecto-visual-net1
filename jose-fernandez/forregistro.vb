@@ -486,6 +486,7 @@ Public Class forregistro
 
     Private Sub txtobservaciones_KeyDown(sender As Object, e As KeyEventArgs) Handles txtobservaciones.KeyDown
         If e.KeyCode = Keys.Enter Then
+            bntlimpiar.PerformClick()
             SendKeys.Send("{TAB}")
         End If
     End Sub

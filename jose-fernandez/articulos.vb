@@ -7,6 +7,14 @@ Public Class articulos
     ' CARGA INICIAL
     Private Sub articulos_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         bnteliminar.Enabled = False
+        bntactualizar.Enabled = False
+        AddHandler Textnombrearti.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Textnombrearti, ev, txtprecio)
+        AddHandler txtprecio.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtprecio, ev, Texstock)
+        AddHandler Texstock.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Texstock, ev, txtiva)
+        AddHandler txtiva.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtiva, ev, txtdescuento)
+        AddHandler txtdescuento.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtdescuento, ev, Cmbcategoria)
+        AddHandler Cmbcategoria.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Cmbcategoria, ev, rtbdescripcion)
+        'AddHandler Textnombrearti.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Textnombrearti, ev, txtprecio)
         CargarCategorias()
     End Sub
 
@@ -190,6 +198,7 @@ Public Class articulos
 
             If rows > 0 Then
                 MsgBox("Artículo actualizado correctamente.", MsgBoxStyle.Information)
+                LimpiarCamposParaNuevo()
             Else
                 MsgBox("No se detectaron cambios para actualizar.", MsgBoxStyle.Information)
 
@@ -253,6 +262,7 @@ Public Class articulos
     ' Buscar con Enter en txtid
     Private Sub txtid_KeyDown(sender As Object, e As KeyEventArgs) Handles txtid.KeyDown
         If e.KeyCode = Keys.Enter AndAlso Not String.IsNullOrWhiteSpace(txtid.Text) Then
+            'If txtid.Text = "" Then MsgBox("Para realizar la búsqueda del artículo, es necesario ingresar el ID", MsgBoxStyle.Information)
             e.SuppressKeyPress = True
             Dim id As Integer
             If Integer.TryParse(txtid.Text.Trim(), id) Then
@@ -310,4 +320,9 @@ Public Class articulos
         txt.Text = valor.ToString()
     End Sub
 
+    Private Sub rtbdescripcion_KeyDown(sender As Object, e As KeyEventArgs) Handles rtbdescripcion.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
 End Class
