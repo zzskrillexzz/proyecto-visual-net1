@@ -100,7 +100,7 @@ Partial Class clifor
         cmbMunicipios.DropDownStyle = ComboBoxStyle.DropDownList
         cmbMunicipios.FormattingEnabled = True
         cmbMunicipios.Location = New Point(134, 270)
-        cmbMunicipios.Margin = New Padding(2, 2, 2, 2)
+        cmbMunicipios.Margin = New Padding(2)
         cmbMunicipios.Name = "cmbMunicipios"
         cmbMunicipios.Size = New Size(170, 23)
         cmbMunicipios.TabIndex = 7
@@ -110,7 +110,7 @@ Partial Class clifor
         cmbDepartamentos.DropDownStyle = ComboBoxStyle.DropDownList
         cmbDepartamentos.FormattingEnabled = True
         cmbDepartamentos.Location = New Point(134, 234)
-        cmbDepartamentos.Margin = New Padding(2, 2, 2, 2)
+        cmbDepartamentos.Margin = New Padding(2)
         cmbDepartamentos.Name = "cmbDepartamentos"
         cmbDepartamentos.Size = New Size(170, 23)
         cmbDepartamentos.TabIndex = 6
@@ -130,7 +130,7 @@ Partial Class clifor
         ' txtobservaciones
         ' 
         txtobservaciones.Location = New Point(4, 357)
-        txtobservaciones.Margin = New Padding(2, 2, 2, 2)
+        txtobservaciones.Margin = New Padding(2)
         txtobservaciones.Name = "txtobservaciones"
         txtobservaciones.Size = New Size(300, 77)
         txtobservaciones.TabIndex = 9
@@ -139,7 +139,7 @@ Partial Class clifor
         ' Textbuscador
         ' 
         Textbuscador.Location = New Point(127, 35)
-        Textbuscador.Margin = New Padding(2, 2, 2, 2)
+        Textbuscador.Margin = New Padding(2)
         Textbuscador.Name = "Textbuscador"
         Textbuscador.Size = New Size(149, 23)
         Textbuscador.TabIndex = 0
@@ -147,7 +147,7 @@ Partial Class clifor
         ' correo
         ' 
         correo.Location = New Point(134, 204)
-        correo.Margin = New Padding(2, 2, 2, 2)
+        correo.Margin = New Padding(2)
         correo.Name = "correo"
         correo.Size = New Size(170, 23)
         correo.TabIndex = 5
@@ -167,7 +167,7 @@ Partial Class clifor
         ' apelli
         ' 
         apelli.Location = New Point(134, 130)
-        apelli.Margin = New Padding(2, 2, 2, 2)
+        apelli.Margin = New Padding(2)
         apelli.Name = "apelli"
         apelli.Size = New Size(170, 23)
         apelli.TabIndex = 3
@@ -188,7 +188,7 @@ Partial Class clifor
         ' UsernameTextBox
         ' 
         UsernameTextBox.Location = New Point(134, 66)
-        UsernameTextBox.Margin = New Padding(2, 2, 2, 2)
+        UsernameTextBox.Margin = New Padding(2)
         UsernameTextBox.Name = "UsernameTextBox"
         UsernameTextBox.Size = New Size(170, 23)
         UsernameTextBox.TabIndex = 1
@@ -211,7 +211,7 @@ Partial Class clifor
         LogoPictureBox.BackColor = Color.Transparent
         LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), Image)
         LogoPictureBox.Location = New Point(104, 34)
-        LogoPictureBox.Margin = New Padding(2, 2, 2, 2)
+        LogoPictureBox.Margin = New Padding(2)
         LogoPictureBox.Name = "LogoPictureBox"
         LogoPictureBox.Size = New Size(24, 24)
         LogoPictureBox.SizeMode = PictureBoxSizeMode.AutoSize
@@ -221,7 +221,7 @@ Partial Class clifor
         ' ToolStrip1
         ' 
         ToolStrip1.BackColor = Color.WhiteSmoke
-        ToolStrip1.Items.AddRange(New ToolStripItem() {bntvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, btndesbloquearcli})
+        ToolStrip1.Items.AddRange(New ToolStripItem() {bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, btndesbloquearcli, bntvolver})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
         ToolStrip1.Size = New Size(315, 25)
@@ -406,7 +406,7 @@ Partial Class clifor
         Controls.Add(UsernameTextBox)
         Controls.Add(UsernameLabel)
         Controls.Add(LogoPictureBox)
-        Margin = New Padding(2, 2, 2, 2)
+        Margin = New Padding(2)
         Name = "clifor"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Cliente"

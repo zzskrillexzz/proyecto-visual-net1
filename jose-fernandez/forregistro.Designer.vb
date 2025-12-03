@@ -271,7 +271,7 @@ Partial Class forregistro
         ' ToolStrip1
         ' 
         ToolStrip1.BackColor = SystemColors.Window
-        ToolStrip1.Items.AddRange(New ToolStripItem() {Ptbvolver, bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, bntcancelar, btndesbloquearusu})
+        ToolStrip1.Items.AddRange(New ToolStripItem() {bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, bntcancelar, btndesbloquearusu, Ptbvolver})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
         ToolStrip1.Size = New Size(434, 25)

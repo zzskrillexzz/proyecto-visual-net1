@@ -107,7 +107,7 @@ Public Class clifor
             "observacion='" & txtobservaciones.Text.Trim() & "', " &
             "razon='" & rsocial.Text.Trim() & "' " &
             "WHERE id_cliente=" & Textbuscador.Text.Trim()
-            MsgBox(sql)
+            'MsgBox(sql)
             Dim cmd As New OdbcCommand(sql, conexion)
             Dim rowsAffected As Integer = cmd.ExecuteNonQuery()
 
@@ -219,6 +219,7 @@ Public Class clifor
                     txteliminar.Enabled = True
                     bntenviar.Enabled = False
                     btndesbloquearcli.Visible = False
+                    SendKeys.Send("{TAB}")
                 End If
 
             Else
@@ -334,16 +335,17 @@ Public Class clifor
         AddHandler cmbDepartamentos.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbDepartamentos, ev, cmbMunicipios)
         AddHandler cmbMunicipios.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbMunicipios, ev, rsocial)
         AddHandler rsocial.KeyPress, Sub(s, ev) EnterAvanzaOBusca(rsocial, ev, txtobservaciones)
-        AddHandler txtobservaciones.KeyPress, Sub(s, ev)
-                                                  If ev.KeyChar = ChrW(Keys.Enter) Then
-                                                      ev.Handled = True
-                                                      'If Not CorreoValido(correo) Then
-                                                      '    correo.Focus()
-                                                      '    Return
-                                                      'End If
-                                                      bntenviar.PerformClick()
-                                                  End If
-                                              End Sub
+        'AddHandler txtobservaciones.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtobservaciones, ev, bntenviar)
+        'AddHandler txtobservaciones.KeyPress, Sub(s, ev)
+        '                                          If ev.KeyChar = ChrW(Keys.Enter) Then
+        '                                              ev.Handled = True
+        '                                              'If Not CorreoValido(correo) Then
+        '                                              '    correo.Focus()
+        '                                              '    Return
+        '                                              'End If
+        '                                              SendKeys.Send("{TAB}")
+        '                                          End If
+        '                                      End Sub
 
         ' Si viene desde factura, bloquear el Textbuscador
         If FocusFactura = 1 Then
@@ -451,16 +453,16 @@ Public Class clifor
         EnterAvanzaOBusca(cmbMunicipios, e, txtobservaciones)
     End Sub
 
-    Private Sub txtobservaciones_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtobservaciones.KeyPress
-        If e.KeyChar = ChrW(Keys.Enter) Then
-            e.Handled = True
-            If Not CorreoValido(correo) Then
-                correo.Focus()
-                Return
-            End If
-            bntenviar.PerformClick()
-        End If
-    End Sub
+    'Private Sub txtobservaciones_KeyPress(sender As Object, e As KeyPressEventArgs) Handles txtobservaciones.KeyPress
+    '    If e.KeyChar = ChrW(Keys.Enter) Then
+    '        e.Handled = True
+    '        If Not CorreoValido(correo) Then
+    '            correo.Focus()
+    '            Return
+    '        End If
+    '        bntenviar.PerformClick()
+    '    End If
+    'End Sub
 
     ' --- LIMPIAR CAMPOS ---
     Private Sub LimpiarCampos(Optional ByVal limpiarBuscador As Boolean = True)
@@ -487,8 +489,11 @@ Public Class clifor
         ' Bloquear los demás campos
         UsernameTextBox.ReadOnly = True
         apelli.ReadOnly = True
+        UsernameTextBox2.ReadOnly = True
+        apelli2.ReadOnly = True
         correo.ReadOnly = True
         txtobservaciones.ReadOnly = True
+        rsocial.ReadOnly = True
         cmbDepartamentos.Enabled = False
         cmbMunicipios.Enabled = False
 
@@ -527,7 +532,9 @@ Public Class clifor
         correo.Text = NormalizarCorreo(correo.Text)
     End Sub
 
-
-
-
+    Private Sub txtobservaciones_KeyDown(sender As Object, e As KeyEventArgs) Handles txtobservaciones.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
 End Class

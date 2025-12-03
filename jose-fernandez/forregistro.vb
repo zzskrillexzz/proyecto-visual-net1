@@ -378,7 +378,6 @@ Public Class forregistro
         AddHandler Comborol.KeyPress, Sub(s, ev) EnterAvanzaOBusca(Comborol, ev, cmbDepartamentos)
         AddHandler cmbDepartamentos.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbDepartamentos, ev, cmbMunicipios)
         AddHandler cmbMunicipios.KeyPress, Sub(s, ev) EnterAvanzaOBusca(cmbMunicipios, ev, txtobservaciones)
-        AddHandler txtobservaciones.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtobservaciones, ev, bntenviar)
     End Sub
 
     Private Sub cmbDepartamentos_SelectionChangeCommitted(sender As Object, e As EventArgs) Handles cmbDepartamentos.SelectionChangeCommitted
@@ -485,5 +484,9 @@ Public Class forregistro
         EnterAvanzaOBusca(apelli, e, contra)
     End Sub
 
-
+    Private Sub txtobservaciones_KeyDown(sender As Object, e As KeyEventArgs) Handles txtobservaciones.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            SendKeys.Send("{TAB}")
+        End If
+    End Sub
 End Class
