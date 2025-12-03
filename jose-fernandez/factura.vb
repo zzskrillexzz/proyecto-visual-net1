@@ -61,6 +61,12 @@ Public Class factura
         buscar.DropDownItems.Clear()
         buscar.DropDownItems.Add(itemArticulos)
         buscar.DropDownItems.Add(itemClientes)
+
+        AddHandler txtIdCliented.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtIdCliented, ev, txtNombreCliente)
+        AddHandler txtNombreCliente.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtNombreCliente, ev, txtcorreo)
+        AddHandler txtcorreo.KeyPress, Sub(s, ev) EnterAvanzaOBusca(txtIdCliented, ev, rsocial)
+        AddHandler rsocial.KeyPress, Sub(s, ev) EnterAvanzaOBusca(rsocial, ev, grilla_inv)
+
     End Sub
 
     ' === ACCIÓN POR DEFECTO: clic en el botón PRINCIPAL (no en la flecha) ===
@@ -215,6 +221,7 @@ Public Class factura
                 txtNombreCliente.Text = rst("nombre").ToString() & " " & rst("apellido").ToString()
                 txtcorreo.Text = rst("correo").ToString()
                 rsocial.Text = If(IsDBNull(rst("razon")), "", rst("razon").ToString())
+                SendKeys.Send("{TAB}")
                 rst.Close()
             Else
                 rst?.Close()
