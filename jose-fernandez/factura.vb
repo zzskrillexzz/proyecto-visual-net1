@@ -75,8 +75,8 @@ Public Class factura
         frm.Text = "Buscar Artículo"
         frm.TipoCarga = "ARTICULO"
 
-        frm.Size = New Size(600, 500)
-        frm.grd.Size = New Size(580, 400)
+        frm.Size = New Size(1200, 400)
+        frm.grd.Size = New Size(1180, 350)
         frm.grd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
         frm.ShowDialog()
 

@@ -347,12 +347,14 @@ Public Class clifor
 
         ' Si viene desde factura, bloquear el Textbuscador
         If FocusFactura = 1 Then
-            UsernameTextBox.ReadOnly = False
             Textbuscador.ReadOnly = True
             Textbuscador.BackColor = SystemColors.ControlLight
             bntlimpiar.Enabled = False
             btnConsulta.Enabled = False
+            UsernameTextBox.ReadOnly = False
             apelli.ReadOnly = False
+            UsernameTextBox2.ReadOnly = False
+            apelli2.ReadOnly = False
             correo.ReadOnly = False
             rsocial.ReadOnly = False
             txtobservaciones.ReadOnly = False
