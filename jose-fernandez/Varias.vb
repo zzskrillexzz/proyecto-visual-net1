@@ -42,7 +42,8 @@ Public Class Varias
                     End If
                 End If
             Catch ex As Exception
-                MsgBox("Parámetro de Búsqueda Incorrecto. " & ex.Message)
+                MessageBox.Show("Parámetro de búsqueda incorrecto. Por favor ingrese un valor válido.",
+                    "Error de Filtro", MessageBoxButtons.OK, MessageBoxIcon.Warning)
                 txt.Clear()
             End Try
         Else

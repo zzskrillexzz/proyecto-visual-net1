@@ -106,4 +106,17 @@ Public Class formcontra
     Private Sub formcontra_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         txtAnterior.Focus()
     End Sub
+    Private Sub TextBox_KeyDown(sender As Object, e As KeyEventArgs) Handles txtAnterior.KeyDown, txtcambio1.KeyDown, txtcambio2.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.SuppressKeyPress = True ' Evita el "ding" y el salto de línea si fuera Multiline
+
+            If sender Is txtcambio2 Then
+                ' En el último campo: guardar
+                btnguardar_Click(Nothing, Nothing)
+            Else
+                ' En otros campos: pasar al siguiente control
+                Me.SelectNextControl(CType(sender, Control), True, True, True, True)
+            End If
+        End If
+    End Sub
 End Class

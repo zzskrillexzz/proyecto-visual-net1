@@ -8,7 +8,7 @@ Public Class forregistro
 
     ' --- INSERTAR USUARIO ---
     Private Sub bntenviar_Click(sender As Object, e As EventArgs) Handles bntenviar.Click
-        ' ✅ Normalizar correo antes de validar
+        'Normalizar correo antes de validar
         correo.Text = Mprincipal_p.NormalizarCorreo(correo.Text)
 
         If Not CorreoValido(correo) Then Exit Sub
@@ -50,6 +50,7 @@ Public Class forregistro
 
             MessageBox.Show("Usuario registrado correctamente con ID: " & idManual, "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information)
             LimpiarCampos(True)
+            Textbuscador.Enabled = True
 
         Catch ex As Exception
             MessageBox.Show("Error al registrar usuario: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
@@ -225,7 +226,7 @@ Public Class forregistro
                 ' ID no existe → nuevo registro
                 LimpiarCampos(False) ' Solo limpia otros campos (sin tocar el ID)
 
-
+                Textbuscador.Enabled = False
                 UsernameTextBox.ReadOnly = False
                 apelli.ReadOnly = False
                 UsernameTextBox2.ReadOnly = False
@@ -436,6 +437,10 @@ Public Class forregistro
 
     Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
         LimpiarCampos(True)
+        btndesbloquearusu.Visible = False
+        Textbuscador.Enabled = True
+
+
     End Sub
 
     Private Sub Textbuscador_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Textbuscador.KeyPress
@@ -486,7 +491,7 @@ Public Class forregistro
 
     Private Sub txtobservaciones_KeyDown(sender As Object, e As KeyEventArgs) Handles txtobservaciones.KeyDown
         If e.KeyCode = Keys.Enter Then
-            bntlimpiar.PerformClick()
+            'bntlimpiar.PerformClick()
             SendKeys.Send("{TAB}")
         End If
     End Sub

@@ -81,7 +81,7 @@ Public Class factura
         frm.Text = "Buscar Artículo"
         frm.TipoCarga = "ARTICULO"
 
-        frm.Size = New Size(1200, 400)
+        frm.Size = New Size(1300, 450)
         frm.grd.Size = New Size(1180, 350)
         frm.grd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
         frm.ShowDialog()
@@ -117,7 +117,7 @@ Public Class factura
         Dim frm As New frmconsulta2()
         frm.Text = "Buscar Cliente"
         frm.TipoCarga = "CLIENTE"
-        frm.Size = New Size(1200, 400)
+        frm.Size = New Size(1200, 450)
         frm.grd.Size = New Size(1180, 350)
         frm.grd.AutoSizeColumnsMode = DataGridViewAutoSizeColumnMode.Fill
 

@@ -67,6 +67,9 @@ Public Class clifor
                     Exit Sub
                 End If
                 LimpiarCampos(True)
+                Textbuscador.Enabled = True
+                rsocial.Clear()
+
             End If
 
         Catch ex As Exception
@@ -229,6 +232,8 @@ Public Class clifor
 
                 ' Permitir agregar (nuevo)
                 HabilitarCampos(True)
+
+                Textbuscador.Enabled = False
                 UsernameTextBox.Focus()
                 bntenviar.Enabled = True
                 txtactuali.Enabled = False
@@ -400,6 +405,7 @@ Public Class clifor
     Private Sub bntlimpiar_Click(sender As Object, e As EventArgs) Handles bntlimpiar.Click
         ' Limpiar todos los controles del formulario
         Mprincipal_p.LimpiarFormulario(Me)
+
 
         ' ID activo y editable
         Textbuscador.ReadOnly = False

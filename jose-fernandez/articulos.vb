@@ -325,4 +325,10 @@ Public Class articulos
             SendKeys.Send("{TAB}")
         End If
     End Sub
+
+    Private Sub Textnombrearti_KeyPress(sender As Object, e As KeyPressEventArgs) Handles Textnombrearti.KeyPress
+        Mprincipal_p.SoloLetras(e)
+    End Sub
+
+
 End Class

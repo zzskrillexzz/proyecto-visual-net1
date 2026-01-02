@@ -39,13 +39,13 @@ Partial Class clifor
         UsernameLabel = New Label()
         LogoPictureBox = New PictureBox()
         ToolStrip1 = New ToolStrip()
-        bntvolver = New ToolStripButton()
         bntenviar = New ToolStripButton()
         txtactuali = New ToolStripButton()
         txteliminar = New ToolStripButton()
         btnConsulta = New ToolStripButton()
         bntlimpiar = New ToolStripButton()
         btndesbloquearcli = New ToolStripButton()
+        bntvolver = New ToolStripButton()
         ingresos = New StatusStrip()
         ingresonombre = New ToolStripStatusLabel()
         rsocial = New TextBox()
@@ -63,10 +63,9 @@ Partial Class clifor
         ' 
         Label8.BackColor = Color.Transparent
         Label8.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label8.Location = New Point(8, 270)
-        Label8.Margin = New Padding(2, 0, 2, 0)
+        Label8.Location = New Point(14, 420)
         Label8.Name = "Label8"
-        Label8.Size = New Size(80, 14)
+        Label8.Size = New Size(114, 23)
         Label8.TabIndex = 76
         Label8.Text = "&Municipio"
         Label8.TextAlign = ContentAlignment.MiddleLeft
@@ -75,10 +74,9 @@ Partial Class clifor
         ' 
         Label7.BackColor = Color.Transparent
         Label7.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label7.Location = New Point(7, 236)
-        Label7.Margin = New Padding(2, 0, 2, 0)
+        Label7.Location = New Point(14, 371)
         Label7.Name = "Label7"
-        Label7.Size = New Size(99, 14)
+        Label7.Size = New Size(141, 23)
         Label7.TabIndex = 75
         Label7.Text = "&Departamento"
         Label7.TextAlign = ContentAlignment.MiddleLeft
@@ -87,10 +85,9 @@ Partial Class clifor
         ' 
         Label4.BackColor = Color.Transparent
         Label4.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label4.Location = New Point(5, 35)
-        Label4.Margin = New Padding(2, 0, 2, 0)
+        Label4.Location = New Point(7, 54)
         Label4.Name = "Label4"
-        Label4.Size = New Size(24, 14)
+        Label4.Size = New Size(34, 23)
         Label4.TabIndex = 74
         Label4.Text = "ID"
         Label4.TextAlign = ContentAlignment.MiddleLeft
@@ -99,77 +96,69 @@ Partial Class clifor
         ' 
         cmbMunicipios.DropDownStyle = ComboBoxStyle.DropDownList
         cmbMunicipios.FormattingEnabled = True
-        cmbMunicipios.Location = New Point(134, 270)
-        cmbMunicipios.Margin = New Padding(2)
+        cmbMunicipios.Location = New Point(191, 410)
         cmbMunicipios.Name = "cmbMunicipios"
-        cmbMunicipios.Size = New Size(170, 23)
+        cmbMunicipios.Size = New Size(241, 33)
         cmbMunicipios.TabIndex = 7
         ' 
         ' cmbDepartamentos
         ' 
         cmbDepartamentos.DropDownStyle = ComboBoxStyle.DropDownList
         cmbDepartamentos.FormattingEnabled = True
-        cmbDepartamentos.Location = New Point(134, 234)
-        cmbDepartamentos.Margin = New Padding(2)
+        cmbDepartamentos.Location = New Point(191, 361)
         cmbDepartamentos.Name = "cmbDepartamentos"
-        cmbDepartamentos.Size = New Size(170, 23)
+        cmbDepartamentos.Size = New Size(241, 33)
         cmbDepartamentos.TabIndex = 6
         ' 
         ' Label6
         ' 
         Label6.BackColor = Color.Transparent
         Label6.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label6.Location = New Point(10, 333)
-        Label6.Margin = New Padding(2, 0, 2, 0)
+        Label6.Location = New Point(11, 508)
         Label6.Name = "Label6"
-        Label6.Size = New Size(99, 14)
+        Label6.Size = New Size(141, 23)
         Label6.TabIndex = 70
         Label6.Text = "&Observaciones"
         Label6.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' txtobservaciones
         ' 
-        txtobservaciones.Location = New Point(4, 357)
-        txtobservaciones.Margin = New Padding(2)
+        txtobservaciones.Location = New Point(15, 535)
         txtobservaciones.Name = "txtobservaciones"
-        txtobservaciones.Size = New Size(300, 77)
+        txtobservaciones.Size = New Size(418, 83)
         txtobservaciones.TabIndex = 9
         txtobservaciones.Text = ""
         ' 
         ' Textbuscador
         ' 
-        Textbuscador.Location = New Point(127, 35)
-        Textbuscador.Margin = New Padding(2)
+        Textbuscador.Location = New Point(192, 54)
         Textbuscador.Name = "Textbuscador"
-        Textbuscador.Size = New Size(149, 23)
+        Textbuscador.Size = New Size(240, 31)
         Textbuscador.TabIndex = 0
         ' 
         ' correo
         ' 
-        correo.Location = New Point(134, 204)
-        correo.Margin = New Padding(2)
+        correo.Location = New Point(191, 312)
         correo.Name = "correo"
-        correo.Size = New Size(170, 23)
+        correo.Size = New Size(241, 31)
         correo.TabIndex = 5
         ' 
         ' Label2
         ' 
         Label2.BackColor = Color.Transparent
         Label2.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label2.Location = New Point(8, 204)
-        Label2.Margin = New Padding(2, 0, 2, 0)
+        Label2.Location = New Point(14, 320)
         Label2.Name = "Label2"
-        Label2.Size = New Size(55, 14)
+        Label2.Size = New Size(79, 23)
         Label2.TabIndex = 63
         Label2.Text = "&Correo"
         Label2.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' apelli
         ' 
-        apelli.Location = New Point(134, 130)
-        apelli.Margin = New Padding(2)
+        apelli.Location = New Point(191, 213)
         apelli.Name = "apelli"
-        apelli.Size = New Size(170, 23)
+        apelli.Size = New Size(241, 31)
         apelli.TabIndex = 3
         ' 
         ' Label1
@@ -177,20 +166,18 @@ Partial Class clifor
         Label1.AutoSize = True
         Label1.BackColor = Color.Transparent
         Label1.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label1.Location = New Point(7, 139)
-        Label1.Margin = New Padding(2, 0, 2, 0)
+        Label1.Location = New Point(12, 219)
         Label1.Name = "Label1"
-        Label1.Size = New Size(102, 15)
+        Label1.Size = New Size(155, 25)
         Label1.TabIndex = 61
         Label1.Text = "&Primer Apellido"
         Label1.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' UsernameTextBox
         ' 
-        UsernameTextBox.Location = New Point(134, 66)
-        UsernameTextBox.Margin = New Padding(2)
+        UsernameTextBox.Location = New Point(191, 104)
         UsernameTextBox.Name = "UsernameTextBox"
-        UsernameTextBox.Size = New Size(170, 23)
+        UsernameTextBox.Size = New Size(241, 31)
         UsernameTextBox.TabIndex = 1
         ' 
         ' UsernameLabel
@@ -198,10 +185,9 @@ Partial Class clifor
         UsernameLabel.AutoSize = True
         UsernameLabel.BackColor = Color.Transparent
         UsernameLabel.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        UsernameLabel.Location = New Point(4, 75)
-        UsernameLabel.Margin = New Padding(2, 0, 2, 0)
+        UsernameLabel.Location = New Point(6, 119)
         UsernameLabel.Name = "UsernameLabel"
-        UsernameLabel.Size = New Size(99, 15)
+        UsernameLabel.Size = New Size(151, 25)
         UsernameLabel.TabIndex = 57
         UsernameLabel.Text = "&Primer Nombre"
         UsernameLabel.TextAlign = ContentAlignment.MiddleLeft
@@ -210,8 +196,7 @@ Partial Class clifor
         ' 
         LogoPictureBox.BackColor = Color.Transparent
         LogoPictureBox.Image = CType(resources.GetObject("LogoPictureBox.Image"), Image)
-        LogoPictureBox.Location = New Point(104, 34)
-        LogoPictureBox.Margin = New Padding(2)
+        LogoPictureBox.Location = New Point(158, 55)
         LogoPictureBox.Name = "LogoPictureBox"
         LogoPictureBox.Size = New Size(24, 24)
         LogoPictureBox.SizeMode = PictureBoxSizeMode.AutoSize
@@ -224,19 +209,11 @@ Partial Class clifor
         ToolStrip1.Items.AddRange(New ToolStripItem() {bntenviar, txtactuali, txteliminar, btnConsulta, bntlimpiar, btndesbloquearcli, bntvolver})
         ToolStrip1.Location = New Point(0, 0)
         ToolStrip1.Name = "ToolStrip1"
-        ToolStrip1.Size = New Size(315, 25)
+        ToolStrip1.Padding = New Padding(0, 0, 3, 0)
+        ToolStrip1.Size = New Size(450, 33)
         ToolStrip1.TabIndex = 20
         ToolStrip1.TabStop = True
         ToolStrip1.Text = "ToolStrip1"
-        ' 
-        ' bntvolver
-        ' 
-        bntvolver.DisplayStyle = ToolStripItemDisplayStyle.Image
-        bntvolver.Image = CType(resources.GetObject("bntvolver.Image"), Image)
-        bntvolver.ImageTransparentColor = Color.Magenta
-        bntvolver.Name = "bntvolver"
-        bntvolver.Size = New Size(23, 22)
-        bntvolver.Text = "Volver"
         ' 
         ' bntenviar
         ' 
@@ -245,7 +222,7 @@ Partial Class clifor
         bntenviar.Image = CType(resources.GetObject("bntenviar.Image"), Image)
         bntenviar.ImageTransparentColor = Color.Magenta
         bntenviar.Name = "bntenviar"
-        bntenviar.Size = New Size(23, 22)
+        bntenviar.Size = New Size(34, 28)
         bntenviar.Text = "Agregar"
         ' 
         ' txtactuali
@@ -254,7 +231,7 @@ Partial Class clifor
         txtactuali.Image = CType(resources.GetObject("txtactuali.Image"), Image)
         txtactuali.ImageTransparentColor = Color.Magenta
         txtactuali.Name = "txtactuali"
-        txtactuali.Size = New Size(23, 22)
+        txtactuali.Size = New Size(34, 28)
         txtactuali.Text = "Editar"
         ' 
         ' txteliminar
@@ -263,7 +240,7 @@ Partial Class clifor
         txteliminar.Image = CType(resources.GetObject("txteliminar.Image"), Image)
         txteliminar.ImageTransparentColor = Color.Magenta
         txteliminar.Name = "txteliminar"
-        txteliminar.Size = New Size(23, 22)
+        txteliminar.Size = New Size(34, 28)
         txteliminar.Text = "Eliminar"
         ' 
         ' btnConsulta
@@ -272,7 +249,7 @@ Partial Class clifor
         btnConsulta.Image = CType(resources.GetObject("btnConsulta.Image"), Image)
         btnConsulta.ImageTransparentColor = Color.Magenta
         btnConsulta.Name = "btnConsulta"
-        btnConsulta.Size = New Size(23, 22)
+        btnConsulta.Size = New Size(34, 28)
         btnConsulta.Text = "Consultar"
         ' 
         ' bntlimpiar
@@ -281,7 +258,7 @@ Partial Class clifor
         bntlimpiar.Image = CType(resources.GetObject("bntlimpiar.Image"), Image)
         bntlimpiar.ImageTransparentColor = Color.Magenta
         bntlimpiar.Name = "bntlimpiar"
-        bntlimpiar.Size = New Size(23, 22)
+        bntlimpiar.Size = New Size(34, 28)
         bntlimpiar.Text = "Limpiar"
         ' 
         ' btndesbloquearcli
@@ -290,18 +267,26 @@ Partial Class clifor
         btndesbloquearcli.Image = CType(resources.GetObject("btndesbloquearcli.Image"), Image)
         btndesbloquearcli.ImageTransparentColor = Color.Magenta
         btndesbloquearcli.Name = "btndesbloquearcli"
-        btndesbloquearcli.Size = New Size(23, 22)
+        btndesbloquearcli.Size = New Size(34, 28)
         btndesbloquearcli.Text = "ToolStripButton1"
         btndesbloquearcli.Visible = False
+        ' 
+        ' bntvolver
+        ' 
+        bntvolver.DisplayStyle = ToolStripItemDisplayStyle.Image
+        bntvolver.Image = CType(resources.GetObject("bntvolver.Image"), Image)
+        bntvolver.ImageTransparentColor = Color.Magenta
+        bntvolver.Name = "bntvolver"
+        bntvolver.Size = New Size(34, 28)
+        bntvolver.Text = "Volver"
         ' 
         ' ingresos
         ' 
         ingresos.ImageScalingSize = New Size(24, 24)
         ingresos.Items.AddRange(New ToolStripItem() {ingresonombre})
-        ingresos.Location = New Point(0, 455)
+        ingresos.Location = New Point(0, 642)
         ingresos.Name = "ingresos"
-        ingresos.Padding = New Padding(1, 0, 10, 0)
-        ingresos.Size = New Size(315, 22)
+        ingresos.Size = New Size(450, 30)
         ingresos.TabIndex = 77
         ingresos.Text = "StatusStrip1"
         ' 
@@ -310,15 +295,14 @@ Partial Class clifor
         ingresonombre.BackColor = Color.FromArgb(CByte(128), CByte(255), CByte(128))
         ingresonombre.Font = New Font("Cooper Black", 10F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
         ingresonombre.Name = "ingresonombre"
-        ingresonombre.Size = New Size(39, 17)
+        ingresonombre.Size = New Size(58, 23)
         ingresonombre.Text = "User"
         ' 
         ' rsocial
         ' 
-        rsocial.Location = New Point(134, 300)
-        rsocial.Margin = New Padding(2)
+        rsocial.Location = New Point(191, 462)
         rsocial.Name = "rsocial"
-        rsocial.Size = New Size(170, 23)
+        rsocial.Size = New Size(241, 31)
         rsocial.TabIndex = 8
         ' 
         ' Label3
@@ -326,20 +310,18 @@ Partial Class clifor
         Label3.AutoSize = True
         Label3.BackColor = Color.Transparent
         Label3.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label3.Location = New Point(8, 304)
-        Label3.Margin = New Padding(2, 0, 2, 0)
+        Label3.Location = New Point(14, 468)
         Label3.Name = "Label3"
-        Label3.Size = New Size(83, 15)
+        Label3.Size = New Size(122, 25)
         Label3.TabIndex = 79
         Label3.Text = "&Razon Social"
         Label3.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' apelli2
         ' 
-        apelli2.Location = New Point(134, 166)
-        apelli2.Margin = New Padding(2)
+        apelli2.Location = New Point(192, 262)
         apelli2.Name = "apelli2"
-        apelli2.Size = New Size(170, 23)
+        apelli2.Size = New Size(241, 31)
         apelli2.TabIndex = 4
         ' 
         ' Label5
@@ -347,20 +329,18 @@ Partial Class clifor
         Label5.AutoSize = True
         Label5.BackColor = Color.Transparent
         Label5.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label5.Location = New Point(8, 175)
-        Label5.Margin = New Padding(2, 0, 2, 0)
+        Label5.Location = New Point(10, 268)
         Label5.Name = "Label5"
-        Label5.Size = New Size(116, 15)
+        Label5.Size = New Size(171, 25)
         Label5.TabIndex = 81
         Label5.Text = "&Segundo Apellido"
         Label5.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' UsernameTextBox2
         ' 
-        UsernameTextBox2.Location = New Point(134, 98)
-        UsernameTextBox2.Margin = New Padding(2)
+        UsernameTextBox2.Location = New Point(191, 158)
         UsernameTextBox2.Name = "UsernameTextBox2"
-        UsernameTextBox2.Size = New Size(170, 23)
+        UsernameTextBox2.Size = New Size(241, 31)
         UsernameTextBox2.TabIndex = 2
         ' 
         ' Label9
@@ -368,21 +348,20 @@ Partial Class clifor
         Label9.AutoSize = True
         Label9.BackColor = Color.Transparent
         Label9.Font = New Font("Segoe UI Black", 9F, FontStyle.Bold)
-        Label9.Location = New Point(5, 102)
-        Label9.Margin = New Padding(2, 0, 2, 0)
+        Label9.Location = New Point(7, 165)
         Label9.Name = "Label9"
-        Label9.Size = New Size(113, 15)
+        Label9.Size = New Size(167, 25)
         Label9.TabIndex = 83
         Label9.Text = "&Segundo Nombre"
         Label9.TextAlign = ContentAlignment.MiddleLeft
         ' 
         ' clifor
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(10F, 25F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ScrollBar
         BackgroundImageLayout = ImageLayout.Stretch
-        ClientSize = New Size(315, 477)
+        ClientSize = New Size(450, 672)
         Controls.Add(UsernameTextBox2)
         Controls.Add(Label9)
         Controls.Add(apelli2)
@@ -406,7 +385,6 @@ Partial Class clifor
         Controls.Add(UsernameTextBox)
         Controls.Add(UsernameLabel)
         Controls.Add(LogoPictureBox)
-        Margin = New Padding(2)
         Name = "clifor"
         StartPosition = FormStartPosition.CenterScreen
         Text = "Cliente"
